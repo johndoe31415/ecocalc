@@ -1,0 +1,40 @@
+{
+	"resources": {
+		"iron_ore": { "name": "Iron Ore" },
+		"iron_ingot": { "name": "Iron Ingot" },
+		"copper_ore": { "name": "Copper Ore" },
+		"copper_ingot": { "name": "Copper Ingot" },
+		"caterium_ore": { "name": "Caterium Ore" },
+		"caterium_ingot": { "name": "Caterium Ingot" },
+		"iron_plate": { "name": "Iron Plate" },
+		"iron_rod": { "name": "Iron Rod" },
+		"wire": { "name": "Wire" },
+		"cable": { "name": "Cable" },
+		"steel_ingot": { "name": "Steel Ingot" },
+		"modular_frame": { "name": "Modular Frame" },
+		"reinforced_iron_plate": { "name": "Reinforced Iron Plate" },
+		"screw": { "name": "Screw" },
+		"copper_sheet": { "name": "Copper Sheet" },
+		"steel_beam": { "name": "Steel Beam" },
+		"steel_pipe": { "name": "Steel Pipe" }
+	},
+	"recipes": [
+		{ "recipe": "1 iron_ore -> 1 iron_ingot", "name": "Smelt Iron", "at": "Smelter", "time": 2 },
+		{ "recipe": "1 copper_ore -> 1 copper_ingot", "name": "Smelt Copper", "at": "Smelter", "time": 2 },
+		{ "recipe": "3 caterium_ore -> 1 caterium_ingot", "name": "Smelt Caterium", "at": "Smelter", "time": 4 },
+
+		{ "recipe": "3 iron_ingot -> 2 iron_plate", "name": "Manufacture Iron Plate", "at": "Constructor", "time": 6 },
+		{ "recipe": "1 iron_ingot -> 1 iron_rod", "name": "Manufacture Iron Rod", "at": "Constructor", "time": 4 },
+		{ "recipe": "1 iron_rod -> 4 screw", "name": "Manufacture Screws", "at": "Constructor", "time": 6 },
+		{ "recipe": "2 copper_ingot -> 1 copper_sheet", "name": "Manufacture Copper Sheet", "at": "Constructor", "time": 6 },
+		{ "recipe": "4 steel_ingot -> 1 steel_beam", "name": "Manufacture Steel Beam", "at": "Constructor", "time": 4 },
+		{ "recipe": "3 steel_ingot -> 2 steel_pipe", "name": "Manufacture Steel Pipe", "at": "Constructor", "time": 6 },
+
+		{ "recipe": "1 copper_ingot -> 2 wire", "name": "Manufacture Wire", "at": "Constructor", "time": 4 },
+		{ "recipe": "2 wire -> 1 cable", "name": "Manufacture Cable", "at": "Constructor", "time": 2 },
+		{ "recipe": "1 caterium_ingot -> 5 quickwire", "name": "Manufacture Quickwire", "at": "Constructor", "time": 5 },
+
+		{ "recipe": "6 iron_plate + 12 screw -> 1 reinforced_iron_plate", "name": "Assemble Reinforced Iron Plate", "at": "Assembler", "time": 12 },
+		{ "recipe": "3 reinforced_iron_plate + 12 iron_rod -> 2 modular_frame", "name": "Assemble Modular Frame", "at": "Assembler", "time": 60 }
+	]
+}

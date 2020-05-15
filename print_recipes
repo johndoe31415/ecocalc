@@ -1,0 +1,54 @@
+#!/usr/bin/env python3
+#	ecocalc - The X.509 Swiss Army Knife white-hat certificate toolkit
+#	Copyright (C) 2017-2020 Johannes Bauer
+#
+#	This file is part of ecocalc.
+#
+#	ecocalc is free software; you can redistribute it and/or modify
+#	it under the terms of the GNU General Public License as published by
+#	the Free Software Foundation; this program is ONLY licensed under
+#	version 3 of the License, later versions are explicitly excluded.
+#
+#	ecocalc is distributed in the hope that it will be useful,
+#	but WITHOUT ANY WARRANTY; without even the implied warranty of
+#	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#	GNU General Public License for more details.
+#
+#	You should have received a copy of the GNU General Public License
+#	along with ecocalc; if not, write to the Free Software
+#	Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+#
+#	Johannes Bauer <JohannesBauer@gmx.de>
+
+import sys
+from FriendlyArgumentParser import FriendlyArgumentParser
+from Economy import Economy
+from Recipe import Recipe
+from Tools import NumberTools
+
+parser = FriendlyArgumentParser(description = "Print a recipes and the combination of them.")
+parser.add_argument("-e", "--ecofile", metavar = "filename", type = str, required = True, help = "JSON definition file of the economy. Mandatory argument.")
+parser.add_argument("-m", "--multiply", metavar = "value", default = 1, type = NumberTools.str2num, help = "Multiply the final sum with this value.")
+parser.add_argument("--show-scaled", action = "store_true", help = "Show scaled rates and amounts instead of a multiplicity along with the base recipe.")
+parser.add_argument("-r", "--show-rate", action = "store_true", help = "Show by production rate, not by item cardinality.")
+parser.add_argument("-v", "--verbose", action = "count", default = 0, help = "Increascale_by(args.multiply).ses verbosity. Can be specified multiple times to increase.")
+parser.add_argument("recipe", metavar = "recipe", type = str, nargs = "*", help = "Recipe descriptor. Can be something like '+150 iron_ingot', '150%% #1' or '1.75 smelt_iron' or 'smelt_copper'. If omitted, all recipes are enumerated.")
+args = parser.parse_args(sys.argv[1:])
+
+eco = Economy.from_file(args.ecofile, show_rate = args.show_rate)
+if len(args.recipe) == 0:
+	recipes = eco.all_recipes
+	print_sum = False
+else:
+	recipes = [ eco.get_recipe_by_descriptor(descriptor) for descriptor in args.recipe ]
+	print_sum = True
+
+for (recipe_no, recipe) in enumerate(recipes, 1):
+	print("%2d) %s" % (recipe_no, recipe.scale_by(args.multiply).pretty_string(eco, show_rate = args.show_rate, show_scaled = args.show_scaled)))
+
+if print_sum:
+	print("=" * 120)
+	sum_recipe = Recipe.empty_recipe(is_rate = args.show_rate)
+	for recipe in recipes:
+		sum_recipe = sum_recipe + recipe
+	print("    %s" % (sum_recipe.scale_by(args.multiply).pretty_string(eco, show_rate = args.show_rate, show_scaled = args.show_scaled)))
