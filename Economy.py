@@ -32,7 +32,7 @@ class Economy():
 	_RecipeReference = collections.namedtuple("RecipeReference", [ "index", "recipe", "count" ])
 	_RECIPE_DESCRIPTOR_RE = re.compile(r"((?P<cardinality>[\d/.]+)\s*(?P<percent>%)?)?\s*(?P<name_type>[#>]?)?(?P<name>[-_a-zA-Z0-9]+)")
 
-	def __init__(self, args, eco_definition, show_rate = False):
+	def __init__(self, args, eco_definition, show_rate = False, additional_basic = None):
 		self._args = args
 		self._def = eco_definition
 		self._show_rate = show_rate
@@ -43,6 +43,8 @@ class Economy():
 		if self._args.verbose >= 2:
 			self._plausibilize_resource_names()
 		self._basic_resources = set(resource_name for (resource_name, resource) in self._resources.items() if resource.get("basic"))
+		if additional_basic is not None:
+			self._basic_resources |= additional_basic
 
 	@property
 	def all_recipes(self):
@@ -160,4 +162,5 @@ class Economy():
 	def from_args(cls, args):
 		with open(args.ecofile) as f:
 			eco_definition = json.load(f)
-		return cls(args, eco_definition, show_rate = args.show_rate)
+		additional_basic = set(args.consider_basic)
+		return cls(args, eco_definition, show_rate = args.show_rate, additional_basic = additional_basic)

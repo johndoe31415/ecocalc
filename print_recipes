@@ -33,6 +33,7 @@ parser.add_argument("--show-scaled", action = "store_true", help = "Show scaled 
 parser.add_argument("-p", "--show-rate", action = "store_true", help = "Show production rate, not item cardinality (i.e., resources per time instead of resources).")
 parser.add_argument("-r", "--recurse", action = "store_true", help = "Recursively look up dependent resources and construct recipe path this way.")
 parser.add_argument("-x", "--exclude-recipe", metavar = "recipe_no", type = int, action = "append", default = [ ], help = "Exclude specific recipe by its number. Can be specified multiple times.")
+parser.add_argument("-c", "--consider-basic", metavar = "resource_name", type = str, action = "append", default = [ ], help = "Consider the given resource name as a basic resource. Can be specified multiple times.")
 parser.add_argument("-v", "--verbose", action = "count", default = 0, help = "Increases verbosity. Can be specified multiple times.")
 parser.add_argument("recipe", metavar = "recipe", type = str, nargs = "*", help = "Recipe descriptor(s). Can have multiple forms: '[coefficient] (name)', such as '150%% #1' or '1.75 smelt_iron' or 'smelt_copper'. When name starts with '#', it refers to the recipe by its number. When name starts with '>', descriptor selects a pseudo-recipe that requires a specific resource. If argument is omitted entirely, all recipes are enumerated.")
 args = parser.parse_args(sys.argv[1:])
