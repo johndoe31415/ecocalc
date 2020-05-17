@@ -30,9 +30,10 @@ parser = FriendlyArgumentParser(description = "Print a recipes and the combinati
 parser.add_argument("-e", "--ecofile", metavar = "filename", type = str, required = True, help = "JSON definition file of the economy. Mandatory argument.")
 parser.add_argument("-m", "--multiply", metavar = "value", default = 1, type = NumberTools.str2num, help = "Multiply all recipes with this coefficient.")
 parser.add_argument("--show-scaled", action = "store_true", help = "Show scaled rates and amounts instead of a multiplicity along with the base recipe.")
-parser.add_argument("-r", "--show-rate", action = "store_true", help = "Show production rate, not item cardinality (i.e., resources per time instead of resources).")
+parser.add_argument("-p", "--show-rate", action = "store_true", help = "Show production rate, not item cardinality (i.e., resources per time instead of resources).")
+parser.add_argument("-r", "--recurse", action = "store_true", help = "Recursively look up dependent resources and construct recipe path this way.")
 parser.add_argument("-v", "--verbose", action = "count", default = 0, help = "Increases verbosity. Can be specified multiple times.")
-parser.add_argument("recipe", metavar = "recipe", type = str, nargs = "*", help = "Recipe descriptor. Can be something like '+150 iron_ingot', '150%% #1' or '1.75 smelt_iron' or 'smelt_copper'. If omitted, all recipes are enumerated.")
+parser.add_argument("recipe", metavar = "recipe", type = str, nargs = "*", help = "Recipe descriptor(s). Can have multiple forms: '[coefficient] (name)', such as '150%% #1' or '1.75 smelt_iron' or 'smelt_copper'. When name starts with '#', it refers to the recipe by its number. When name starts with '>', descriptor selects a pseudo-recipe that requires a specific resource. If argument is omitted entirely, all recipes are enumerated.")
 args = parser.parse_args(sys.argv[1:])
 
 eco = Economy.from_args(args)

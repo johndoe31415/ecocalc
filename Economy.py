@@ -23,11 +23,11 @@ import sys
 import re
 import json
 import fractions
-from Recipe import Recipe
+from Recipe import Recipe, Resource
 from Tools import NumberTools
 
 class Economy():
-	_RECIPE_DESCRIPTOR_RE = re.compile(r"((?P<cardinality>[\d/.]+)\s*(?P<percent>%)?)?\s*(?P<name>#?[-_a-zA-Z0-9]+)")
+	_RECIPE_DESCRIPTOR_RE = re.compile(r"((?P<cardinality>[\d/.]+)\s*(?P<percent>%)?)?\s*(?P<name_type>[#>]?)?(?P<name>[-_a-zA-Z0-9]+)")
 
 	def __init__(self, args, eco_definition, show_rate = False):
 		self._args = args
@@ -112,9 +112,12 @@ class Economy():
 		if match["percent"] is not None:
 			scalar /= 100
 
-		if match["name"].startswith("#"):
-			recipe_index = int(match["name"][1:]) - 1
+		if match["name_type"] == "#":
+			recipe_index = int(match["name"]) - 1
 			recipe = self._recipes[recipe_index]
+		elif match["name_type"] == ">":
+			recipe = Recipe((Resource(name = match["name"], count = scalar), ), tuple(), name = "Pseudo-Recipe", is_rate = self._show_rate)
+			scalar = 1
 		else:
 			recipe = self._recipes_by_name[match["name"]]
 		return recipe.scale_by(scalar = scalar)
