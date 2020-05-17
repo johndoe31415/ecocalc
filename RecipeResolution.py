@@ -31,6 +31,10 @@ class RecipeResolution():
 		self._substitutions = { }
 
 	@property
+	def path_id(self):
+		return tuple(sorted(self._substitutions.items()))
+
+	@property
 	def sum_recipe(self):
 		return self._recipe
 
@@ -51,11 +55,19 @@ class RecipeResolution():
 		clone._substitutions[recipe_reference.index] = clone._substitutions.get(recipe_reference.index, 0) + scalar
 		return clone
 
-	def recurse(self):
+	def _recurse(self, seen_paths):
+		if self.path_id in seen_paths:
+			return
+		seen_paths.add(self.path_id)
+
 		yield self
 		for item in self.sum_recipe.ingredients:
 			candidates = self._eco.get_recipes_that_produce(item.name)
 			for recipe_reference in candidates:
 				if recipe_reference.index not in self._excluded_recipe_indices:
 					substituted = self.apply(recipe_reference, item.count)
-					yield from substituted.recurse()
+					yield from substituted._recurse(seen_paths)
+
+	def recurse(self):
+		seen_paths = set()
+		return self._recurse(seen_paths)
