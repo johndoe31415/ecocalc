@@ -60,7 +60,8 @@ class RecipeResolution():
 			return
 		seen_paths.add(self.path_id)
 
-		yield self
+		if self._eco.all_ingredients_basic(self.sum_recipe):
+			yield self
 		for item in self.sum_recipe.ingredients:
 			candidates = self._eco.get_recipes_that_produce(item.name)
 			for recipe_reference in candidates:

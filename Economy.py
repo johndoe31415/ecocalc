@@ -42,6 +42,7 @@ class Economy():
 		self._resources = self._def["resources"]
 		if self._args.verbose >= 2:
 			self._plausibilize_resource_names()
+		self._basic_resources = set(resource_name for (resource_name, resource) in self._resources.items() if resource.get("basic"))
 
 	@property
 	def all_recipes(self):
@@ -141,6 +142,12 @@ class Economy():
 		else:
 			recipe = self._recipes_by_name[match["name"]]
 		return recipe * scalar
+
+	def all_ingredients_basic(self, recipe):
+		for item in recipe.ingredients:
+			if item.name not in self._basic_resources:
+				return False
+		return True
 
 	def resolve_recursively(self, recipe, excluded_recipe_indices = None):
 		resolution = RecipeResolution(self, recipe, excluded_recipe_indices = excluded_recipe_indices)
