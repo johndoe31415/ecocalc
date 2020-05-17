@@ -23,10 +23,13 @@ import sys
 import re
 import json
 import fractions
+import collections
 from Recipe import Recipe, Resource
 from Tools import NumberTools
+from RecipeResolution import RecipeResolution
 
 class Economy():
+	_RecipeReference = collections.namedtuple("RecipeReference", [ "index", "recipe", "count" ])
 	_RECIPE_DESCRIPTOR_RE = re.compile(r"((?P<cardinality>[\d/.]+)\s*(?P<percent>%)?)?\s*(?P<name_type>[#>]?)?(?P<name>[-_a-zA-Z0-9]+)")
 
 	def __init__(self, args, eco_definition, show_rate = False):
@@ -35,6 +38,7 @@ class Economy():
 		self._show_rate = show_rate
 		self._recipes = self._parse_recipes()
 		self._recipes_by_name = { recipe.name: recipe for recipe in self._recipes if (recipe.name is not None) }
+		self._recipes_by_product = self._resolve_recipes_by_product()
 		self._resources = self._def["resources"]
 		if self._args.verbose >= 2:
 			self._plausibilize_resource_names()
@@ -82,6 +86,14 @@ class Economy():
 			recipes.append(recipe)
 		return recipes
 
+	def _resolve_recipes_by_product(self):
+		recipes_by_product = collections.defaultdict(list)
+		for (recipe_index, recipe) in enumerate(self._recipes):
+			for item in recipe.products:
+				reference = self._RecipeReference(recipe = recipe, index = recipe_index, count = item.count)
+				recipes_by_product[item.name].append(reference)
+		return recipes_by_product
+
 	def get_resource_name(self, internal_resource_name, surrogate = True):
 		if (internal_resource_name in self._resources) and ("name" in self._resources[internal_resource_name]):
 			return self._resources[internal_resource_name]["name"]
@@ -90,6 +102,9 @@ class Economy():
 				return internal_resource_name
 			else:
 				return None
+
+	def get_recipes_that_produce(self, internal_resource_name):
+		return iter(self._recipes_by_product[internal_resource_name])
 
 	def get_recipe_by_descriptor(self, recipe_descriptor):
 		match = self._RECIPE_DESCRIPTOR_RE.fullmatch(recipe_descriptor)
@@ -116,15 +131,18 @@ class Economy():
 			recipe_index = int(match["name"]) - 1
 			recipe = self._recipes[recipe_index]
 		elif match["name_type"] == ">":
-			recipe = Recipe((Resource(name = match["name"], count = scalar), ), tuple(), name = "Pseudo-Recipe", is_rate = self._show_rate)
+			recipe = Recipe((Resource(name = match["name"], count = scalar), ), (Resource(name = Recipe.FINISHED, count = 1), ), name = "Pseudo-Recipe", is_rate = self._show_rate)
 			scalar = 1
 		else:
 			recipe = self._recipes_by_name[match["name"]]
-		return recipe.scale_by(scalar = scalar)
+		return recipe * scalar
 
 	def resolve_recursively(self, recipe):
-		# TODO implement me
-		yield [ recipe ]
+		resolution = RecipeResolution(self, recipe)
+		yield from resolution.recurse()
+
+	def __getitem__(self, index):
+		return self._recipes[index]
 
 	@classmethod
 	def from_args(cls, args):

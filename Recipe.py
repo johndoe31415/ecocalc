@@ -26,6 +26,7 @@ from Tools import NumberTools
 Resource = collections.namedtuple("Resource", [ "name", "count" ])
 
 class Recipe():
+	FINISHED = "__finished__"
 	_RECIPE_RE = re.compile("(?P<lhs>.*)->(?P<rhs>.*)")
 	_ITEM_RE = re.compile("(?P<cardinality>\d+)?\s*(?P<name>[-a-zA-Z0-9_]+)")
 
@@ -51,6 +52,14 @@ class Recipe():
 	@classmethod
 	def empty_recipe(cls, name = None, is_rate = False):
 		return cls(input_tuple = tuple(), output_tuple = tuple(), name = name, is_rate = is_rate)
+
+	@property
+	def ingredients(self):
+		return iter(self._in)
+
+	@property
+	def products(self):
+		return iter(self._out)
 
 	@classmethod
 	def from_inout_tuple(cls, inout_tuple, scalar = 1, name = None, is_rate = False):
@@ -92,6 +101,10 @@ class Recipe():
 	def _format_side(self, item_tuple, economy = None):
 		formatted_items = [ ]
 		for item in item_tuple:
+			if item.name == Recipe.FINISHED:
+				formatted_items.append("Finished")
+				continue
+
 			pretty_name = item.name if (economy is None) else economy.get_resource_name(item.name)
 			if not self.is_rate:
 				if item.count == 1:
@@ -154,9 +167,6 @@ class Recipe():
 		output_tuple = cls._parse_recipe_side(match["rhs"], cycle_time = cycle_time)
 		return cls(input_tuple, output_tuple, name = name, is_rate = cycle_time is not None)
 
-	def scale_by(self, scalar = 1):
-		return Recipe(self._in, self._out, name = self.name, scalar = self.scalar * scalar, is_rate = self.is_rate)
-
 	@staticmethod
 	def _add_sides(*sides):
 		total_sum = collections.OrderedDict()
@@ -173,6 +183,12 @@ class Recipe():
 		assert(self.is_rate == other.is_rate)
 		sum_recipe = self._add_sides(self.scaled_inout_tuple, other.scaled_inout_tuple)
 		return Recipe.from_inout_tuple(sum_recipe, is_rate = self.is_rate)
+
+	def __mul__(self, scalar):
+		return Recipe(self._in, self._out, name = self.name, scalar = self.scalar * scalar, is_rate = self.is_rate)
+
+	def __repr__(self):
+		return "<%s>" % (str(self))
 
 	def __str__(self):
 		lhs = self._format_side(self.scaled_input_tuple)

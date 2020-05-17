@@ -45,18 +45,19 @@ else:
 	print_sum = True
 
 for (recipe_no, recipe) in enumerate(recipes, 1):
-	print("%2d) %s" % (recipe_no, recipe.scale_by(args.multiply).pretty_string(eco, show_rate = args.show_rate, show_scaled = args.show_scaled)))
+	print("%2d) %s" % (recipe_no, (recipe * args.multiply).pretty_string(eco, show_rate = args.show_rate, show_scaled = args.show_scaled)))
 
 if print_sum:
 	print("=" * 120)
 	sum_recipe = Recipe.empty_recipe(is_rate = args.show_rate)
 	for recipe in recipes:
 		sum_recipe = sum_recipe + recipe
-	print("    %s" % (sum_recipe.scale_by(args.multiply).pretty_string(eco, show_rate = args.show_rate, show_scaled = args.show_scaled)))
+	print("    %s" % ((sum_recipe * args.multiply).pretty_string(eco, show_rate = args.show_rate, show_scaled = args.show_scaled)))
 
 	if args.recurse:
 		print("~" * 120)
 		for recipe_combination in eco.resolve_recursively(sum_recipe):
 			for recipe in recipe_combination:
-				print("    %s" % (recipe.scale_by(args.multiply).pretty_string(eco, show_rate = args.show_rate, show_scaled = args.show_scaled)))
+				print("    %s" % ((recipe * args.multiply).pretty_string(eco, show_rate = args.show_rate, show_scaled = args.show_scaled)))
+			print(" -> %s" % ((recipe_combination.sum_recipe * args.multiply).pretty_string(eco, show_rate = args.show_rate, show_scaled = args.show_scaled)))
 			print()
