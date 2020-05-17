@@ -79,6 +79,13 @@ class Recipe():
 		return self._scaled_tuple(self._out, self.scalar)
 
 	@property
+	def resources(self):
+		resources = set()
+		resources |= set(item.name for item in self._in)
+		resources |= set(item.name for item in self._out)
+		return resources
+
+	@property
 	def scaled_inout_tuple(self):
 		return self._add_sides(self._scaled_tuple(self._in, -self.scalar), self._scaled_tuple(self._out, self.scalar))
 

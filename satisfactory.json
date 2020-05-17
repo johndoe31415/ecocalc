@@ -24,7 +24,11 @@
 		"motor": { "name": "Motor" },
 		"encased_industrial_beam": { "name": "Encased Industrial Beam" },
 		"quartz_crystal": { "name": "Quartz Crystal" },
-		"quickwire": { "name": "Quickwire" }
+		"quickwire": { "name": "Quickwire" },
+		"concrete": { "name": "Concrete" },
+		"circuit_board": { "name": "Circuit Board" },
+		"plastic": { "name": "Plastic" },
+		"beacon": { "name": "Beacon" }
 	},
 	"recipes": [
 		{ "recipe": "1 iron_ore -> 1 iron_ingot", "name": "Smelt Iron", "at": "Smelter", "time": 2 },

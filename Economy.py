@@ -36,10 +36,24 @@ class Economy():
 		self._recipes = self._parse_recipes()
 		self._recipes_by_name = { recipe.name: recipe for recipe in self._recipes if (recipe.name is not None) }
 		self._resources = self._def["resources"]
+		if self._args.verbose >= 2:
+			self._plausibilize_resource_names()
 
 	@property
 	def all_recipes(self):
 		return iter(self._recipes)
+
+	def _plausibilize_resource_names(self):
+		seen_resources = set()
+		for recipe in self._recipes:
+			recipe_resources = recipe.resources
+			for resource in recipe_resources:
+				if resource in seen_resources:
+					continue
+				seen_resources.add(resource)
+				pretty_name = self.get_resource_name(resource, surrogate = False)
+				if pretty_name is None:
+					print("Warning: Resource \"%s\" does not have a name defined (first referenced in recipe %s)." % (resource, recipe), file = sys.stderr)
 
 	def _parse_recipes(self):
 		recipes = [ ]
@@ -61,11 +75,14 @@ class Economy():
 			recipes.append(recipe)
 		return recipes
 
-	def get_resource_name(self, internal_resource_name):
+	def get_resource_name(self, internal_resource_name, surrogate = True):
 		if (internal_resource_name in self._resources) and ("name" in self._resources[internal_resource_name]):
 			return self._resources[internal_resource_name]["name"]
 		else:
-			return internal_resource_name
+			if surrogate:
+				return internal_resource_name
+			else:
+				return None
 
 	def get_recipe_by_descriptor(self, recipe_descriptor):
 		match = self._RECIPE_DESCRIPTOR_RE.fullmatch(recipe_descriptor)
