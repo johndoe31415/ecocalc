@@ -53,3 +53,10 @@ if print_sum:
 	for recipe in recipes:
 		sum_recipe = sum_recipe + recipe
 	print("    %s" % (sum_recipe.scale_by(args.multiply).pretty_string(eco, show_rate = args.show_rate, show_scaled = args.show_scaled)))
+
+	if args.recurse:
+		print("~" * 120)
+		for recipe_combination in eco.resolve_recursively(sum_recipe):
+			for recipe in recipe_combination:
+				print("    %s" % (recipe.scale_by(args.multiply).pretty_string(eco, show_rate = args.show_rate, show_scaled = args.show_scaled)))
+			print()

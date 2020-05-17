@@ -122,6 +122,10 @@ class Economy():
 			recipe = self._recipes_by_name[match["name"]]
 		return recipe.scale_by(scalar = scalar)
 
+	def resolve_recursively(self, recipe):
+		# TODO implement me
+		yield [ recipe ]
+
 	@classmethod
 	def from_args(cls, args):
 		with open(args.ecofile) as f:
