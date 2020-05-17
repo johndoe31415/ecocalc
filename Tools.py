@@ -24,11 +24,12 @@ import fractions
 class NumberTools():
 	@classmethod
 	def str2num(cls, text):
-		try:
-			return int(text)
-		except ValueError:
-			return fractions.Fraction(text)
-
+		if isinstance(text, str):
+			try:
+				return int(text)
+			except ValueError:
+				pass
+		return fractions.Fraction(text)
 
 	@classmethod
 	def num2str(cls, number):

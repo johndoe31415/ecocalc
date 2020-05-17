@@ -16,7 +16,15 @@
 		"screw": { "name": "Screw" },
 		"copper_sheet": { "name": "Copper Sheet" },
 		"steel_beam": { "name": "Steel Beam" },
-		"steel_pipe": { "name": "Steel Pipe" }
+		"steel_pipe": { "name": "Steel Pipe" },
+		"xtal_oscillator": { "name": "Crystal Oscillator" },
+		"ai_limiter": { "name": "A.I. Limiter" },
+		"rotor": { "name": "Rotor" },
+		"stator": { "name": "Stator" },
+		"motor": { "name": "Motor" },
+		"encased_industrial_beam": { "name": "Encased Industrial Beam" },
+		"quartz_crystal": { "name": "Quartz Crystal" },
+		"quickwire": { "name": "Quickwire" }
 	},
 	"recipes": [
 		{ "recipe": "1 iron_ore -> 1 iron_ingot", "name": "Smelt Iron", "at": "Smelter", "time": 2 },
@@ -35,6 +43,20 @@
 		{ "recipe": "1 caterium_ingot -> 5 quickwire", "name": "Manufacture Quickwire", "at": "Constructor", "time": 5 },
 
 		{ "recipe": "6 iron_plate + 12 screw -> 1 reinforced_iron_plate", "name": "Assemble Reinforced Iron Plate", "at": "Assembler", "time": 12 },
-		{ "recipe": "3 reinforced_iron_plate + 12 iron_rod -> 2 modular_frame", "name": "Assemble Modular Frame", "at": "Assembler", "time": 60 }
+		{ "recipe": "3 reinforced_iron_plate + 12 iron_rod -> 2 modular_frame", "name": "Assemble Modular Frame", "at": "Assembler", "time": 60 },
+
+		{ "recipe": "4 steel_beam + 5 concrete -> 1 encased_industrial_beam", "name": "Assemble Encased Industrial Beam", "at": "Assembler", "rate": 6 },
+		{ "recipe": "7 steel_pipe + 5 concrete -> 1 encased_industrial_beam", "name": "Assemble Encased Industrial Beam (Alternate)", "at": "Assembler", "rate": 4 },
+		{ "recipe": "5 iron_rod + 25 screw -> 1 rotor", "name": "Assemble Rotor", "at": "Assembler", "rate": 4 },
+		{ "recipe": "6 copper_sheet + 52 screw -> 3 rotor", "name": "Assemble Rotor (Alternate)", "at": "Assembler", "rate": "195/52" },
+		{ "recipe": "3 steel_pipe + 8 wire -> 1 stator", "name": "Assemble Stator", "at": "Assembler", "rate": 5 },
+		{ "recipe": "2 rotor + 2 stator -> 1 motor", "name": "Assemble Motor", "at": "Assembler", "rate": 5 },
+		{ "recipe": "4 steel_pipe + 15 quickwire -> 2 stator", "name": "Assemble Stator (Alternate)", "at": "Assembler", "rate": 4 },
+		{ "recipe": "5 copper_sheet + 20 quickwire -> 1 ai_limiter", "name": "Assemble A.I. Limiter", "at": "Assembler", "rate": 5 },
+		{ "recipe": "2 copper_sheet + 4 plastic -> 1 circuit_board", "name": "Assemble Circuit Board", "at": "Assembler", "rate": 7.5 },
+
+		{ "recipe": "3 iron_plate + 1 iron_rod + 15 wire + 2 cable -> 1 beacon", "name": "Assemble Beacon", "at": "Manufacturer", "rate": 7.5 },
+		{ "recipe": "36 quartz_crystal + 28 cable + 5 reinforced_iron_plate -> 2 xtal_oscillator", "name": "Assemble Crystal Oscillator", "at": "Manufacturer", "rate": 0.5 }
+
 	]
 }

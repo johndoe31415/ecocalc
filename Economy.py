@@ -19,6 +19,7 @@
 #
 #	Johannes Bauer <JohannesBauer@gmx.de>
 
+import sys
 import re
 import json
 import fractions
@@ -28,7 +29,8 @@ from Tools import NumberTools
 class Economy():
 	_RECIPE_DESCRIPTOR_RE = re.compile(r"((?P<cardinality>[\d/.]+)\s*(?P<percent>%)?)?\s*(?P<name>#?[-_a-zA-Z0-9]+)")
 
-	def __init__(self, eco_definition, show_rate = False):
+	def __init__(self, args, eco_definition, show_rate = False):
+		self._args = args
 		self._def = eco_definition
 		self._show_rate = show_rate
 		self._recipes = self._parse_recipes()
@@ -43,10 +45,16 @@ class Economy():
 		recipes = [ ]
 		for recipe in self._def["recipes"]:
 			if self._show_rate:
-				if "time" not in recipe:
-					# We want rate-based recipes but this one doens't have a time defined. Ignore it.
+				if "time" in recipe:
+					cycle_time = NumberTools.str2num(recipe["time"])
+				elif "rate" in recipe:
+					cycle_time = 60 / NumberTools.str2num(recipe["rate"])
+				else:
+					# We want rate-based recipes but this one doesn't have a
+					# time or rate defined. Ignore it.
+					if self._args.verbose >= 2:
+						print("Warning: Recipe %s does not have a rate defined; ignoring it." % (str(recipe)), file = sys.stderr)
 					continue
-				cycle_time = NumberTools.str2num(recipe["time"])
 			else:
 				cycle_time = None
 			recipe = Recipe.from_str(recipe["recipe"], name = recipe.get("name"), cycle_time = cycle_time)
@@ -88,7 +96,7 @@ class Economy():
 		return recipe.scale_by(scalar = scalar)
 
 	@classmethod
-	def from_file(cls, filename, show_rate = False):
-		with open(filename) as f:
+	def from_args(cls, args):
+		with open(args.ecofile) as f:
 			eco_definition = json.load(f)
-		return cls(eco_definition, show_rate = show_rate)
+		return cls(args, eco_definition, show_rate = args.show_rate)
