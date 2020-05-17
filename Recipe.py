@@ -118,7 +118,7 @@ class Recipe():
 
 	def pretty_string(self, economy, show_scaled = False, show_rate = False):
 		if self.name is not None:
-			prefix = "{%s} " % (self.name)
+			prefix = "{%s}" % (self.name)
 		else:
 			prefix = ""
 
@@ -129,10 +129,10 @@ class Recipe():
 		lhs = self._format_side(lhs, economy = economy)
 		rhs = self._format_side(rhs, economy = economy)
 
-		if show_scaled or (self.scalar == 1):
-			return "%s%s →  %s" % (prefix, lhs, rhs)
+		if show_scaled:
+			return "%s %s →  %s" % (prefix, lhs, rhs)
 		else:
-			return "%s%s x [ %s →  %s ]" % (prefix, NumberTools.num2str(self.scalar), lhs, rhs)
+			return "%s x %s [ %s →  %s ]" % (NumberTools.num2str(self.scalar), prefix, lhs, rhs)
 
 	@classmethod
 	def _parse_recipe_side(cls, side_str, cycle_time = None):
