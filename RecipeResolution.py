@@ -22,9 +22,12 @@
 import itertools
 
 class RecipeResolution():
-	def __init__(self, eco, recipe):
+	def __init__(self, eco, recipe, excluded_recipe_indices = None):
 		self._eco = eco
 		self._recipe = recipe
+		self._excluded_recipe_indices = excluded_recipe_indices
+		if self._excluded_recipe_indices is None:
+			self._excluded_recipe_indices = set()
 		self._substitutions = { }
 
 	@property
@@ -37,7 +40,7 @@ class RecipeResolution():
 			yield recipe * scalar
 
 	def clone(self):
-		clone = RecipeResolution(self._eco, self._recipe)
+		clone = RecipeResolution(self._eco, self._recipe, excluded_recipe_indices = self._excluded_recipe_indices)
 		clone._substitutions = dict(self._substitutions)
 		return clone
 
@@ -53,5 +56,6 @@ class RecipeResolution():
 		for item in self.sum_recipe.ingredients:
 			candidates = self._eco.get_recipes_that_produce(item.name)
 			for recipe_reference in candidates:
-				substituted = self.apply(recipe_reference, item.count)
-				yield from substituted.recurse()
+				if recipe_reference.index not in self._excluded_recipe_indices:
+					substituted = self.apply(recipe_reference, item.count)
+					yield from substituted.recurse()

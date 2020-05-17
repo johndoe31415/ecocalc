@@ -68,7 +68,7 @@ class Economy():
 
 	def _parse_recipes(self):
 		recipes = [ ]
-		for recipe in self._def["recipes"]:
+		for (recipe_number, recipe) in enumerate(self._def["recipes"], 1):
 			if self._show_rate:
 				if "time" in recipe:
 					cycle_time = NumberTools.str2num(recipe["time"])
@@ -82,7 +82,12 @@ class Economy():
 					continue
 			else:
 				cycle_time = None
-			recipe = Recipe.from_str(recipe["recipe"], name = recipe.get("name"), cycle_time = cycle_time)
+
+			if "name" in recipe:
+				name = "#%d: %s" % (recipe_number, recipe["name"])
+			else:
+				name = "#%d" % (recipe_number)
+			recipe = Recipe.from_str(recipe["recipe"], name = name, cycle_time = cycle_time)
 			recipes.append(recipe)
 		return recipes
 
@@ -137,8 +142,8 @@ class Economy():
 			recipe = self._recipes_by_name[match["name"]]
 		return recipe * scalar
 
-	def resolve_recursively(self, recipe):
-		resolution = RecipeResolution(self, recipe)
+	def resolve_recursively(self, recipe, excluded_recipe_indices = None):
+		resolution = RecipeResolution(self, recipe, excluded_recipe_indices = excluded_recipe_indices)
 		yield from resolution.recurse()
 
 	def __getitem__(self, index):
