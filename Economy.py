@@ -45,6 +45,7 @@ class Economy():
 
 	def _plausibilize_resource_names(self):
 		seen_resources = set()
+		unknown_resources = set()
 		for recipe in self._recipes:
 			recipe_resources = recipe.resources
 			for resource in recipe_resources:
@@ -54,6 +55,12 @@ class Economy():
 				pretty_name = self.get_resource_name(resource, surrogate = False)
 				if pretty_name is None:
 					print("Warning: Resource \"%s\" does not have a name defined (first referenced in recipe %s)." % (resource, recipe), file = sys.stderr)
+					unknown_resources.add(resource)
+		if self._args.verbose >= 3:
+			for resource in sorted(unknown_resources):
+				pretty_name = resource.replace("_", " ")
+				pretty_name = pretty_name[0].upper() + pretty_name[1:]
+				print("		\"%s\": { \"name\": \"%s\" }," % (resource, pretty_name))
 
 	def _parse_recipes(self):
 		recipes = [ ]

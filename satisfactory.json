@@ -28,12 +28,39 @@
 		"concrete": { "name": "Concrete" },
 		"circuit_board": { "name": "Circuit Board" },
 		"plastic": { "name": "Plastic" },
-		"beacon": { "name": "Beacon" }
+		"limestone": { "name": "Limestone" },
+		"raw_quartz": { "name": "Raw Quartz" },
+		"silica": { "name": "Silica" },
+		"beacon": { "name": "Beacon" },
+		"adaptive_control_unit": { "name": "Adaptive Control Unit" },
+		"automated_wiring": { "name": "Automated Wiring" },
+		"biomass": { "name": "Biomass" },
+		"black_powder": { "name": "Black Powder" },
+		"cartridge": { "name": "Cartridge" },
+		"coal": { "name": "Coal" },
+		"computer": { "name": "Computer" },
+		"fabric": { "name": "Fabric" },
+		"filter": { "name": "Filter" },
+		"heavy_modular_frame": { "name": "Heavy Modular Frame" },
+		"high_speed_connector": { "name": "High Speed Connector" },
+		"leaves": { "name": "Leaves" },
+		"modular_engine": { "name": "Modular Engine" },
+		"mycelia": { "name": "Mycelia" },
+		"nobelisk": { "name": "Nobelisk" },
+		"rubber": { "name": "Rubber" },
+		"smart_plating": { "name": "Smart Plating" },
+		"solid_biofuel": { "name": "Solid Biofuel" },
+		"sulfur": { "name": "Sulfur" },
+		"versatile_framework": { "name": "Versatile Framework" },
+		"wood": { "name": "Wood" }
 	},
 	"recipes": [
 		{ "recipe": "1 iron_ore -> 1 iron_ingot", "name": "Smelt Iron", "at": "Smelter", "time": 2 },
 		{ "recipe": "1 copper_ore -> 1 copper_ingot", "name": "Smelt Copper", "at": "Smelter", "time": 2 },
 		{ "recipe": "3 caterium_ore -> 1 caterium_ingot", "name": "Smelt Caterium", "at": "Smelter", "time": 4 },
+
+		{ "recipe": "3 iron_ore + 3 coal -> 3 steel_ingot", "name": "Forge Steel", "at": "Foundry", "rate": "45/3" },
+		{ "recipe": "2 iron_ore + 2 copper_ore -> 5 iron_ingot", "name": "Forge Iron Alloy (Alternate Recipe)", "at": "Foundry", "rate": "50/5" },
 
 		{ "recipe": "3 iron_ingot -> 2 iron_plate", "name": "Manufacture Iron Plate", "at": "Constructor", "time": 6 },
 		{ "recipe": "1 iron_ingot -> 1 iron_rod", "name": "Manufacture Iron Rod", "at": "Constructor", "time": 4 },
@@ -41,14 +68,18 @@
 		{ "recipe": "2 copper_ingot -> 1 copper_sheet", "name": "Manufacture Copper Sheet", "at": "Constructor", "time": 6 },
 		{ "recipe": "4 steel_ingot -> 1 steel_beam", "name": "Manufacture Steel Beam", "at": "Constructor", "time": 4 },
 		{ "recipe": "3 steel_ingot -> 2 steel_pipe", "name": "Manufacture Steel Pipe", "at": "Constructor", "time": 6 },
-
 		{ "recipe": "1 copper_ingot -> 2 wire", "name": "Manufacture Wire", "at": "Constructor", "time": 4 },
 		{ "recipe": "2 wire -> 1 cable", "name": "Manufacture Cable", "at": "Constructor", "time": 2 },
 		{ "recipe": "1 caterium_ingot -> 5 quickwire", "name": "Manufacture Quickwire", "at": "Constructor", "time": 5 },
+		{ "recipe": "3 limestone -> 1 concrete", "name": "Manufacture Concrete", "at": "Constructor", "rate": 15 },
+		{ "recipe": "5 raw_quartz -> 3 quartz_crystal", "name": "Manufacture Quartz Crystal", "at": "Constructor", "rate": "225/30" },
+		{ "recipe": "3 raw_quartz -> 5 silica", "name": "Manufacture Silica", "at": "Constructor", "rate": "225/30" },
+		{ "recipe": "4 wood -> 20 biomass", "name": "Manufacture Biomass from Wood", "at": "Constructor", "rate": "300/20" },
+		{ "recipe": "10 leaves -> 5 biomass", "name": "Manufacture Biomass from Leaves", "at": "Constructor", "rate": "60/5" },
+		{ "recipe": "8 biomass -> solid_biofuel", "name": "Manufacture Solid Biofuel", "at": "Constructor", "rate": "60/4" },
 
 		{ "recipe": "6 iron_plate + 12 screw -> 1 reinforced_iron_plate", "name": "Assemble Reinforced Iron Plate", "at": "Assembler", "time": 12 },
 		{ "recipe": "3 reinforced_iron_plate + 12 iron_rod -> 2 modular_frame", "name": "Assemble Modular Frame", "at": "Assembler", "time": 60 },
-
 		{ "recipe": "4 steel_beam + 5 concrete -> 1 encased_industrial_beam", "name": "Assemble Encased Industrial Beam", "at": "Assembler", "rate": 6 },
 		{ "recipe": "7 steel_pipe + 5 concrete -> 1 encased_industrial_beam", "name": "Assemble Encased Industrial Beam (Alternate)", "at": "Assembler", "rate": 4 },
 		{ "recipe": "5 iron_rod + 25 screw -> 1 rotor", "name": "Assemble Rotor", "at": "Assembler", "rate": 4 },
@@ -56,11 +87,23 @@
 		{ "recipe": "3 steel_pipe + 8 wire -> 1 stator", "name": "Assemble Stator", "at": "Assembler", "rate": 5 },
 		{ "recipe": "2 rotor + 2 stator -> 1 motor", "name": "Assemble Motor", "at": "Assembler", "rate": 5 },
 		{ "recipe": "4 steel_pipe + 15 quickwire -> 2 stator", "name": "Assemble Stator (Alternate)", "at": "Assembler", "rate": 4 },
+		{ "recipe": "1 reinforced_iron_plate + 1 rotor -> 1 smart_plating", "name": "Assemble Smart Plating", "at": "Assembler", "rate": 2 },
+		{ "recipe": "1 modular_frame + 12 steel_beam -> 2 versatile_framework", "name": "Assemble Versatile Framework", "at": "Assembler", "rate": "5/2" },
+		{ "recipe": "1 stator + 20 cable -> 1 automated_wiring", "name": "Assemble Automated Wiring", "at": "Assembler", "rate": 2.5 },
+		{ "recipe": "1 mycelia + 5 biomass -> 1 fabric", "name": "Assemble Fabric", "at": "Assembler", "rate": 15 },
+		{ "recipe": "1 coal + 2 sulfur -> 1 black_powder", "name": "Assemble Black Powder", "at": "Assembler", "rate": 7.5 },
+		{ "recipe": "5 black_powder + 10 steel_pipe -> 1 nobelisk", "name": "Assemble Nobelisk", "at": "Assembler", "rate": 3 },
 		{ "recipe": "5 copper_sheet + 20 quickwire -> 1 ai_limiter", "name": "Assemble A.I. Limiter", "at": "Assembler", "rate": 5 },
 		{ "recipe": "2 copper_sheet + 4 plastic -> 1 circuit_board", "name": "Assemble Circuit Board", "at": "Assembler", "rate": 7.5 },
 
 		{ "recipe": "3 iron_plate + 1 iron_rod + 15 wire + 2 cable -> 1 beacon", "name": "Assemble Beacon", "at": "Manufacturer", "rate": 7.5 },
-		{ "recipe": "36 quartz_crystal + 28 cable + 5 reinforced_iron_plate -> 2 xtal_oscillator", "name": "Assemble Crystal Oscillator", "at": "Manufacturer", "rate": 0.5 }
-
+		{ "recipe": "36 quartz_crystal + 28 cable + 5 reinforced_iron_plate -> 2 xtal_oscillator", "name": "Assemble Crystal Oscillator", "at": "Manufacturer", "rate": 0.5 },
+		{ "recipe": "10 circuit_board + 9 cable + 18 plastic + 52 screw -> 1 computer", "name": "Assemble Computer", "at": "Manufacturer", "rate": "25/10" },
+		{ "recipe": "5 modular_frame + 15 steel_pipe + 5 encased_industrial_beam + 100 screw -> 1 heavy_modular_frame", "name": "Assemble Heavy Modular Frame", "at": "Manufacturer", "rate": 2 },
+		{ "recipe": "1 beacon + 10 steel_pipe + 10 black_powder + 10 rubber -> 5 cartridge", "name": "Assemble Cartridge", "at": "Manufacturer", "rate": "15/5" },
+		{ "recipe": "5 coal + 2 rubber + 2 fabric -> 1 filter", "name": "Assemble Filter", "at": "Manufacturer", "rate": 7.5 },
+		{ "recipe": "15 automated_wiring + 10 circuit_board + 2 heavy_modular_frame + 2 computer -> 2 adaptive_control_unit", "name": "Assemble Adaptive Control Unit", "at": "Manufacturer", "rate": 0.5 },
+		{ "recipe": "2 motor + 15 rubber + 2 smart_plating -> 1 modular_engine", "name": "Assemble Modular Engine", "at": "Manufacturer", "rate": 1 },
+		{ "recipe": "56 quickwire + 10 cable + 1 circuit_board -> 1 high_speed_connector", "name": "Assemble High-Speed Connector", "at": "Manufacturer", "rate": "210/56" }
 	]
 }
