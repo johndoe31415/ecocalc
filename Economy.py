@@ -40,11 +40,14 @@ class Economy():
 		self._recipes_by_name = { recipe.name: recipe for recipe in self._recipes if (recipe.name is not None) }
 		self._recipes_by_product = self._resolve_recipes_by_product()
 		self._resources = self._def["resources"]
+		self._basic_resources = self._determine_basic_resources(additional_basic)
 		if self._args.verbose >= 2:
 			self._plausibilize_resource_names()
-		self._basic_resources = set(resource_name for (resource_name, resource) in self._resources.items() if resource.get("basic"))
-		if additional_basic is not None:
-			self._basic_resources |= additional_basic
+		if self._args.verbose >= 3:
+			self._print_debugging_info()
+
+	def _print_debugging_info(self):
+		print("Basic resources: %s" % (", ".join(sorted(self._basic_resources))))
 
 	@property
 	def all_recipes(self):
@@ -101,6 +104,19 @@ class Economy():
 				reference = self._RecipeReference(recipe = recipe, index = recipe_index, count = item.count)
 				recipes_by_product[item.name].append(reference)
 		return recipes_by_product
+
+	def _determine_basic_resources(self, additional_basic):
+		basic_resources = set()
+		for (resource_name, resource) in self._resources.items():
+
+			recipes = list(self.get_recipes_that_produce(resource_name))
+			if len(recipes) == 0:
+				# Resource that is never produced is basic, i.e., irreducible
+				basic_resources.add(resource_name)
+
+		if additional_basic is not None:
+			basic_resources |= additional_basic
+		return basic_resources
 
 	def get_resource_name(self, internal_resource_name, surrogate = True):
 		if (internal_resource_name in self._resources) and ("name" in self._resources[internal_resource_name]):
