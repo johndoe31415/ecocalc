@@ -29,6 +29,14 @@ class NumberTools():
 				return int(text)
 			except ValueError:
 				pass
+
+			if "/" in text:
+				# fractions.Fraction() does support fractions natively, but
+				# does not support decimal fractions as numerator/denomiator.
+				# Since this is useful, we do it ourselves.
+				(numerator, denominator) = text.split("/", maxsplit = 1)
+				return fractions.Fraction(numerator) / fractions.Fraction(denominator)
+
 		return fractions.Fraction(text)
 
 	@classmethod

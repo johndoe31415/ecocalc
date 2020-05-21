@@ -28,12 +28,12 @@ from Tools import NumberTools
 
 parser = FriendlyArgumentParser(description = "Print a recipes and the combination of them.")
 parser.add_argument("-e", "--ecofile", metavar = "filename", type = str, required = True, help = "JSON definition file of the economy. Mandatory argument.")
-parser.add_argument("-m", "--multiply", metavar = "value", default = 1, type = NumberTools.str2num, help = "Multiply all recipes with this coefficient.")
+parser.add_argument("-m", "--multiply", metavar = "value", default = [ ], action = "append", type = NumberTools.str2num, help = "Multiply all recipes with these coefficient(s). Can be specified multiple times. Fractions are allowed here.")
 parser.add_argument("--show-scaled", action = "store_true", help = "Show scaled rates and amounts instead of a multiplicity along with the base recipe.")
 parser.add_argument("-p", "--show-rate", action = "store_true", help = "Show production rate, not item cardinality (i.e., resources per time instead of resources).")
 parser.add_argument("-r", "--recurse", action = "store_true", help = "Recursively look up dependent resources and construct recipe path this way.")
 parser.add_argument("-x", "--exclude-recipe", metavar = "recipe_no", type = int, action = "append", default = [ ], help = "Exclude specific recipe by its number. Can be specified multiple times.")
-parser.add_argument("-c", "--consider-basic", metavar = "resource_name", type = str, action = "append", default = [ ], help = "Consider the given resource name as a basic resource. Can be specified multiple times.")
+parser.add_argument("-c", "--consider-irreducible", metavar = "resource_name", type = str, action = "append", default = [ ], help = "Consider the given resource name as an irreducible resource. Can be specified multiple times.")
 parser.add_argument("-v", "--verbose", action = "count", default = 0, help = "Increases verbosity. Can be specified multiple times.")
 parser.add_argument("recipe", metavar = "recipe", type = str, nargs = "*", help = "Recipe descriptor(s). Can have multiple forms: '[coefficient] (name)', such as '150%% #1' or '1.75 smelt_iron' or 'smelt_copper'. When name starts with '#', it refers to the recipe by its number. When name starts with '>', descriptor selects a pseudo-recipe that requires a specific resource. If argument is omitted entirely, all recipes are enumerated.")
 args = parser.parse_args(sys.argv[1:])
@@ -46,21 +46,25 @@ else:
 	recipes = [ eco.get_recipe_by_descriptor(descriptor) for descriptor in args.recipe ]
 	print_sum = True
 
+multiply_coeff = 1
+for coeff in args.multiply:
+	multiply_coeff *= coeff
+
 for recipe in recipes:
-	print("%s" % ((recipe * args.multiply).pretty_string(eco, show_rate = args.show_rate, show_scaled = args.show_scaled)))
+	print("%s" % ((recipe * multiply_coeff).pretty_string(eco, show_rate = args.show_rate, show_scaled = args.show_scaled)))
 
 if print_sum:
 	print("=" * 120)
 	sum_recipe = Recipe.empty_recipe(is_rate = args.show_rate)
 	for recipe in recipes:
 		sum_recipe = sum_recipe + recipe
-	print("    %s" % ((sum_recipe * args.multiply).pretty_string(eco, show_rate = args.show_rate, show_scaled = args.show_scaled)))
+	print("    %s" % ((sum_recipe * multiply_coeff).pretty_string(eco, show_rate = args.show_rate, show_scaled = args.show_scaled)))
 
 	if args.recurse:
 		print("~" * 120)
 		excluded_recipe_indices = set((recipe_number - 1) for recipe_number in args.exclude_recipe)
 		for recipe_combination in eco.resolve_recursively(sum_recipe, excluded_recipe_indices):
 			for recipe in recipe_combination:
-				print("    %s" % ((recipe * args.multiply).pretty_string(eco, show_rate = args.show_rate, show_scaled = args.show_scaled)))
-			print(" -> %s" % ((recipe_combination.sum_recipe * args.multiply).pretty_string(eco, show_rate = args.show_rate, show_scaled = args.show_scaled)))
+				print("    %s" % ((recipe * multiply_coeff).pretty_string(eco, show_rate = args.show_rate, show_scaled = args.show_scaled)))
+			print(" -> %s" % ((recipe_combination.sum_recipe * multiply_coeff).pretty_string(eco, show_rate = args.show_rate, show_scaled = True)))
 			print()

@@ -32,7 +32,7 @@ class Economy():
 	_RecipeReference = collections.namedtuple("RecipeReference", [ "index", "recipe", "count" ])
 	_RECIPE_DESCRIPTOR_RE = re.compile(r"((?P<cardinality>[\d/.]+)\s*(?P<percent>%)?)?\s*(?P<name_type>[#>]?)?(?P<name>[-_a-zA-Z0-9]+)")
 
-	def __init__(self, args, eco_definition, show_rate = False, additional_basic = None):
+	def __init__(self, args, eco_definition, show_rate = False, additional_irreducible = None):
 		self._args = args
 		self._def = eco_definition
 		self._show_rate = show_rate
@@ -40,14 +40,14 @@ class Economy():
 		self._recipes_by_name = { recipe.name: recipe for recipe in self._recipes if (recipe.name is not None) }
 		self._recipes_by_product = self._resolve_recipes_by_product()
 		self._resources = self._def["resources"]
-		self._basic_resources = self._determine_basic_resources(additional_basic)
+		self._irreducible_resources = self._determine_irreducible_resources(additional_irreducible)
 		if self._args.verbose >= 2:
 			self._plausibilize_resource_names()
 		if self._args.verbose >= 3:
 			self._print_debugging_info()
 
 	def _print_debugging_info(self):
-		print("Basic resources: %s" % (", ".join(sorted(self._basic_resources))))
+		print("Irreducible resources: %s" % (", ".join(sorted(self._irreducible_resources))))
 
 	@property
 	def all_recipes(self):
@@ -105,18 +105,18 @@ class Economy():
 				recipes_by_product[item.name].append(reference)
 		return recipes_by_product
 
-	def _determine_basic_resources(self, additional_basic):
-		basic_resources = set()
+	def _determine_irreducible_resources(self, additional_irreducible):
+		irreducible_resources = set()
 		for (resource_name, resource) in self._resources.items():
 
 			recipes = list(self.get_recipes_that_produce(resource_name))
 			if len(recipes) == 0:
-				# Resource that is never produced is basic, i.e., irreducible
-				basic_resources.add(resource_name)
+				# Resource that is never produced is irreducible, i.e., irreducible
+				irreducible_resources.add(resource_name)
 
-		if additional_basic is not None:
-			basic_resources |= additional_basic
-		return basic_resources
+		if additional_irreducible is not None:
+			irreducible_resources |= additional_irreducible
+		return irreducible_resources
 
 	def get_resource_name(self, internal_resource_name, surrogate = True):
 		if (internal_resource_name in self._resources) and ("name" in self._resources[internal_resource_name]):
@@ -161,9 +161,9 @@ class Economy():
 			recipe = self._recipes_by_name[match["name"]]
 		return recipe * scalar
 
-	def all_ingredients_basic(self, recipe):
+	def all_ingredients_irreducible(self, recipe):
 		for item in recipe.ingredients:
-			if item.name not in self._basic_resources:
+			if item.name not in self._irreducible_resources:
 				return False
 		return True
 
@@ -178,5 +178,5 @@ class Economy():
 	def from_args(cls, args):
 		with open(args.ecofile) as f:
 			eco_definition = json.load(f)
-		additional_basic = set(args.consider_basic)
-		return cls(args, eco_definition, show_rate = args.show_rate, additional_basic = additional_basic)
+		additional_irreducible = set(args.consider_irreducible)
+		return cls(args, eco_definition, show_rate = args.show_rate, additional_irreducible = additional_irreducible)
