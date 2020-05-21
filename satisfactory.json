@@ -95,6 +95,7 @@
 		{ "recipe": "5 black_powder + 10 steel_pipe -> 1 nobelisk", "name": "Assemble Nobelisk", "at": "Assembler", "rate": 3 },
 		{ "recipe": "5 copper_sheet + 20 quickwire -> 1 ai_limiter", "name": "Assemble A.I. Limiter", "at": "Assembler", "rate": 5 },
 		{ "recipe": "2 copper_sheet + 4 plastic -> 1 circuit_board", "name": "Assemble Circuit Board", "at": "Assembler", "rate": 7.5 },
+		{ "recipe": "11 copper_sheet + 11 silica -> 5 circuit_board", "name": "Assemble Circuit Board (Alternate)", "at": "Assembler", "rate": "12.5/5" },
 
 		{ "recipe": "3 iron_plate + 1 iron_rod + 15 wire + 2 cable -> 1 beacon", "name": "Assemble Beacon", "at": "Manufacturer", "rate": 7.5 },
 		{ "recipe": "36 quartz_crystal + 28 cable + 5 reinforced_iron_plate -> 2 xtal_oscillator", "name": "Assemble Crystal Oscillator", "at": "Manufacturer", "rate": 0.5 },
