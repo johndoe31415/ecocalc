@@ -29,6 +29,7 @@ from Tools import NumberTools
 parser = FriendlyArgumentParser(description = "Print a recipes and the combination of them.")
 parser.add_argument("-e", "--ecofile", metavar = "filename", type = str, required = True, help = "JSON definition file of the economy. Mandatory argument.")
 parser.add_argument("-m", "--multiply", metavar = "value", default = [ ], action = "append", type = NumberTools.str2num, help = "Multiply all recipes with these coefficient(s). Can be specified multiple times. Fractions are allowed here.")
+parser.add_argument("-g", "--gcd", metavar = "value", default = [ ], action = "append", type = int, help = "Multiply all recipes with the reciprocal of the gcd of all given values. Must be specified multiple times. Only integer values are allowed.")
 parser.add_argument("--show-scaled", action = "store_true", help = "Show scaled rates and amounts instead of a multiplicity along with the base recipe.")
 parser.add_argument("-p", "--show-rate", action = "store_true", help = "Show production rate, not item cardinality (i.e., resources per time instead of resources).")
 parser.add_argument("-r", "--recurse", action = "store_true", help = "Recursively look up dependent resources and construct recipe path this way.")
@@ -46,9 +47,14 @@ else:
 	recipes = [ eco.get_recipe_by_descriptor(descriptor) for descriptor in args.recipe ]
 	print_sum = True
 
+
 multiply_coeff = 1
 for coeff in args.multiply:
 	multiply_coeff *= coeff
+
+if len(args.gcd) > 0:
+	gcd = NumberTools.gcd(args.gcd)
+	multiply_coeff /= gcd
 
 for recipe in recipes:
 	print("%s" % ((recipe * multiply_coeff).pretty_string(eco, show_rate = args.show_rate, show_scaled = args.show_scaled)))

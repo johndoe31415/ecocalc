@@ -52,3 +52,17 @@ class NumberTools():
 			if abs(formatted_value - real_value) < 0.01:
 				return format_str % formatted_value
 		return "%.3f" % (real_value)
+
+	@classmethod
+	def _gcd(cls, a, b):
+		"""Euclidian algorithm to compute greatest common divisor."""
+		while b != 0:
+			(a, b) = (b, a % b)
+		return a
+
+	@classmethod
+	def gcd(cls, values):
+		gcd = values[0]
+		for other in values[1:]:
+			gcd = cls._gcd(gcd, other)
+		return gcd
