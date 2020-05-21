@@ -1,0 +1,24 @@
+#!/usr/bin/python3
+#
+#
+
+from Recipes import Recipes
+from Economy import Economy
+
+recipe_db = Recipes.parse_file("output_recipes.txt")
+#eco = Economy.create_factors_from_skill(skill_level = 70).parse_file("output_economy.txt")
+eco = Economy(1, 1).parse_file("output_economy.txt")
+
+shown_recipes = [ ]
+for recipe_path in recipe_db.unique_paths(length = 3):
+	(buy_cost, sell_price) = eco.total_price_cost(recipe_path)
+	net_value = sell_price - buy_cost
+	if net_value > -10:
+		shown_recipes.append((buy_cost, sell_price, recipe_path))
+
+for (buy_cost, sell_price, recipe_path) in sorted(shown_recipes, reverse = False, key = lambda x: x[1] - x[0]):
+	net_value = sell_price - buy_cost
+	print("Net value: %+.0f (%.0f%%)" % (net_value, 100 * sell_price / buy_cost))
+	recipe_path.dump()
+	print()
+

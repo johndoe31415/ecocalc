@@ -1,0 +1,14 @@
+2 Iron Ore -(smelting)-> 1 Iron Ingot
+2 Silver Ore -(smelting)-> 1 Silver Ingot
+2 Gold Ore -(smelting)-> 1 Gold Ingot
+
+1 Iron Ingot + 1 Leather Strip -(smith)-> 1 Iron Dagger
+
+#1 Gold Ore -(Pavo Attius)-> 50 Coin
+
+#1 Iron Dagger + 1 Petty Soul Gem -(enchanting)-> 1 Enchanted Iron Dagger
+
+1 Iron Ore -(transmute)-> 1 Silver Ore
+1 Silver Ore -(transmute)-> 1 Gold Ore
+
+

@@ -1,0 +1,182 @@
+Egg 999
+Milk 999
+Raw_Fish 999
+Raw_Steak 999
+Cheese 999
+Raw_Bacon 999
+Snowball 999
+Red_Apple 999
+Flesh_Strand 999
+Empty_Bottle 999
+Water 999
+Neonmelon 999
+Thorn_Fruit 999
+Raw_Ribs 999
+
+Cactus 15
+Mushroom 5
+Cocoa_Pod 90
+Raw_Poultry 20
+Coffee_Beans 90
+Coconut 10
+Automato 80
+Avesmingo 150
+Banana 120
+Beakseed 90
+Boltbulb 120
+Boneboo 160
+Carrot 60
+Chilli 210
+Cocoa 20
+Coffee 115
+Coralcreep 100
+Corn 60
+Cotton 10
+Currentcorn 80
+Diodia 180
+Dirturchin 100
+Eggshoot 120
+Feathercrown 120
+Grapes 120
+Kiwi 120
+Neon_Melon 280
+Oculemon 200
+Pearlpeas 40
+Pineapple 160
+Potato 80
+Pussplum 150
+Reefpod 150
+Rice 60
+Sugar 90
+Tomato 60
+Toxictop 200
+Wartweed 140
+Wheat 40
+
+Egg+Corn+Banana=Apex_Fritter(250)
+Wheat+Currentcorn+Automato=Automato_Stew(250)
+Boltbulb+Milk=Bolt_Os(200)
+Corn+Beakseed=Corn_Peckers(190)
+Wheat+Sugar+Feathercrown+Beakseed=Feather_Food(425)
+Wheat+Raw_Fish=Fish_Dumplings(75)
+Raw_Fish+Bread=Fish_Fingers(85)
+Raw_Fish+Boneboo=Fish_in_a_Bone(225)
+Wheat+Raw_Steak=Meat_Dumplings(75)
+Wheat+5 Mushroom+Egg+Cheese=Mushroom_Quiche(170)
+Wheat+Pussplum+Oculemon+Raw_Steak=Oculemon_Stew(515)
+5 Mushroom+Egg+Raw_Bacon+Cheese=Omelette(145)
+Wheat+Pearlpeas+Milk+Egg=Pearlpea_Pancakes(175)
+Rice+Pearlpeas=Pearlpea_Risotto(125)
+Wheat+Pineapple+Raw_Bacon+Cheese=Pineapple_Pizza_Slice(340)
+Automato+Cheese+Diodia+Wheat=Piodia_Slice(440)
+Automato+Boltbulb+Cheese+Wheat=Pizzap_Slice(365)
+Wheat+Boneboo=Spooky_Pie(250)
+Pearlpeas+Tomato+Wartweed+Wheat=Wartweed_Stew(350)
+
+Raw_Bacon+Banana=Bananacon(175)
+Wheat+Beakseed=Beakseed_Bread(175)
+Wheat=Bread(50)
+Chilli+Oculemon=Burning_Eyeballs(515)
+Wheat+Carrot=Carrot_Bread(125)
+Potato+Milk+Carrot=Carrot_Soup(225)
+Rice+Coconut_Drink=Coconut_Rice(100)
+Corn=Corn_Cob(75)
+Eggshoot+Feathercrown=Eggshoot_Salad(300)
+Eggshoot+Oculemon=Eyebowls(400)
+Egg+Bread=Fluffy_Ruffs(75)
+Tomato+Corn+Carrot=Garden_Salad(225)
+Potato=Mashed_Potato(100)
+Wheat+5 Mushroom=Mushroom_Bread(80)
+Wheat+Boiled_Pearlpeas=Pearlpea_Broth(100)
+Pearlpeas+Wartweed=Pearlpea_Parcels(225)
+Dirturchin+Coralcreep=Soggy_Sack(250)
+Chilli+Feathercrown=Spicy_Feathercrown(415)
+Corn+Cheese+Bread+Automato=Stuffed_Automato(290)
+Pearlpeas+Dirturchin+Cheese+Bread=Stuffed_Dirturchin(290)
+Tomato+Corn+Cheese+Bread=Stuffed_Tomato(265)
+Tomato+Potato+Milk=Tomato_Soup(225)
+Currentcorn+Automato=Wattage_Potage(200)
+Boltbulb+Currentcorn+Diodia=Zmash(475)
+
+Grapes+Banana=Ape_Grapes(300)
+Avesmingo+Milk+Snowball+Sugar=Avesmingo_Ice_Cream(350)
+Wheat+Banana=Battered_Banana(200)
+Wheat+Beakseed_Jam=Beakseed_Tart(275)
+Sugar=Bon_Bons(110)
+2 Bon_Bons=Bon_Bon_Bon_Bons(225)
+Wheat+Sugar+Milk+Egg=Cake(240)
+Chocolate+Banana=Campfire_Banana(295)
+Sugar+Snowball+Milk+Coconut=Coconut_Ice_Cream(195)
+Sugar+Snowball+Milk+Eggshoot=Eggshoot_Ice_Cream(315)
+Pineapple+Kiwi+Grapes+Banana=Fruit_Salad(650)
+Sugar+Oculemon+Egg=Oculemon_Meringue(390)
+Wheat+Pussplum_Jam=Pussplum_Tart(280)
+Sugar+Snowball=Snowcone(115)
+
+Sugar+Corn=Candied_Corn(190)
+Sugar+Red_Apple=Candy_Apple(140)
+Cocoa_Pod=Chocolate(120)
+Wheat+Sugar+Milk+Egg+Coconut+Chocolate=Choconut(415)
+Carrot+Banana=Lucky_Dip(225)
+Boltbulb+Diodia=Nuts_n_Bolts(375)
+Wheat+Sugar+Milk+Egg+Cactus=Spiky_Cookies(255)
+Wheat+Sugar+Milk+Egg+Boneboo=Spooky_Donut(440)
+Popcorn+Sugar=Sweet_Popcorn(200)
+Wheat+Toxictop_Jam+Sugar+Milk+Egg=Toxic_Jam_Donut(600)
+Egg+Milk+Sugar+Wartweed_Jam+Wheat=Wartweed_Jam_Donut(525)
+
+Sugar+Corn=Candied_Corn(190)
+Sugar+Red_Apple=Candy_Apple(140)
+Cocoa_Pod=Chocolate(120)
+Wheat+Sugar+Milk+Egg+Coconut+Chocolate=Choconut(415)
+Carrot+Banana=Lucky_Dip(225)
+Boltbulb+Diodia=Nuts_n_Bolts(375)
+Wheat+Sugar+Milk+Egg+Cactus=Spiky_Cookies(255)
+Wheat+Sugar+Milk+Egg+Boneboo=Spooky_Donut(440)
+Popcorn+Sugar=Sweet_Popcorn(200)
+Wheat+Toxictop_Jam+Sugar+Milk+Egg=Toxic_Jam_Donut(600)
+Egg+Milk+Sugar+Wartweed_Jam+Wheat=Wartweed_Jam_Donut(525)
+
+Milk+Automato=Automato_Shake(150)
+Avesmingo=Avesmingo_Juice(190)
+Pussplum+Flesh_Strand=Bloody_Puss(190)
+Water+Empty_Bottle=Bottled_Water(20)
+Cactus=Cactus_Juice(20)
+Carrot=Cacrrot_Juice(75)
+Coconut=Coconut_Drink(10)
+Coffee_Beans=Coffee(115)
+Pussplum+Oculemon=Cyanider(440)
+Milk+Coffee=Flat_White_Coffee(165)
+Grapes=Grape_Juice(150)
+Kiwi=Kiwi_Juice(150)
+Pineapple=Pineapple_Juice(200)
+Boltbulb+Currentcorn+Diodia+Neonmelon=Pozest(825)
+Pineapple+Kiwi+Grapes=Sweet_Punch(500)
+Thorn_Fruit=Thorn_Juice(40)
+Tomato=Tomato_Juice(75)
+Pineapple+Kiwi+Coconut+Banana=Tropical_Punch(530)
+
+Sugar+Beakseed=Beakseed_Jam(225)
+Sugar+Feathercrown=Feathercrown_Jam(265)
+Sugar+Kiwi=Kiwi_Jam(265)
+Sugar+Neonmelon=Neonmelon_Jam(465)
+Sugar+Pearlpeas=Pearlpea_Jam(165)
+Sugar+Pineapple=Pineapple_Jam(315)
+Sugar+Pussplum=Pussplum_Jam(240)
+Sugar+Toxictop=Toxictop_Jam(365)
+Sugar+Wartweed=Wartweed_Jam(290)
+
+Potato=Baked_Potato(100)
+Pearlpeas=Boiled_Pearlpeas(50)
+Rice=Boiled_Rice(75)
+Raw_Bacon=Cooked_Bacon(25)
+Raw_Fish=Cooked_Fish(25)
+Raw_Poultry=Cooked_Poultry(25)
+Raw_Ribs=Cooked_Ribs(40)
+Raw_Steak=Cooked_Steak(25)
+Tomato=Cooked_Tomato(75)
+Bread+Egg=Eggy_Toast(75)
+Corn=Popcorn(75)
+2 Mashed_Potato=Potato_Grids(200)
+Carrot=Roasted_Carrot(75)
+5 Mushroom=Roasted_Mushrooms(30)

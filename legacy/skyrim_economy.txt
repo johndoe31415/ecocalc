@@ -1,0 +1,74 @@
+Leather Strip = 3
+
+Petty Soul Gem (0002e4e2) = 10
+Lesser Soul Gem = 25
+Common Soul Gem = 50
+Greater Soul Gem = 100
+Grand Soul Gem = 200
+
+Iron Dagger (0001397e) = 10
+Steel Dagger (00013986) = 18
+Orcish Dagger (0001398e) =  30
+Dwarven Dagger (00013996) = 55
+Skyforge Steel Dagger (0009f25d) = 25
+Elven Dagger (0001399e) = 95
+Nordic Dagger (xx01cdae) = 115
+Glass Dagger (000139a6) = 165
+Ebony Dagger (000139ae) = 290
+Stalhrim Dagger (xx01cdb5) = 395
+Daedric Dagger (000139b6) = 500
+Dragonbone Dagger (xx014fcb) = 600
+
+Bone Hawk Ring (xx011cf5) = 75
+Silver Ring (0003b97c) = 30
+Gold Ring (0001cf2b) = 75
+Silver Garnet Ring (000877ab) = 160
+Silver Amethyst Ring (000877a7) = 180
+Silver Ruby Ring (000877b1) = 260
+Gold Sapphire Ring (000877cb) = 500
+Gold Emerald Ring (000877ca) = 700
+Gold Diamond Ring (000877c9) = 900
+
+Corundum Ore (0005acdb) = 20
+Ebony Ore (0005acdc) = 60
+Gold Ore (0005acde) = 50
+Iron Ore (00071cf3) = 2
+Malachite Ore (0005ace1) = 30
+Moonstone Ore (0005ace0) = 30
+Orichalcum Ore (0005acdd) = 20
+Quicksilver Ore (0005ace2) = 25
+Quicksilver Ore (0005b2df) = 25
+Silver Ore (0005acdf) = 25
+
+Corundum Ingot (0005ad93) = 40
+Dwarven Metal Ingot (000db8a2) = 30
+Ebony Ingot (0005ad9d) = 150
+Gold Ingot (0005ad9e) = 100
+Iron Ingot (0005ace4) = 7
+Orichalcum Ingot (0005ad99) = 45
+Orichalcum Ingot (00043e27) = 0
+Quicksilver Ingot (0005ada0) = 60
+Refined Malachite (0005ada1) = 100
+Refined Moonstone (0005ad9f) = 75
+Silver Ingot (0005ace3) = 50
+Steel Ingot (0005ace5) = 20
+
+Bent Dwemer Scrap Metal (000c886c) = 15
+Large Decorative Dwemer Strut (000c8878) = 10
+Large Dwemer Plate Metal (000c8864) = 15
+Large Dwemer Strut (000c8872) = 15
+Small Dwemer Plate Metal (000c8866) = 15
+Solid Dwemer Metal (000c8874) = 25
+
+Amethyst (00063b46) = 120
+Diamond (00063b47) = 800
+Emerald (00063b43) = 600
+Flawless Amethyst (0006851e) = 180
+Flawless Diamond (0006851f) = 1000
+Flawless Emerald (00068520) = 750
+Flawless Garnet (00068521) = 150
+Flawless Ruby (00068522) = 350
+Flawless Sapphire (00068523) = 500
+Garnet (00063b45) = 100
+Ruby (00063b42) = 200
+Sapphire (00063b44) = 400

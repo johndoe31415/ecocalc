@@ -1,0 +1,127 @@
+1 Egg + 1 Corn + 1 Banana -> 1 Apex_Fritter
+1 Wheat + 1 Currentcorn + 1 Automato -> 1 Automato_Stew
+1 Boltbulb + 1 Milk -> 1 Bolt_Os
+1 Corn + 1 Beakseed -> 1 Corn_Peckers
+1 Wheat + 1 Sugar + 1 Feathercrown + 1 Beakseed -> 1 Feather_Food
+1 Wheat + 1 Raw_Fish -> 1 Fish_Dumplings
+1 Raw_Fish + 1 Bread -> 1 Fish_Fingers
+1 Raw_Fish + 1 Boneboo -> 1 Fish_in_a_Bone
+1 Wheat + 1 Raw_Steak -> 1 Meat_Dumplings
+1 Wheat + 5 Mushroom + 1 Egg + 1 Cheese -> 1 Mushroom_Quiche
+1 Wheat + 1 Pussplum + 1 Oculemon + 1 Raw_Steak -> 1 Oculemon_Stew
+5 Mushroom + 1 Egg + 1 Raw_Bacon + 1 Cheese -> 1 Omelette
+1 Wheat + 1 Pearlpeas + 1 Milk + 1 Egg -> 1 Pearlpea_Pancakes
+1 Rice + 1 Pearlpeas -> 1 Pearlpea_Risotto
+1 Wheat + 1 Pineapple + 1 Raw_Bacon + 1 Cheese -> 1 Pineapple_Pizza_Slice
+1 Automato + 1 Cheese + 1 Diodia + 1 Wheat -> 1 Piodia_Slice
+1 Automato + 1 Boltbulb + 1 Cheese + 1 Wheat -> 1 Pizzap_Slice
+1 Wheat + 1 Boneboo -> 1 Spooky_Pie
+1 Pearlpeas + 1 Tomato + 1 Wartweed + 1 Wheat -> 1 Wartweed_Stew
+
+1 Raw_Bacon + 1 Banana -> 1 Bananacon
+1 Wheat + 1 Beakseed -> 1 Beakseed_Bread
+1 Wheat -> 1 Bread
+1 Chili + 1 Oculemon -> 1 Burning_Eyeballs
+1 Wheat + 1 Carrot -> 1 Carrot_Bread
+1 Potato + 1 Milk + 1 Carrot -> 1 Carrot_Soup
+1 Rice + 1 Coconut_Drink -> 1 Coconut_Rice
+1 Corn -> 1 Corn_Cob
+1 Eggshoot + 1 Feathercrown -> 1 Eggshoot_Salad
+1 Eggshoot + 1 Oculemon -> 1 Eyebowls
+1 Egg + 1 Bread -> 1 Fluffy_Ruffs
+1 Tomato + 1 Corn + 1 Carrot -> 1 Garden_Salad
+1 Potato -> 1 Mashed_Potato
+1 Wheat + 5 Mushroom -> 1 Mushroom_Bread
+1 Wheat + 1 Boiled_Pearlpeas -> 1 Pearlpea_Broth
+1 Pearlpeas + 1 Wartweed -> 1 Pearlpea_Parcels
+1 Dirturchin + 1 Coarlcreep -> 1 Soggy_Sack
+1 Chili + 1 Feathercrown -> 1 Spicy_Feathercrown
+1 Corn + 1 Cheese + 1 Bread + 1 Automato -> 1 Stuffed_Automato
+1 Pearlpeas + 1 Dirturchin + 1 Cheese + 1 Bread -> 1 Stuffed_Dirturchin
+1 Tomato + 1 Corn + 1 Cheese + 1 Bread -> 1 Stuffed_Tomato
+1 Tomato + 1 Potato + 1 Milk -> 1 Tomato_Soup
+1 Currentcorn + 1 Automato -> 1 Wattage_Potage
+1 Boltbulb + 1 Currentcorn + 1 Diodia -> 1 Zmash
+
+1 Grapes + 1 Banana -> 1 Ape_Grapes
+1 Avesmingo + 1 Milk + 1 Snowball + 1 Sugar -> 1 Avesmingo_Ice_Cream
+1 Wheat + 1 Banana -> 1 Battered_Banana
+1 Wheat + 1 Beakseed_Jam -> 1 Beakseed_Tart
+1 Sugar -> 1 Bon_Bons
+2 Bon_Bons -> 1 Bon_Bon_Bon_Bons
+1 Wheat + 1 Sugar + 1 Milk + 1 Egg -> 1 Cake
+1 Chocolate + 1 Banana -> 1 Campfire_Banana
+1 Sugar + 1 Snowball + 1 Milk + 1 Coconut -> 1 Coconut_Ice_Cream
+1 Sugar + 1 Snowball + 1 Milk + 1 Eggshoot -> 1 Eggshoot_Ice_Cream
+1 Pineapple + 1 Kiwi + 1 Grapes + 1 Banana -> 1 Fruit_Salad
+1 Sugar + 1 Oculemon + 1 Egg -> 1 Oculemon_Meringue
+1 Wheat + 1 Pussplum_Jar -> 1 Pussplum_Tart
+1 Sugar + 1 Snowball -> 1 Snowcone
+
+1 Sugar + 1 Corn -> 1 Candied_Corn
+1 Sugar + 1 Red_Apple -> 1 Candy_Apple
+1 Cocoa_Pod -> 1 Chocolate
+1 Wheat + 1 Sugar + 1 Milk + 1 Egg + 1 Coconut + 1 Chocolate -> 1 Choconut
+1 Carrot + 1 Banana -> 1 Lucky_Dip
+1 Boltbulb + 1 Diodia -> 1 Nuts_n_Bolts
+1 Wheat + 1 Sugar + 1 Milk + 1 Egg + 1 Cactus -> 1 Spiky_Cookies
+1 Wheat + 1 Sugar + 1 Milk + 1 Egg + 1 Boneboo -> 1 Spooky_Donut
+1 Popcorn + 1 Sugar -> 1 Sweet_Popcorn
+1 Wheat + 1 Toxictop_Jam + 1 Sugar + 1 Milk + 1 Egg -> 1 Toxic_Jam_Donut
+1 Egg + 1 Milk + 1 Sugar + 1 Wartweed_Jam + 1 Wheat -> 1 Wartweed_Jam_Donut
+
+1 Sugar + 1 Corn -> 1 Candied_Corn
+1 Sugar + 1 Red_Apple -> 1 Candy_Apple
+1 Cocoa_Pod -> 1 Chocolate
+1 Wheat + 1 Sugar + 1 Milk + 1 Egg + 1 Coconut + 1 Chocolate -> 1 Choconut
+1 Carrot + 1 Banana -> 1 Lucky_Dip
+1 Boltbulb + 1 Diodia -> 1 Nuts_n_Bolts
+1 Wheat + 1 Sugar + 1 Milk + 1 Egg + 1 Cactus -> 1 Spiky_Cookies
+1 Wheat + 1 Sugar + 1 Milk + 1 Egg + 1 Boneboo -> 1 Spooky_Donut
+1 Popcorn + 1 Sugar -> 1 Sweet_Popcorn
+1 Wheat + 1 Toxictop_Jam + 1 Sugar + 1 Milk + 1 Egg -> 1 Toxic_Jam_Donut
+1 Egg + 1 Milk + 1 Sugar + 1 Wartweed_Jam + 1 Wheat -> 1 Wartweed_Jam_Donut
+
+1 Milk + 1 Automato -> 1 Automato_Shake
+1 Avesmingo -> 1 Avesmingo_Juice
+1 Pussplum + 1 Flesh_Strand -> 1 Bloody_Puss
+1 Water + 1 Empty_Bottle -> 1 Bottled_Water
+1 Cactus -> 1 Cactus_Juice
+1 Carrot -> 1 Cacrrot_Juice
+1 Coconut -> 1 Coconut_Drink
+1 Coffee_Beans -> 1 Coffee
+1 Pussplum + 1 Oculemon -> 1 Cyanider
+1 Milk + 1 Coffee -> 1 Flat_White_Coffee
+1 Grapes -> 1 Grape_Juice
+1 Kiwi -> 1 Kiwi_Juice
+1 Pineapple -> 1 Pineapple_Juice
+1 Boltbulb + 1 Currentcorn + 1 Diodia + 1 Neonmelon -> 1 Pozest
+1 Pineapple + 1 Kiwi + 1 Grapes -> 1 Sweet_Punch
+1 Thorn_Fruit -> 1 Thorn_Juice
+1 Tomato -> 1 Tomato_Juice
+1 Pineapple + 1 Kiwi + 1 Coconut + 1 Banana -> 1 Tropical_Punch
+
+1 Sugar + 1 Beakseed -> 1 Beakseed_Jam
+1 Sugar + 1 Feathercrown -> 1 Feathercrown_Jam
+1 Sugar + 1 Kiwi -> 1 Kiwi_Jam
+1 Sugar + 1 Neonmelon -> 1 Neonmelon_Jam
+1 Sugar + 1 Pearlpeas -> 1 Pearlpea_Jam
+1 Sugar + 1 Pineapple -> 1 Pineapple_Jam
+1 Sugar + 1 Pussplum -> 1 Pussplum_Jam
+1 Sugar + 1 Toxictop -> 1 Toxictop_Jam
+1 Sugar + 1 Wartweed -> 1 Wartweed_Jam
+
+1 Potato -> 1 Baked_Potato
+1 Pearlpeas -> 1 Boiled_Pearlpeas
+1 Rice -> 1 Boiled_Rice
+1 Raw_Bacon -> 1 Cooked_Bacon
+1 Raw_Fish -> 1 Cooked_Fish
+1 Raw_Poultry -> 1 Cooked_Poultry
+1 Raw_Ribs -> 1 Cooked_Ribs
+1 Raw_Steak -> 1 Cooked_Steak
+1 Tomato -> 1 Cooked_Tomato
+1 Bread + 1 Egg -> 1 Eggy_Toast
+1 Corn -> 1 Popcorn
+2 Mashed_Potato -> 1 Potato_Grids
+1 Carrot -> 1 Roasted_Carrot
+5 Mushrooms -> 1 Roasted_Mushrooms
