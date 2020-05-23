@@ -52,7 +52,15 @@
 		"solid_biofuel": { "name": "Solid Biofuel" },
 		"sulfur": { "name": "Sulfur" },
 		"versatile_framework": { "name": "Versatile Framework" },
-		"wood": { "name": "Wood" }
+		"wood": { "name": "Wood" },
+		"oil": { "name": "Crude Oil" },
+		"heavy_oil_residue": { "name": "Heavy Oil Residue" },
+		"fuel": { "name": "Fuel" },
+		"liquid_biofuel": { "name": "Liquid Biofuel" },
+		"petroleum_coke": { "name": "Petroleum Coke" },
+		"polymer_resin": { "name": "Polymer Resin" },
+		"water": { "name": "Water" },
+		"mj": { "name": "Megajoule (Energy)" }
 	},
 	"recipes": [
 		{ "recipe": "1 iron_ore -> 1 iron_ingot", "name": "Smelt Iron", "at": "Smelter", "time": 2 },
@@ -105,6 +113,20 @@
 		{ "recipe": "5 coal + 2 rubber + 2 fabric -> 1 filter", "name": "Assemble Filter", "at": "Manufacturer", "rate": 7.5 },
 		{ "recipe": "15 automated_wiring + 10 circuit_board + 2 heavy_modular_frame + 2 computer -> 2 adaptive_control_unit", "name": "Assemble Adaptive Control Unit", "at": "Manufacturer", "rate": 0.5 },
 		{ "recipe": "2 motor + 15 rubber + 2 smart_plating -> 1 modular_engine", "name": "Assemble Modular Engine", "at": "Manufacturer", "rate": 1 },
-		{ "recipe": "56 quickwire + 10 cable + 1 circuit_board -> 1 high_speed_connector", "name": "Assemble High-Speed Connector", "at": "Manufacturer", "rate": "210/56" }
+		{ "recipe": "56 quickwire + 10 cable + 1 circuit_board -> 1 high_speed_connector", "name": "Assemble High-Speed Connector", "at": "Manufacturer", "rate": "210/56" },
+
+		{ "recipe": "6 heavy_oil_residue -> 4 fuel", "name": "Refine Residual Fuel", "at": "Refinery", "rate": "40/4" },
+		{ "recipe": "6 oil -> 4 fuel + 3 polymer_resin", "name": "Refine Fuel", "at": "Refinery", "rate": "40/4" },
+		{ "recipe": "6 solid_biofuel + 3 water -> 4 liquid_biofuel", "name": "Refine Liquid Biofuel", "at": "Refinery", "rate": "60/4" },
+		{ "recipe": "4 polymer_resin + 4 water -> 2 rubber", "name": "Refine Rubber from Resin", "at": "Refinery", "rate": "20/2" },
+		{ "recipe": "6 polymer_resin + 2 water -> 2 plastic", "name": "Refine Plastic from Resin", "at": "Refinery", "rate": "20/2" },
+		{ "recipe": "4 heavy_oil_residue -> 12 petroleum_coke", "name": "Refine Petroleum Coke", "at": "Refinery", "rate": "120/12" },
+		{ "recipe": "3 oil -> 2 plastic + 1 heavy_oil_residue", "name": "Refine Plastic", "at": "Refinery", "rate": "20/2" },
+		{ "recipe": "3 oil -> 2 rubber + 2 heavy_oil_residue", "name": "Refine Rubber", "at": "Refinery", "rate": "20/2" },
+
+		{ "recipe": "25 petroleum_coke -> 75 mj", "name": "Burn Petroleum Coke", "at": "Coal Generator", "rate": "1" },
+		{ "recipe": "15 coal -> 75 mj", "name": "Burn Coal", "at": "Coal Generator", "rate": "1" },
+		{ "recipe": "15 fuel -> 150 mj", "name": "Burn Fuel", "at": "Fuel Generator", "rate": "1" },
+		{ "recipe": "12 liquid_biofuel -> 150 mj", "name": "Burn Liquid Biofuel", "at": "Fuel Generator", "rate": "1" }
 	]
 }
