@@ -31,8 +31,6 @@ class Recipe():
 	_ITEM_RE = re.compile("(?P<cardinality>\d+)?\s*(?P<name>[-a-zA-Z0-9_]+)")
 
 	def __init__(self, input_tuple, output_tuple, scalar = 1, name = None, produced_at = None, is_rate = False):
-		if produced_at is None:
-			fdjio
 		self._in = input_tuple
 		self._out = output_tuple
 		self._scalar = scalar
