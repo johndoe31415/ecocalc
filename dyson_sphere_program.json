@@ -1,0 +1,99 @@
+{
+	"resources": {
+		"iron_ore": { "name": "Iron Ore" },
+		"iron_ingot": { "name": "Iron Ingot" },
+		"copper_ore": { "name": "Copper Ore" },
+		"copper_ingot": { "name": "Copper Ingot" },
+		"silicon_ore": { "name": "Silicon Ore" },
+		"silicon_ingot": { "name": "High-purity silicon" },
+		"titanium_ore": { "name": "Titanium Ore" },
+		"titanium_ingot": { "name": "Titanium ongot" },
+		"stone": { "name": "Stone" },
+		"coal": { "name": "Coal" },
+		"graphite": { "name": "Energetic Graphite" },
+		"glass": { "name": "Glass" },
+		"brick": { "name": "Stone brick" },
+
+		"oil": { "name": "Crude oil" },
+		"refined_oil": { "name": "Refined Oil" },
+		"hydrogen": { "name": "Hydrogen" },
+		"h2so4": { "name": "Sulfuric Acid" },
+		"h2o": { "name": "Water" },
+		"plastic": { "name": "Plastic" },
+		"strange_matter": { "name": "Strange matter" },
+		"fractal_silicon": { "name": "Fractal silicon" },
+		"diamond": { "name": "Diamond" },
+
+		"magnet": { "name": "Magnet" },
+		"magnetic_coil": { "name": "Magnetic Coil" },
+		"electric_motor": { "name": "Electric Motor" },
+		"electromagnetic_turbine": { "name": "Electromagnetic Turbine" },
+		"super_magnetic_ring": { "name": "Super-magnetic ring" },
+
+		"gear": { "name": "Gear" },
+		"graphene": { "name": "Graphene" },
+		"circuit_board": { "name": "Circuit Board" },
+
+		"steel": { "name": "Steel" },
+		"titanium_alloy": { "name": "Titanium alloy" },
+		"deuterium": { "name": "Deuterium" },
+		"deuteron_fuel_rod": { "name": "Deuteron Fuel Rod" },
+
+		"graviton_lens": { "name": "Graviton Lens" },
+		"prism": { "name": "Prism" },
+		"crystal_silicon": { "name": "Crystal silicon" },
+		"titanium_glass": { "name": "Titanium glass" },
+		"organic_crystal": { "name": "Organic crystal" },
+
+		"sorter_mk1": { "name": "Sorter MK.I" },
+		"sorter_mk2": { "name": "Sorter MK.II" },
+		"sorter_mk3": { "name": "Sorter MK.III" },
+		"conveyor_mk1": { "name": "Conveyor belt MK.I" },
+		"conveyor_mk2": { "name": "Conveyor belt MK.II" },
+		"conveyor_mk3": { "name": "Conveyor belt MK.III" }
+	},
+	"recipes": [
+		{ "recipe": "1 iron_ore -> 1 iron_ingot", "name": "Smelt Iron", "at": "Smelter", "time": 1 },
+		{ "recipe": "1 copper_ore -> 1 copper_ingot", "name": "Smelt Copper", "at": "Smelter", "time": 1 },
+		{ "recipe": "2 silicon_ore -> 1 silicon_ingot", "name": "Smelt Silicon", "at": "Smelter", "time": 2 },
+		{ "recipe": "2 titanium_ore -> 1 titanium_ingot", "name": "Smelt Titanium", "at": "Smelter", "time": 2 },
+		{ "recipe": "1 stone -> 1 brick", "name": "Produce Brick", "at": "Smelter", "time": 1 },
+		{ "recipe": "2 coal -> 1 graphite", "name": "Extract Graphite", "at": "Smelter", "time": 2 },
+		{ "recipe": "2 oil -> 2 refined_oil + hydrogen", "name": "Plasma refining", "at": "Refinery", "time": 4 },
+		{ "recipe": "2 refined_oil + graphite -> plastic", "name": "Produce Plastic", "at": "Chemical facility", "time": 3 },
+		{ "recipe": "1 h2so4 + 3 graphite -> 2 graphene", "name": "Produce Graphene", "at": "Chemical facility", "time": 3 },
+
+		{ "recipe": "1 iron_ore -> 1 magnet", "name": "Smelt Iron", "at": "Smelter", "time": 1.5 },
+		{ "recipe": "1 copper_ingot + 2 magnet -> 1 magnetic_coil", "name": "Produce Magnetic Coil", "at": "Assembler", "time": 1 },
+		{ "recipe": "1 silicon_ingot -> 1 crystal_silicon", "name": "Produce Crystal Silicon", "at": "Smelter", "time": 2 },
+		{ "recipe": "4 titanium_ingot + 4 steel + 8 h2so4 -> 4 titanium_alloy", "name": "Produce Titanium Alloy", "at": "Smelter", "time": 12 },
+		{ "recipe": "2 stone -> 1 glass", "name": "Produce Glass", "at": "Smelter", "time": 2 },
+		{ "recipe": "graphite -> diamond", "name": "Produce Diamond", "at": "Smelter", "time": 2 },
+		{ "recipe": "2 hydrogen + 1 refined_oil -> graphite + 3 hydrogen", "name": "X-ray cracking", "at": "Refinery", "time": 4 },
+		{ "recipe": "1 h2o + 1 refined_oil + 2 plastic-> organic_crystal", "name": "Produce Organic Crystal", "at": "Chemical facility", "time": 6 },
+		{ "recipe": "1 super_magnetic_ring + 10 deuterium + 1 titanium_alloy -> deuteron_fuel_rod", "name": "Produce Deuteron Fuel Rod", "at": "Assembler", "time": 6 },
+
+		{ "recipe": "3 iron_ingot -> steel", "name": "Produce Steel", "at": "Smelter", "time": 3 },
+		{ "recipe": "1 magnetic_coil + 1 gear + 2 iron_ingot -> 1 electric_motor", "name": "Produce Electric Motor", "at": "Assembler", "time": 2 },
+		{ "recipe": "1 fractal_silicon -> 1 crystal_silicon", "name": "Crystal silicon production (advanced)", "at": "Assembler", "time": 4 },
+		{ "recipe": "2 h2o + 2 titanium_ingot + 2 glass -> 2 titanium_glass", "name": "Produce Titanium glass", "at": "Assembler", "time": 5 },
+		{ "recipe": "3 glass -> 2 prism", "name": "Produce Prism", "at": "Assembler", "time": 2 },
+
+		{ "recipe": "1 iron_ingot -> 1 gear", "name": "Produce Gear", "at": "Assembler", "time": 1 },
+		{ "recipe": "2 electric_motor + 2 magnetic_coil -> 1 electromagnetic_turbine", "name": "Produce Electromagnetic Turbine", "at": "Assembler", "time": 2 },
+		{ "recipe": "10 stone -> 1 silicon_ore", "name": "Purify Silicon", "at": "Smelter", "time": 10 },
+		{ "recipe": "2 iron_ingot + 1 copper_ingot -> 2 circuit_board", "name": "Produce circuit board", "at": "Assembler", "time": 1 },
+		{ "recipe": "1 strange_matter + 4 diamond -> graviton_lens", "name": "Produce Graviton lens", "at": "Assembler", "time": 6 },
+		{ "recipe": "6 refined_oil + 8 stone + 4 h2o -> 4 h2so4", "name": "Produce Sulfuric Acid", "at": "Chemical facility", "time": 6 },
+
+		{ "recipe": "2 electromagnetic_turbine + 3 magnet + 1 graphite -> 1 super_magnetic_ring", "name": "Produce Super-magnetic Ring", "at": "Assembler", "time": 3 },
+
+		{ "recipe": "1 gear + 2 iron_ingot -> 3 conveyor_mk1", "name": "Produce Conveyor MK1", "at": "Assembler", "time": 1 },
+		{ "recipe": "1 electromagnetic_turbine + 3 conveyor_mk1 -> 3 conveyor_mk2", "name": "Produce Conveyor MK2", "at": "Assembler", "time": 1 },
+		{ "recipe": "3 conveyor_mk2 + super_magnetic_ring + graphene -> 3 conveyor_mk3", "name": "Produce Conveyor MK3", "at": "Assembler", "time": 1 },
+
+		{ "recipe": "1 iron_ingot + circuit_board -> sorter_mk1", "name": "Produce Sorter MK1", "at": "Assembler", "time": 1 },
+		{ "recipe": "2 sorter_mk1 + 1 electric_motor -> 2 sorter_mk2", "name": "Produce Sorter MK2", "at": "Assembler", "time": 1 },
+		{ "recipe": "2 sorter_mk2 + 1 electromagnetic_turbine -> 2 sorter_mk3", "name": "Produce Sorter MK3", "at": "Assembler", "time": 1 }
+	]
+}
