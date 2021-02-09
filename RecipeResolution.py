@@ -1,5 +1,5 @@
 #	ecocalc - The X.509 Swiss Army Knife white-hat certificate toolkit
-#	Copyright (C) 2017-2020 Johannes Bauer
+#	Copyright (C) 2017-2021 Johannes Bauer
 #
 #	This file is part of ecocalc.
 #

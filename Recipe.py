@@ -1,5 +1,5 @@
 #	ecocalc - The X.509 Swiss Army Knife white-hat certificate toolkit
-#	Copyright (C) 2017-2020 Johannes Bauer
+#	Copyright (C) 2017-2021 Johannes Bauer
 #
 #	This file is part of ecocalc.
 #
@@ -30,11 +30,14 @@ class Recipe():
 	_RECIPE_RE = re.compile("(?P<lhs>.*)->(?P<rhs>.*)")
 	_ITEM_RE = re.compile("(?P<cardinality>\d+)?\s*(?P<name>[-a-zA-Z0-9_]+)")
 
-	def __init__(self, input_tuple, output_tuple, scalar = 1, name = None, is_rate = False):
+	def __init__(self, input_tuple, output_tuple, scalar = 1, name = None, produced_at = None, is_rate = False):
+		if produced_at is None:
+			fdjio
 		self._in = input_tuple
 		self._out = output_tuple
 		self._scalar = scalar
 		self._name = name
+		self._produced_at = produced_at
 		self._is_rate = is_rate
 
 	@property
@@ -48,6 +51,10 @@ class Recipe():
 	@property
 	def name(self):
 		return self._name
+
+	@property
+	def produced_at(self):
+		return self._produced_at
 
 	@classmethod
 	def empty_recipe(cls, name = None, is_rate = False):
@@ -117,10 +124,11 @@ class Recipe():
 		return " + ".join(formatted_items)
 
 	def pretty_string(self, economy, show_scaled = False, show_rate = False):
-		if self.name is not None:
-			prefix = "{%s}" % (self.name)
-		else:
+		prefix_list = [ value for value in [ self.name, self.produced_at ] if (value is not None) ]
+		if len(prefix_list) == 0:
 			prefix = ""
+		else:
+			prefix = "{%s}" % (" / ".join(prefix_list))
 
 		if show_scaled or (self.scalar == 1):
 			(lhs, rhs) = (self.scaled_input_tuple, self.scaled_output_tuple)
@@ -158,14 +166,14 @@ class Recipe():
 		return tuple(side)
 
 	@classmethod
-	def from_str(cls, recipe_str, name = None, cycle_time = None):
+	def from_str(cls, recipe_str, name = None, produced_at = None, cycle_time = None):
 		match = cls._RECIPE_RE.fullmatch(recipe_str)
 		if match is None:
 			raise Exception("Not a valid recipe string: %s" % (recipe_str))
 		match = match.groupdict()
 		input_tuple = cls._parse_recipe_side(match["lhs"], cycle_time = cycle_time)
 		output_tuple = cls._parse_recipe_side(match["rhs"], cycle_time = cycle_time)
-		return cls(input_tuple, output_tuple, name = name, is_rate = cycle_time is not None)
+		return cls(input_tuple, output_tuple, name = name, produced_at = produced_at, is_rate = cycle_time is not None)
 
 	@staticmethod
 	def _add_sides(*sides):
@@ -185,7 +193,7 @@ class Recipe():
 		return Recipe.from_inout_tuple(sum_recipe, is_rate = self.is_rate)
 
 	def __mul__(self, scalar):
-		return Recipe(self._in, self._out, name = self.name, scalar = self.scalar * scalar, is_rate = self.is_rate)
+		return Recipe(self._in, self._out, name = self.name, produced_at = self.produced_at, scalar = self.scalar * scalar, is_rate = self.is_rate)
 
 	def __repr__(self):
 		return "<%s>" % (str(self))
@@ -193,4 +201,4 @@ class Recipe():
 	def __str__(self):
 		lhs = self._format_side(self.scaled_input_tuple)
 		rhs = self._format_side(self.scaled_output_tuple)
-		return "%s → %s" % (lhs, rhs)
+		return "%s →  %s" % (lhs, rhs)

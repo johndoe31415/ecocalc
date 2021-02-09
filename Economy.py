@@ -1,5 +1,5 @@
 #	ecocalc - The X.509 Swiss Army Knife white-hat certificate toolkit
-#	Copyright (C) 2017-2020 Johannes Bauer
+#	Copyright (C) 2017-2021 Johannes Bauer
 #
 #	This file is part of ecocalc.
 #
@@ -93,7 +93,8 @@ class Economy():
 				name = "#%d: %s" % (recipe_number, recipe["name"])
 			else:
 				name = "#%d" % (recipe_number)
-			recipe = Recipe.from_str(recipe["recipe"], name = name, cycle_time = cycle_time)
+			produced_at = recipe.get("at")
+			recipe = Recipe.from_str(recipe["recipe"], name = name, produced_at = produced_at, cycle_time = cycle_time)
 			recipes.append(recipe)
 		return recipes
 
