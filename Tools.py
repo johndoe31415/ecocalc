@@ -1,5 +1,5 @@
 #	ecocalc - The X.509 Swiss Army Knife white-hat certificate toolkit
-#	Copyright (C) 2017-2020 Johannes Bauer
+#	Copyright (C) 2017-2021 Johannes Bauer
 #
 #	This file is part of ecocalc.
 #
@@ -19,6 +19,7 @@
 #
 #	Johannes Bauer <JohannesBauer@gmx.de>
 
+import math
 import fractions
 
 class NumberTools():
@@ -40,8 +41,10 @@ class NumberTools():
 		return fractions.Fraction(text)
 
 	@classmethod
-	def num2str(cls, number):
+	def num2str(cls, number, round_values = False):
 		real_value = float(number)
+		if round_values:
+			real_value = math.ceil(real_value)
 		formats = [
 			lambda value: (round(value), "%d"),
 			lambda value: (round(value, 1), "%.1f"),

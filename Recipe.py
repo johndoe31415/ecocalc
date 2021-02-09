@@ -30,17 +30,13 @@ class Recipe():
 	_RECIPE_RE = re.compile("(?P<lhs>.*)->(?P<rhs>.*)")
 	_ITEM_RE = re.compile("(?P<cardinality>\d+)?\s*(?P<name>[-a-zA-Z0-9_]+)")
 
-	def __init__(self, input_tuple, output_tuple, scalar = 1, name = None, produced_at = None, is_rate = False):
+	def __init__(self, input_tuple, output_tuple, scalar = 1, name = None, produced_at = None):
 		self._in = input_tuple
 		self._out = output_tuple
 		self._scalar = scalar
 		self._name = name
 		self._produced_at = produced_at
-		self._is_rate = is_rate
-
-	@property
-	def is_rate(self):
-		return self._is_rate
+		self._is_cyclic = None
 
 	@property
 	def scalar(self):
@@ -55,8 +51,8 @@ class Recipe():
 		return self._produced_at
 
 	@classmethod
-	def empty_recipe(cls, name = None, is_rate = False):
-		return cls(input_tuple = tuple(), output_tuple = tuple(), name = name, is_rate = is_rate)
+	def empty_recipe(cls, name = None):
+		return cls(input_tuple = tuple(), output_tuple = tuple(), name = name)
 
 	@property
 	def ingredients(self):
@@ -66,8 +62,16 @@ class Recipe():
 	def products(self):
 		return iter(self._out)
 
+	@property
+	def is_cyclic(self):
+		if self._is_cyclic is None:
+			in_set = set(resource.name for resource in self._in)
+			out_set = set(resource.name for resource in self._out)
+			self._is_cyclic = len(in_set & out_set) > 0
+		return self._is_cyclic
+
 	@classmethod
-	def from_inout_tuple(cls, inout_tuple, scalar = 1, name = None, is_rate = False):
+	def from_inout_tuple(cls, inout_tuple, scalar = 1, name = None):
 		lhs = [ ]
 		rhs = [ ]
 		for item in inout_tuple:
@@ -77,7 +81,7 @@ class Recipe():
 				lhs.append(Resource(name = item.name, count = -item.count))
 			else:
 				rhs.append(Resource(name = item.name, count = item.count))
-		return cls(tuple(lhs), tuple(rhs), scalar = scalar, name = name, is_rate = is_rate)
+		return cls(tuple(lhs), tuple(rhs), scalar = scalar, name = name)
 
 	@staticmethod
 	def _scaled_tuple(item_tuple, scalar):
@@ -103,7 +107,7 @@ class Recipe():
 	def scaled_inout_tuple(self):
 		return self._add_sides(self._scaled_tuple(self._in, -self.scalar), self._scaled_tuple(self._out, self.scalar))
 
-	def _format_side(self, item_tuple, economy = None):
+	def _format_side(self, item_tuple, economy = None, rate_suffix = None):
 		formatted_items = [ ]
 		for item in item_tuple:
 			if item.name == Recipe.FINISHED:
@@ -111,17 +115,18 @@ class Recipe():
 				continue
 
 			pretty_name = item.name if (economy is None) else economy.get_resource_name(item.name)
-			if not self.is_rate:
+
+			if rate_suffix is None:
 				if item.count == 1:
 					text = "%s" % (pretty_name)
 				else:
 					text = "%s %s" % (NumberTools.num2str(item.count), pretty_name)
 			else:
-				text = "%s/min %s" % (NumberTools.num2str(item.count), pretty_name)
+				text = "%s/%s %s" % (NumberTools.num2str(item.count), rate_suffix, pretty_name)
 			formatted_items.append(text)
 		return " + ".join(formatted_items)
 
-	def pretty_string(self, economy, show_scaled = False, show_rate = False):
+	def pretty_string(self, economy, show_scaled = False, rate_suffix = None, round_values = False):
 		prefix_list = [ value for value in [ self.name, self.produced_at ] if (value is not None) ]
 		if len(prefix_list) == 0:
 			prefix = ""
@@ -132,13 +137,13 @@ class Recipe():
 			(lhs, rhs) = (self.scaled_input_tuple, self.scaled_output_tuple)
 		else:
 			(lhs, rhs) = (self._in, self._out)
-		lhs = self._format_side(lhs, economy = economy)
-		rhs = self._format_side(rhs, economy = economy)
+		lhs = self._format_side(lhs, economy = economy, rate_suffix = rate_suffix)
+		rhs = self._format_side(rhs, economy = economy, rate_suffix = rate_suffix)
 
 		if show_scaled:
 			return "%s %s →  %s" % (prefix, lhs, rhs)
 		else:
-			return "%s x %s [ %s →  %s ]" % (NumberTools.num2str(self.scalar), prefix, lhs, rhs)
+			return "%s x %s [ %s →  %s ]" % (NumberTools.num2str(self.scalar, round_values = round_values), prefix, lhs, rhs)
 
 	@classmethod
 	def _parse_recipe_side(cls, side_str, cycle_time = None):
@@ -171,7 +176,7 @@ class Recipe():
 		match = match.groupdict()
 		input_tuple = cls._parse_recipe_side(match["lhs"], cycle_time = cycle_time)
 		output_tuple = cls._parse_recipe_side(match["rhs"], cycle_time = cycle_time)
-		return cls(input_tuple, output_tuple, name = name, produced_at = produced_at, is_rate = cycle_time is not None)
+		return cls(input_tuple, output_tuple, name = name, produced_at = produced_at)
 
 	@staticmethod
 	def _add_sides(*sides):
@@ -186,12 +191,11 @@ class Recipe():
 		return recipe_sum
 
 	def __add__(self, other):
-		assert(self.is_rate == other.is_rate)
 		sum_recipe = self._add_sides(self.scaled_inout_tuple, other.scaled_inout_tuple)
-		return Recipe.from_inout_tuple(sum_recipe, is_rate = self.is_rate)
+		return Recipe.from_inout_tuple(sum_recipe)
 
 	def __mul__(self, scalar):
-		return Recipe(self._in, self._out, name = self.name, produced_at = self.produced_at, scalar = self.scalar * scalar, is_rate = self.is_rate)
+		return Recipe(self._in, self._out, name = self.name, produced_at = self.produced_at, scalar = self.scalar * scalar)
 
 	def __repr__(self):
 		return "<%s>" % (str(self))
