@@ -79,13 +79,12 @@ class Economy():
 	def _parse_recipes(self):
 		recipes = [ ]
 		for (recipe_number, recipe) in enumerate(self._def["recipes"], 1):
-			if "time" in recipe:
-				cycle_time = NumberTools.str2num(recipe["time"])
-			elif "rate" in recipe:
-				cycle_time = 60 / NumberTools.str2num(recipe["rate"])
-			else:
-				cycle_time = None
-
+			cycle_time = None
+			if self._args.show_rate:
+				if "time" in recipe:
+					cycle_time = NumberTools.str2num(recipe["time"])
+				elif "rate" in recipe:
+					cycle_time = 60 / NumberTools.str2num(recipe["rate"])
 			if "name" in recipe:
 				name = "#%d: %s" % (recipe_number, recipe["name"])
 			else:

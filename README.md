@@ -30,15 +30,15 @@ $ ./print_recipes -e dyson_sphere_program.json -r  '100 >conveyor_mk2'
 ========================================================================================================================
     1 x  [ 100 Conveyor belt MK.II →  Finished ]
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-    5 x {#1: Smelt Iron / Smelter} [ 60 Iron Ore →  60 Iron Ingot ]
-    2 x {#24: Produce Gear / Assembler} [ 60 Iron Ingot →  60 Gear ]
-    1 x {#31: Produce Conveyor MK1 / Assembler} [ 60 Gear + 120 Iron Ingot →  180 Conveyor belt MK.I ]
-    7 x {#10: Smelt Iron / Smelter} [ 40 Iron Ore →  40 Magnet ]
-    3 x {#2: Smelt Copper / Smelter} [ 60 Copper Ore →  60 Copper Ingot ]
-    3 x {#11: Produce Magnetic Coil / Assembler} [ 60 Copper Ingot + 120 Magnet →  60 Magnetic Coil ]
-    3 x {#20: Produce Electric Motor / Assembler} [ 30 Magnetic Coil + 30 Gear + 60 Iron Ingot →  30 Electric Motor ]
-    2 x {#25: Produce Electromagnetic Turbine / Assembler} [ 60 Electric Motor + 60 Magnetic Coil →  30 Electromagnetic Turbine ]
-    1 x {#32: Produce Conveyor MK2 / Assembler} [ 60 Electromagnetic Turbine + 180 Conveyor belt MK.I →  180 Conveyor belt MK.II ]
+    300 x {#1: Smelt Iron / Smelter} [ Iron Ore →  Iron Ingot ]
+    100 x {#32: Produce Gear / Assembler} [ Iron Ingot →  Gear ]
+    34 x {#44: Produce Conveyor MK1 / Assembler} [ Gear + 2 Iron Ingot →  3 Conveyor belt MK.I ]
+    267 x {#10: Smelt Iron / Smelter} [ Iron Ore →  Magnet ]
+    134 x {#2: Smelt Copper / Smelter} [ Copper Ore →  Copper Ingot ]
+    134 x {#11: Produce Magnetic Coil / Assembler} [ Copper Ingot + 2 Magnet →  Magnetic Coil ]
+    67 x {#22: Produce Electric Motor / Assembler} [ Magnetic Coil + Gear + 2 Iron Ingot →  Electric Motor ]
+    34 x {#33: Produce Electromagnetic Turbine / Assembler} [ 2 Electric Motor + 2 Magnetic Coil →  Electromagnetic Turbine ]
+    34 x {#45: Produce Conveyor MK2 / Assembler} [ Electromagnetic Turbine + 3 Conveyor belt MK.I →  3 Conveyor belt MK.II ]
     1 x  [ 100 Conveyor belt MK.II →  Finished ]
  ->  133.33 Copper Ore + 566.67 Iron Ore →  Finished
 ```
@@ -49,19 +49,19 @@ infinite gears available and want to consider gears as a basic irreducible
 resource as well:
 
 ```
-$ ./print_recipes -e dyson_sphere_program.json -r  '100 >conveyor_mk2' --consider-irreducible gear
+$ ./print_recipes -e dyson_sphere_program.json -r '100 >conveyor_mk2' --consider-irreducible gear
 1 x {Pseudo-Recipe} [ 100 Conveyor belt MK.II →  Finished ]
 ========================================================================================================================
     1 x  [ 100 Conveyor belt MK.II →  Finished ]
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-    4 x {#1: Smelt Iron / Smelter} [ 60 Iron Ore →  60 Iron Ingot ]
-    1 x {#31: Produce Conveyor MK1 / Assembler} [ 60 Gear + 120 Iron Ingot →  180 Conveyor belt MK.I ]
-    7 x {#10: Smelt Iron / Smelter} [ 40 Iron Ore →  40 Magnet ]
-    3 x {#2: Smelt Copper / Smelter} [ 60 Copper Ore →  60 Copper Ingot ]
-    3 x {#11: Produce Magnetic Coil / Assembler} [ 60 Copper Ingot + 120 Magnet →  60 Magnetic Coil ]
-    3 x {#20: Produce Electric Motor / Assembler} [ 30 Magnetic Coil + 30 Gear + 60 Iron Ingot →  30 Electric Motor ]
-    2 x {#25: Produce Electromagnetic Turbine / Assembler} [ 60 Electric Motor + 60 Magnetic Coil →  30 Electromagnetic Turbine ]
-    1 x {#32: Produce Conveyor MK2 / Assembler} [ 60 Electromagnetic Turbine + 180 Conveyor belt MK.I →  180 Conveyor belt MK.II ]
+    200 x {#1: Smelt Iron / Smelter} [ Iron Ore →  Iron Ingot ]
+    34 x {#44: Produce Conveyor MK1 / Assembler} [ Gear + 2 Iron Ingot →  3 Conveyor belt MK.I ]
+    267 x {#10: Smelt Iron / Smelter} [ Iron Ore →  Magnet ]
+    134 x {#2: Smelt Copper / Smelter} [ Copper Ore →  Copper Ingot ]
+    134 x {#11: Produce Magnetic Coil / Assembler} [ Copper Ingot + 2 Magnet →  Magnetic Coil ]
+    67 x {#22: Produce Electric Motor / Assembler} [ Magnetic Coil + Gear + 2 Iron Ingot →  Electric Motor ]
+    34 x {#33: Produce Electromagnetic Turbine / Assembler} [ 2 Electric Motor + 2 Magnetic Coil →  Electromagnetic Turbine ]
+    34 x {#45: Produce Conveyor MK2 / Assembler} [ Electromagnetic Turbine + 3 Conveyor belt MK.I →  3 Conveyor belt MK.II ]
     1 x  [ 100 Conveyor belt MK.II →  Finished ]
  ->  100 Gear + 133.33 Copper Ore + 466.67 Iron Ore →  Finished
 ```
