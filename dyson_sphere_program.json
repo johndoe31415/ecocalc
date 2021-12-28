@@ -1,8 +1,8 @@
 {
 	"resources": {
-		"iron_ore": { "name": "Iron Ore" },
+		"iron_ore": { "name": "Iron Ore", "order": 1 },
 		"iron_ingot": { "name": "Iron Ingot" },
-		"copper_ore": { "name": "Copper Ore" },
+		"copper_ore": { "name": "Copper Ore", "order": 2 },
 		"copper_ingot": { "name": "Copper Ingot" },
 		"silicon_ore": { "name": "Silicon Ore" },
 		"silicon_ingot": { "name": "High-purity silicon" },
@@ -60,6 +60,26 @@
 		"thruster": { "name": "Thruster" },
 		"reinforced_thruster": { "name": "Reinforced Thruster" },
 		"wood": { "name": "Wood" },
+		"gravity_matrix": { "name": "Gravity Matrix" },
+		"photon_combiner": { "name": "Photon Combiner" },
+		"plane_filter": { "name": "Plane Filter" },
+		"quantum_chip": { "name": "Quantum Chip" },
+
+		"annihilation_constraint_sphere": { "name": "Annihilation Constraint Sphere" },
+		"antimatter": { "name": "Antimatter" },
+		"antimatter_fuel_rod": { "name": "Antimatter Fuel Rod" },
+		"dyson_sphere_component": { "name": "Dyson Sphere Component" },
+		"electromagnetic_matrix": { "name": "Electromagnetic Matrix" },
+		"energy_matrix": { "name": "Energy Matrix" },
+		"foundation": { "name": "Foundation" },
+		"frame_material": { "name": "Frame Material" },
+		"information_matrix": { "name": "Information Matrix" },
+		"logistics_drone": { "name": "Logistics Drone" },
+		"logistics_vessel": { "name": "Logistics Vessel" },
+		"small_carrier_rocket": { "name": "Small Carrier Rocket" },
+		"solar_sail": { "name": "Solar Sail" },
+		"space_warper": { "name": "Space Warper" },
+		"structure_matrix": { "name": "Structure Matrix" },
 
 		"sorter_mk1": { "name": "Sorter MK.I" },
 		"sorter_mk2": { "name": "Sorter MK.II" },
@@ -80,7 +100,7 @@
 		{ "recipe": "1 h2so4 + 3 graphite -> 2 graphene", "name": "Produce Graphene", "at": "Chemical facility", "time": 3 },
 
 		{ "recipe": "1 iron_ore -> 1 magnet", "name": "Smelt Iron", "at": "Smelter", "time": 1.5 },
-		{ "recipe": "1 copper_ingot + 2 magnet -> 1 magnetic_coil", "name": "Produce Magnetic Coil", "at": "Assembler", "time": 1 },
+		{ "recipe": "1 copper_ingot + 2 magnet -> 2 magnetic_coil", "name": "Produce Magnetic Coil", "at": "Assembler", "time": 1 },
 		{ "recipe": "1 silicon_ingot -> 1 crystal_silicon", "name": "Produce Crystal Silicon", "at": "Smelter", "time": 2 },
 		{ "recipe": "4 titanium_ingot + 4 steel + 8 h2so4 -> 4 titanium_alloy", "name": "Produce Titanium Alloy", "at": "Smelter", "time": 12 },
 		{ "recipe": "2 stone -> 1 glass", "name": "Produce Glass", "at": "Smelter", "time": 2 },
@@ -90,6 +110,7 @@
 		{ "recipe": "2 fire_ice -> hydrogen + 2 graphene", "name": "Produce Graphene (advanced)", "at": "Chemical facility", "time": 2 },
 		{ "recipe": "1 titanium_ingot + 5 hydrogen -> hydrogen_fuel_rod", "name": "Produce Hydrogen Fuel Rod", "at": "Assembler", "time": 3 },
 		{ "recipe": "1 super_magnetic_ring + 10 deuterium + 1 titanium_alloy -> deuteron_fuel_rod", "name": "Produce Deuteron Fuel Rod", "at": "Assembler", "time": 6 },
+		{ "recipe": "10 antimatter + 10 hydrogen + annihilation_constraint_sphere + titanium_alloy -> antimatter_fuel_rod", "name": "Produce Antimatter Fuel Rod", "at": "Assembler", "time": 12 },
 
 		{ "recipe": "3 iron_ingot -> steel", "name": "Produce Steel", "at": "Smelter", "time": 3 },
 		{ "recipe": "1 magnetic_coil + 1 gear + 2 iron_ingot -> 1 electric_motor", "name": "Produce Electric Motor", "at": "Assembler", "time": 2 },
@@ -100,15 +121,20 @@
 		{ "recipe": "10 h2o + 30 plant_fuel + 20 wood -> organic_crystal", "name": "Produce Organic Crystal (original)", "at": "Assembler", "time": 6 },
 		{ "recipe": "3 titanium_ingot + 1 organic_crystal -> titanium_crystal", "name": "Produce Titanium Crystal", "at": "Assembler", "time": 4 },
 		{ "recipe": "3 copper_ingot + 2 steel -> thruster", "name": "Produce Thruster", "at": "Assembler", "time": 4 },
-		{ "recipe": "5 electromagnetic_turbine + 5 titanium_alloy -> reinforced_thruster", "name": "Produce Thruster", "at": "Assembler", "time": 6 },
+		{ "recipe": "5 electromagnetic_turbine + 5 titanium_alloy -> reinforced_thruster", "name": "Produce Reinforced Thruster", "at": "Assembler", "time": 6 },
 		{ "recipe": "10 deuterium + 2 iron_ingot + 2 particle_container -> strange_matter", "name": "Produce Strange Matter", "at": "Particle collider", "time": 8 },
 
 		{ "recipe": "1 iron_ingot -> 1 gear", "name": "Produce Gear", "at": "Assembler", "time": 1 },
 		{ "recipe": "2 electric_motor + 2 magnetic_coil -> 1 electromagnetic_turbine", "name": "Produce Electromagnetic Turbine", "at": "Assembler", "time": 2 },
 		{ "recipe": "10 stone -> 1 silicon_ore", "name": "Purify Silicon", "at": "Smelter", "time": 10 },
-		{ "recipe": "2 iron_ingot + 1 copper_ingot -> 2 circuit_board", "name": "Produce circuit board", "at": "Assembler", "time": 1 },
+		{ "recipe": "2 iron_ingot + 1 copper_ingot -> 2 circuit_board", "name": "Produce Circuit Board", "at": "Assembler", "time": 1 },
 		{ "recipe": "1 strange_matter + 4 diamond -> graviton_lens", "name": "Produce Graviton lens", "at": "Assembler", "time": 6 },
 		{ "recipe": "6 refined_oil + 8 stone + 4 h2o -> 4 h2so4", "name": "Produce Sulfuric Acid", "at": "Chemical facility", "time": 6 },
+		{ "recipe": "2 titanium_glass + 1 casimir_crystal -> plane_filter", "name": "Produce Plane Filter", "at": "Assembler", "time": 12 },
+		{ "recipe": "1 titanium_ingot + 3 graphene -> 2 carbon_nanotube", "name": "Produce Carbon Nanotube", "at": "Chemical facility", "time": 4 },
+		{ "recipe": "5 iron_ingot + 2 processor + 2 thruster -> logistics_drone", "name": "Produce Logistics Drone", "at": "Assembler", "time": 4 },
+		{ "recipe": "10 titanium_alloy + 10 processor + 2 reinforced_thruster -> logistics_vessel", "name": "Produce Logistics Vessel", "at": "Assembler", "time": 6 },
+		{ "recipe": "2 dyson_sphere_component + 2 deuteron_fuel_rod + 2 quantum_chip -> small_carrier_rocket", "name": "Produce Small Carrier Rocket", "at": "Assembler", "time": 6 },
 
 		{ "recipe": "2 prism + 4 magnetic_coil -> plasma_exciter", "name": "Produce Plasma Exciter", "at": "Assembler", "time": 2 },
 		{ "recipe": "2 electromagnetic_turbine + 3 magnet + 1 graphite -> 1 super_magnetic_ring", "name": "Produce Super-magnetic Ring", "at": "Assembler", "time": 3 },
@@ -116,6 +142,22 @@
 		{ "recipe": "2 microcrystalline_component + 2 circuit_board -> processor", "name": "Produce Processor", "at": "Assembler", "time": 3 },
 		{ "recipe": "12 hydrogen + 2 graphene + 1 titanium_crystal -> casimir_crystal", "name": "Produce Casimir Crystal", "at": "Assembler", "time": 4 },
 		{ "recipe": "2 graphene + 2 copper_ingot + 2 electromagnetic_turbine -> particle_container", "name": "Produce Particle Container", "at": "Assembler", "time": 4 },
+		{ "recipe": "graviton_lens -> space_warper", "name": "Produce Space Warper", "at": "Assembler", "time": 10 },
+		{ "recipe": "processor + particle_container -> annihilation_constraint_sphere", "name": "Produce Annihilation Constraint Sphere", "at": "Assembler", "time": 20 },
+		{ "recipe": "graphene + photon_combiner -> 2 solar_sail", "name": "Produce Solar Sail", "at": "Assembler", "time": 4 },
+		{ "recipe": "4 carbon_nanotube + titanium_alloy + silicon_ingot -> frame_material", "name": "Produce Frame Material", "at": "Assembler", "time": 6 },
+		{ "recipe": "3 processor + 3 solar_sail + 3 frame_material -> dyson_sphere_component", "name": "Produce Dyson Sphere Component", "at": "Assembler", "time": 8 },
+
+		{ "recipe": "circuit_board + 2 prism -> photon_combiner", "name": "Produce Photon Combiner", "at": "Assembler", "time": 3 },
+		{ "recipe": "copper_ingot + 2 silicon_ingot -> microcrystalline_component", "name": "Produce Microcrystalline Component", "at": "Assembler", "time": 2 },
+		{ "recipe": "2 plane_filter + 2 processor -> quantum_chip", "name": "Produce Quantum Chip", "at": "Assembler", "time": 6 },
+
+		{ "recipe": "circuit_board + magnetic_coil -> electromagnetic_matrix", "name": "Produce Electromagnetic Matrix", "at": "Research facility", "time": 3 },
+		{ "recipe": "2 hydrogen + 2 graphite -> energy_matrix", "name": "Produce Energy Matrix", "at": "Research facility", "time": 6 },
+		{ "recipe": "diamond + titanium_crystal -> structure_matrix", "name": "Produce Structure Matrix", "at": "Research facility", "time": 8 },
+		{ "recipe": "2 processor + particle_broadband -> information_matrix", "name": "Produce Information Matrix", "at": "Research facility", "time": 10 },
+		{ "recipe": "quantum_chip + graviton_lens -> gravity_matrix", "name": "Produce Gravity Matrix", "at": "Research facility", "time": 24 },
+		{ "recipe": "steel + 3 brick -> foundation", "name": "Produce Foundation", "at": "Assembler", "time": 1 },
 
 		{ "recipe": "1 gear + 2 iron_ingot -> 3 conveyor_mk1", "name": "Produce Conveyor MK1", "at": "Assembler", "time": 1 },
 		{ "recipe": "1 electromagnetic_turbine + 3 conveyor_mk1 -> 3 conveyor_mk2", "name": "Produce Conveyor MK2", "at": "Assembler", "time": 1 },
@@ -123,6 +165,8 @@
 
 		{ "recipe": "1 iron_ingot + circuit_board -> sorter_mk1", "name": "Produce Sorter MK1", "at": "Assembler", "time": 1 },
 		{ "recipe": "2 sorter_mk1 + 1 electric_motor -> 2 sorter_mk2", "name": "Produce Sorter MK2", "at": "Assembler", "time": 1 },
-		{ "recipe": "2 sorter_mk2 + 1 electromagnetic_turbine -> 2 sorter_mk3", "name": "Produce Sorter MK3", "at": "Assembler", "time": 1 }
+		{ "recipe": "2 sorter_mk2 + 1 electromagnetic_turbine -> 2 sorter_mk3", "name": "Produce Sorter MK3", "at": "Assembler", "time": 1 },
+
+		{ "recipe": "6 copper_ingot + 6 silicon_ingot + 4 circuit_board -> solar_panel", "name": "Produce Solar Panel", "at": "Assembler", "time": 5 }
 	]
 }
