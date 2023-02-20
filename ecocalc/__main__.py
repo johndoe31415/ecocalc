@@ -23,18 +23,15 @@ import sys
 import logging
 from .FriendlyArgumentParser import FriendlyArgumentParser
 from .EconomyDefinition import EconomyDefinition
+from .ProductionSpecifier import ProductionSpecifier
 
 def setup_logging(verbosity = 0):
 	if verbosity == 0:
 		loglevel = logging.WARN
 	elif verbosity == 1:
 		loglevel = logging.INFO
-	elif verbosity == 2:
-		loglevel = logging.DEBUG
-	elif verbosity == 3:
-		loglevel = logging.TRACE
 	else:
-		loglevel = logging.SINGLESTEP
+		loglevel = logging.DEBUG
 	logging.basicConfig(format = "{name:>30s} [{levelname:.1s}]: {message}", style = "{", level = loglevel)
 
 def main():
@@ -48,6 +45,7 @@ def main():
 
 	setup_logging(args.verbose)
 	eco = EconomyDefinition.load_from_json(args.economy_definition)
+	production_specifiers = [ ProductionSpecifier.parse(prod_specifier) for prod_specifier in args.prod_specifier ]
 
 if __name__ == "__main__":
 	sys.exit(main())

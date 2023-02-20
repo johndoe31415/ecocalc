@@ -19,9 +19,14 @@
 #
 #	Johannes Bauer <JohannesBauer@gmx.de>
 
+import logging
+from .Parser import parse_recipe
+
+_log = logging.getLogger(__spec__.name)
+
 class RecipeSide():
-	def __init__(self):
-		pass
+	def __init__(self, items):
+		self._items = items
 
 	@classmethod
 	def parse(cls, side_str):
@@ -60,9 +65,10 @@ class Recipe():
 
 	@classmethod
 	def _parse_recipe_equation(cls, recipe_str):
-		(lhs_str, rhs_str) = recipe_str.split("->")
-		lhs = RecipeSide.parse(lhs_str)
-		rhs = RecipeSide.parse(rhs_str)
+		(lhs, rhs) = parse_recipe(recipe_str)
+		_log.debug("Parsed recipe: %s -> %s", lhs, rhs)
+		lhs = RecipeSide(lhs)
+		rhs = RecipeSide(rhs)
 		return (lhs, rhs)
 
 	@classmethod

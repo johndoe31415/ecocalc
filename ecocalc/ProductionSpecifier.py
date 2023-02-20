@@ -20,32 +20,20 @@
 #	Johannes Bauer <JohannesBauer@gmx.de>
 
 import re
+import logging
+from .Parser import parse_production_specifier
+from .Exceptions import InvalidProductionSpecifierException
+
+_log = logging.getLogger(__spec__.name)
 
 class ProductionSpecifier():
-	"""
-	Specifies a production specifier. Can be in different formats, e.g.:
-
-	Format 1:
-	   [number] (rate_scalar)? [resource_name]
-	Examples:
-	   400 copper_plate
-	   1800/2 copper_plate
-	   1.234 copper_plate
-	   1 blue_belt iron_plate
-
-
-	Format 2:
-		#[recipe_number/name] (@production_facility)? (xspeed(%)?)?
-	Examples:
-		#4
-		#mk_iron_plt
-		#12 @assembler_mk3
-		#12 @constructor x1.25
-		#12 @constructor x250%
-	"""
+	def __init__(self, parsed_specifier):
+		self._parsed_specifier = parsed_specifier
+		if ("multiplier" in self._parsed_specifier) and ("rate_scalar" in self._parsed_specifier["multiplier"]) and (self._parsed_specifier["recipe"][0] == "recipe_no"):
+			raise InvalidProductionSpecifierException(f"Having a rate scalar in a production specifier (here: {self._parsed_specifier['multiplier']['rate_scalar']}) only makes sense when defining an output product, not a recipe number (here: #{self._parsed_specifier['recipe'][1]}).")
 
 	@classmethod
 	def parse(cls, production_specifier_str: str):
-		production_specifier_str = production_specifier_str.strip(" \t\r\n")
-
-
+		parsed_production_specifier = parse_production_specifier(production_specifier_str)
+		_log.debug("Parsed production specifier: %s", parsed_production_specifier)
+		return cls(parsed_production_specifier)
