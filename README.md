@@ -1,4 +1,6 @@
 # ecocalc
+[![Build Status](https://github.com/johndoe31415/ecocalc/actions/workflows/CI.yml/badge.svg)](https://github.com/johndoe31415/ecocalc/actions/workflows/CI.yml)
+
 This is a command-line based calculator that I had written in 2017 and
 re-written in 2020. Its intention is that you can specify a target product in
 your game economy after having specified specific recipes (e.g., for crafting)
@@ -7,7 +9,7 @@ and it will show you exactly how many of which part you need to perform that.
 Typical games this works for is
 [Skyrim](https://store.steampowered.com/agecheck/app/489830/),
 [Factorio](https://store.steampowered.com/app/427520/Factorio/),
-[Satisfactory](https://www.satisfactorygame.com/) or
+[Satisfactory](https://store.steampowered.com/app/526870/Satisfactory/),
 [Dyson Sphere Program](https://store.steampowered.com/app/1366540/Dyson_Sphere_Program/).
 All of which are fantastic games, by the way.
 
