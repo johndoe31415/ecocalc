@@ -36,34 +36,34 @@ class ProductionSpecifierParserTests(unittest.TestCase):
 
 	def test_multiplier_1(self):
 		self.assertEqual(parse_production_specifier("1.234 iron_plate"), {
-			"recipe":	("recipe_id", "iron_plate"),
-			"multiplier":	fractions.Fraction("1.234"),
+			"recipe":		("recipe_id", "iron_plate"),
+			"multiplier":	{ "value": fractions.Fraction("1.234") },
 		})
 
 	def test_multiplier_2(self):
 		self.assertEqual(parse_production_specifier("14 #123"), {
 			"recipe":		("recipe_no", 123),
-			"multiplier":	14,
+			"multiplier":	{ "value": 14 },
 		})
 
 	def test_multiplier_at_1(self):
-		self.assertEqual(parse_production_specifier("14 #123 @constructor"), {
-			"recipe":		("recipe_no", 123),
-			"multiplier":	14,
+		self.assertEqual(parse_production_specifier("34 #987 @constructor"), {
+			"recipe":		("recipe_no", 987),
+			"multiplier":	{ "value": 34 },
 			"at":			"constructor",
 		})
 
 	def test_multiplier_at_2(self):
 		self.assertEqual(parse_production_specifier("14 #123 @constructor"), {
 			"recipe":		("recipe_no", 123),
-			"multiplier":	14,
+			"multiplier":	{ "value": 14 },
 			"at":			"constructor",
 		})
 
 	def test_multiplier_at_speed_1(self):
 		self.assertEqual(parse_production_specifier("14 #123 @constructor 1.25"), {
 			"recipe":		("recipe_no", 123),
-			"multiplier":	14,
+			"multiplier":	{ "value": 14 },
 			"at":			"constructor",
 			"speed":		fractions.Fraction("1.25"),
 		})
@@ -71,7 +71,19 @@ class ProductionSpecifierParserTests(unittest.TestCase):
 	def test_multiplier_at_speed_2(self):
 		self.assertEqual(parse_production_specifier("14 #123 @constructor 250%"), {
 			"recipe":		("recipe_no", 123),
-			"multiplier":	14,
+			"multiplier":	{ "value": 14 },
 			"at":			"constructor",
 			"speed":		fractions.Fraction(250, 100),
+		})
+
+	def test_rate_multiplier_1(self):
+		self.assertEqual(parse_production_specifier(":yellow_belt iron_ore"), {
+			"recipe":		("recipe_id", "iron_ore"),
+			"multiplier":	{ "rate_scalar": "yellow_belt" },
+		})
+
+	def test_rate_multiplier_2(self):
+		self.assertEqual(parse_production_specifier("4 :yellow_belt iron_ore"), {
+			"recipe":		("recipe_id", "iron_ore"),
+			"multiplier":	{ "rate_scalar": "yellow_belt", "value": 4 },
 		})

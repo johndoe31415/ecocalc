@@ -24,6 +24,8 @@ import fractions
 
 class EcoCalcParser(tpg.Parser):
 	r"""
+		set lexer = ContextSensitiveLexer
+
 		separator space '\s+';
 
 		token identifier	'[a-zA-Z_][-a-zA-Z_0-9]*';
@@ -35,7 +37,7 @@ class EcoCalcParser(tpg.Parser):
 
 		ProductionSpecifier/lhs ->							$ lhs = { }
 			(
-				AnnotatedValue/m							$ lhs["multiplier"] = m
+				MultiplierValue/m							$ lhs["multiplier"] = m
 			)?
 			RecipeSpecifier/r								$ lhs["recipe"] = r
 			(
@@ -68,6 +70,12 @@ class EcoCalcParser(tpg.Parser):
 			)?
 			identifier/n									$ lhs = (v, n)
 		;
+
+		MultiplierValue/lhs -> (
+				Value/v ':' identifier/n					$ lhs = { "value": v, "rate_scalar": n }
+				| ':' identifier/n							$ lhs = { "rate_scalar": n }
+				| Value/v									$ lhs = { "value": v }
+		);
 
 		AnnotatedValue/lhs -> (
 				Value/v percent								$ lhs = fractions.Fraction(v, 100)
