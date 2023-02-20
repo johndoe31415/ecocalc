@@ -1,5 +1,5 @@
-#	ecocalc - The X.509 Swiss Army Knife white-hat certificate toolkit
-#	Copyright (C) 2017-2020 Johannes Bauer
+#	ecocalc - Economy calculation for factory-building games
+#	Copyright (C) 2020-2023 Johannes Bauer
 #
 #	This file is part of ecocalc.
 #
@@ -19,5 +19,25 @@
 #
 #	Johannes Bauer <JohannesBauer@gmx.de>
 
-class ParseError(Exception):
-	pass
+class Resource():
+	def __init__(self, identifier: str, name: str | None = None):
+		self._identifier = identifier
+		if name is None:
+			self._name = identifier
+		else:
+			self._name = name
+
+	@property
+	def identifier(self):
+		return self._identifier
+
+	@property
+	def name(self):
+		return self._name
+
+	@classmethod
+	def from_dict(cls, identifier: str, serialized_obj: dict):
+		return cls(identifier = identifier, name = serialized_obj.get("name"))
+
+	def __repr__(self):
+		return self.name

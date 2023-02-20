@@ -1,0 +1,68 @@
+{
+	"resources": {
+		"copper_ingot": { "name": "Copper Ingot" },
+		"tin_ingot": { "name": "Tin Ingot" },
+		"bronze_ingot": { "name": "Bronze Ingot" },
+		"iron_ingot": { "name": "Iron Ingot" },
+
+		"copper_plate": { "name": "Copper Plate" },
+		"tin_plate": { "name": "Tin Plate" },
+		"bronze_plate": { "name": "Bronze Plate" },
+		"iron_plate": { "name": "Iron Plate" },
+
+		"copper_gear": { "name": "Copper Gear" },
+		"tin_gear": { "name": "Tin Gear" },
+		"iron_gear": { "name": "Iron Gear" },
+
+		"copper_rod": { "name": "Copper Rod" },
+		"tin_rod": { "name": "Tin Rod" },
+		"bronze_rod": { "name": "Bronze Rod" },
+		"iron_rod": { "name": "Iron Rod" },
+
+		"copper_rivets": { "name": "Copper Rivets" },
+		"tin_rivets": { "name": "Tin Rivets" },
+		"bronze_rivets": { "name": "Bronze Rivets" },
+		"iron_rivets": { "name": "Iron Rivets" },
+
+		"copper_piston": { "name": "Copper Piston" },
+		"iron_piston": { "name": "Iron Piston" },
+
+		"water_pipe": { "name": "Water Pipe" },
+		"underground_water_pipe": { "name": "Underground Water Pipe" },
+		"water_valve": { "name": "Water Valve" },
+
+		"steam_pipe": { "name": "Steam Pipe" },
+		"underground_steam_pipe": { "name": "Underground Steam Pipe" },
+		"steam_valve": { "name": "Steam Valve" },
+
+		"clockwork_motor": { "name": "Clockwork Motor" }
+	},
+
+	"rate_scalars": {
+		"yb":	{ "value": 15, "unit": "ups" },
+		"rb":	{ "value": 30, "unit": "ups" },
+		"bb":	{ "value": 45, "unit": "ups" }
+	},
+
+	"production_entities": {
+		"steam_assembler": {
+			"name": "Steam Assembler",
+			"speed_factor": 0.625
+		},
+		"miniature_steam_assembler": {
+			"name": "Miniature Steam Assembler",
+			"speed_factor": 0.625
+		}
+	},
+
+	"production_entity_groups": {
+		"assembler_simple": [ "miniature_steam_assembler", "steam_assembler" ]
+	},
+
+	"recipes": [
+		{ "recipe": "2 copper_plate + 1 copper_gear + 1 copper_rod -> 1 clockwork_motor", "name": "Produce Clockwork Motor", "at": "assembler_simple", "time": 1 },
+		{ "recipe": "1 copper_ingot -> 1 copper_plate", "name": "Produce Copper Plate", "at": "assembler_simple", "time": 1 },
+		{ "recipe": "1 copper_plate -> 1 copper_gear", "name": "Produce Copper Gear", "at": "assembler_simple", "time": 1 },
+		{ "recipe": "1 copper_ingot -> 2 copper_rod", "name": "Produce Copper Rod", "at": "assembler_simple", "time": 1 }
+	]
+}
