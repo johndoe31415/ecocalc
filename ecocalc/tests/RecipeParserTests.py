@@ -19,5 +19,29 @@
 #
 #	Johannes Bauer <JohannesBauer@gmx.de>
 
-from .ProductionSpecifierParserTests import ProductionSpecifierParserTests
-from .RecipeParserTests import RecipeParserTests
+import unittest
+import fractions
+from ecocalc.Parser import parse_recipe
+
+class RecipeParserTests(unittest.TestCase):
+	def test_simple_1(self):
+		self.assertEqual(parse_recipe("iron -> plate"),
+		(
+			[ (1, "iron") ],
+			[ (1, "plate") ],
+		))
+
+	def test_simple_2(self):
+		self.assertEqual(parse_recipe("iron + foo -> plate"),
+		(
+			[ (1, "iron"), (1, "foo") ],
+			[ (1, "plate") ],
+		))
+
+	def test_simple_3(self):
+		self.assertEqual(parse_recipe("12 iron + 34 foo -> 9 plate + 2 bar"),
+		(
+			[ (12, "iron"), (34, "foo") ],
+			[ (9, "plate"), (2, "bar") ],
+		))
+
