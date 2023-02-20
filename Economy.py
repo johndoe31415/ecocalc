@@ -134,6 +134,12 @@ class Economy():
 			irreducible_resources |= additional_irreducible
 		return irreducible_resources
 
+	def get_resource_sort_order(self, internal_resource_name):
+		if (internal_resource_name in self._resources) and ("order" in self._resources[internal_resource_name]):
+			return self._resources[internal_resource_name]["order"]
+		else:
+			return 1000000
+
 	def get_resource_name(self, internal_resource_name, surrogate = True):
 		if (internal_resource_name in self._resources) and ("name" in self._resources[internal_resource_name]):
 			return self._resources[internal_resource_name]["name"]

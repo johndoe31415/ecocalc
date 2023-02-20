@@ -1,0 +1,43 @@
+{
+	"resources": {
+		"iron_plate": { "name": "Iron Plate" },
+		"copper_plate": { "name": "Copper Plate" },
+		"copper_cable": { "name": "Copper Cable" },
+		"iron_gear_wheel": { "name": "Iron Gear Wheel" },
+		"iron_beam": { "name": "Iron Beam" },
+		"iron_stick": { "name": "Iron Stick" },
+		"transport_belt_mk1": { "name": "Transport Belt MK1 (yellow)" },
+		"transport_belt_mk2": { "name": "Transport Belt MK2 (red)" },
+		"transport_belt_mk3": { "name": "Transport Belt MK3 (blue)" },
+		"underground_belt_mk1": { "name": "Underground Belt MK1 (yellow)" },
+		"underground_belt_mk2": { "name": "Underground Belt MK2 (red)" },
+		"underground_belt_mk3": { "name": "Underground Belt MK3 (blue)" },
+		"splitter_mk1": { "name": "Splitter MK1 (yellow)" },
+		"splitter_mk2": { "name": "Splitter MK2 (red)" },
+		"splitter_mk3": { "name": "Splitter MK3 (blue)" },
+		"automation_core": { "name": "Automation Core" },
+		"electronic_circuit_mk1": { "name": "Electronic Circuit MK1 (green)" },
+		"electric_pole_mk2": { "name": "Medium Electric Pole" },
+		"inserter_parts": { "name": "Inserter Parts" },
+		"engine": { "name": "Engine unit" },
+		"electric_engine": { "name": "Electric engine unit" },
+		"pipe": { "name": "Pipe" }
+	},
+
+	"recipes": [
+		{ "recipe": "4 copper_plate -> 8 copper_cable", "name": "Produce Copper Cable", "at": "assembler_simple", "time": 2 },
+		{ "recipe": "4 iron_plate -> 4 iron_gear_wheel", "name": "Produce Iron Gear Wheel", "at": "assembler_simple", "time": 2 },
+		{ "recipe": "4 iron_plate -> 4 iron_gear_wheel", "name": "Produce Iron Gear Wheel", "at": "assembler_simple", "time": 2 },
+		{ "recipe": "4 iron_plate -> 8 iron_stick", "name": "Produce Iron Stick", "at": "assembler_simple", "time": 2 },
+		{ "recipe": "2 iron_plate -> iron_beam", "name": "Produce Iron Beam", "at": "assembler_simple", "time": 2 },
+		{ "recipe": "1 iron_plate + 1 iron_gear_wheel -> 2 transport_belt_mk1", "name": "Produce Transport Belt MK1", "at": "assembler_simple", "time": 0.5 },
+		{ "recipe": "2 iron_beam + 5 transport_belt_mk1 -> underground_belt_mk1", "name": "Produce Underground Belt MK1", "at": "assembler_simple", "time": 1 },
+		{ "recipe": "6 copper_plate + 4 iron_stick + 4 iron_gear_wheel -> 2 automation_core", "name": "Produce Automation Core", "at": "assembler_simple", "time": 2 },
+		{ "recipe": "5 iron_gear_wheel + 1 automation_core + 4 transport_belt_mk1 -> splitter_mk1", "name": "Produce Splitter MK1", "at": "assembler_simple", "time": 1 },
+		{ "recipe": "4 copper_cable + 4 iron_stick + 2 iron_beam -> electric_pole_mk2", "name": "Produce Medium Electric Pole", "at": "assembler_simple", "time": 0.5 },
+		{ "recipe": "4 iron_stick + 4 iron_gear_wheel -> 2 inserter_parts", "name": "Produce Inserter Parts", "at": "assembler_simple", "time": 2 },
+		{ "recipe": "1 iron_plate -> pipe", "name": "Produce Pipe", "at": "assembler_simple", "time": 0.5 },
+		{ "recipe": "1 iron_plate + 1 iron_gear_wheel + 2 pipe -> engine", "name": "Produce Engine", "at": "assembler_simple", "time": 10 },
+		{ "recipe": "2 electronic_circuit + 1 engine + 15 lubricant -> electric_engine", "name": "Produce Electric Engine", "at": "assembler_simple", "time": 10 }
+	]
+}

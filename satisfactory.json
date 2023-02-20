@@ -69,6 +69,7 @@
 		{ "recipe": "3 iron_ingot -> 2 iron_plate", "name": "Manufacture Iron Plate", "at": "Constructor", "time": 6 },
 		{ "recipe": "1 iron_ingot -> 1 iron_rod", "name": "Manufacture Iron Rod", "at": "Constructor", "time": 4 },
 		{ "recipe": "1 iron_rod -> 4 screw", "name": "Manufacture Screws", "at": "Constructor", "time": 6 },
+		{ "recipe": "5 iron_ingot -> 20 screw", "name": "Manufacture Screws (Alternate)", "at": "Constructor", "time": 24 },
 		{ "recipe": "2 copper_ingot -> 1 copper_sheet", "name": "Manufacture Copper Sheet", "at": "Constructor", "time": 6 },
 		{ "recipe": "1 copper_ingot -> 2 wire", "name": "Manufacture Wire", "at": "Constructor", "time": 4 },
 		{ "recipe": "2 wire -> 1 cable", "name": "Manufacture Cable", "at": "Constructor", "time": 2 },
@@ -84,6 +85,8 @@
 
 
 
+		{ "recipe": "3 oil -> 2 plastic + 1 heavy_oil_residue", "name": "Refine Plastic", "at": "Refinery", "time": 6 },
+		{ "recipe": "4 heavy_oil_residue -> 12 petroleum_coke", "name": "Refine Petroleum Coke", "at": "Refinery", "time": 6 },
 
 
 
@@ -136,8 +139,6 @@
 		{ "recipe": "6 solid_biofuel + 3 water -> 4 liquid_biofuel", "name": "Refine Liquid Biofuel", "at": "Refinery", "rate": "60/4" },
 		{ "recipe": "4 polymer_resin + 4 water -> 2 rubber", "name": "Refine Rubber from Resin", "at": "Refinery", "rate": "20/2" },
 		{ "recipe": "6 polymer_resin + 2 water -> 2 plastic", "name": "Refine Plastic from Resin", "at": "Refinery", "rate": "20/2" },
-		{ "recipe": "4 heavy_oil_residue -> 12 petroleum_coke", "name": "Refine Petroleum Coke", "at": "Refinery", "rate": "120/12" },
-		{ "recipe": "3 oil -> 2 plastic + 1 heavy_oil_residue", "name": "Refine Plastic", "at": "Refinery", "rate": "20/2" },
 		{ "recipe": "3 oil -> 2 rubber + 2 heavy_oil_residue", "name": "Refine Rubber", "at": "Refinery", "rate": "20/2" },
 
 		{ "recipe": "25 petroleum_coke -> 75 mj", "name": "Burn Petroleum Coke", "at": "Coal Generator", "rate": "1" },

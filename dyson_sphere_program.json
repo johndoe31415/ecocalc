@@ -99,6 +99,9 @@
 		{ "recipe": "2 refined_oil + graphite -> plastic", "name": "Produce Plastic", "at": "Chemical facility", "time": 3 },
 		{ "recipe": "1 h2so4 + 3 graphite -> 2 graphene", "name": "Produce Graphene", "at": "Chemical facility", "time": 3 },
 
+
+
+
 		{ "recipe": "1 iron_ore -> 1 magnet", "name": "Smelt Iron", "at": "Smelter", "time": 1.5 },
 		{ "recipe": "1 copper_ingot + 2 magnet -> 2 magnetic_coil", "name": "Produce Magnetic Coil", "at": "Assembler", "time": 1 },
 		{ "recipe": "1 silicon_ingot -> 1 crystal_silicon", "name": "Produce Crystal Silicon", "at": "Smelter", "time": 2 },
@@ -167,6 +170,6 @@
 		{ "recipe": "2 sorter_mk1 + 1 electric_motor -> 2 sorter_mk2", "name": "Produce Sorter MK2", "at": "Assembler", "time": 1 },
 		{ "recipe": "2 sorter_mk2 + 1 electromagnetic_turbine -> 2 sorter_mk3", "name": "Produce Sorter MK3", "at": "Assembler", "time": 1 },
 
-		{ "recipe": "6 copper_ingot + 6 silicon_ingot + 4 circuit_board -> solar_panel", "name": "Produce Solar Panel", "at": "Assembler", "time": 5 }
+		{ "recipe": "10 copper_ingot + 10 silicon_ingot + 5 circuit_board -> solar_panel", "name": "Produce Solar Panel", "at": "Assembler", "time": 6 }
 	]
 }

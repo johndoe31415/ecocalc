@@ -69,3 +69,20 @@ class NumberTools():
 		for other in values[1:]:
 			gcd = cls._gcd(gcd, other)
 		return gcd
+
+	@classmethod
+	def unify(cls, value):
+		if value < 1e3:
+			return "%.0f" % (value)
+		elif value < 1e4:
+			return "%.2f k" % (value / 1e3)
+		elif value < 1e5:
+			return "%.1f k" % (value / 1e3)
+		elif value < 1e6:
+			return "%.0f k" % (value / 1e3)
+		elif value < 1e7:
+			return "%.2f M" % (value / 1e6)
+		elif value < 1e8:
+			return "%.1f M" % (value / 1e6)
+		else:
+			return "%.0f M" % (value / 1e6)

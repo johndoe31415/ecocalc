@@ -72,7 +72,7 @@ class ResolvedRecipe():
 		return len(self._applications)
 
 	def __str__(self):
-		return "Producing {%s} by application of [%s]" % (self._recipe, self._application)
+		return "Producing {%s} by application of [%s]" % (self._recipe, self._applications)
 
 class RecipeResolver():
 	_DEBUG = False
