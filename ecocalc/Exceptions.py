@@ -23,3 +23,5 @@ class EcocalcException(Exception): pass
 class InvalidResourceNameException(EcocalcException): pass
 class InvalidRateScalarNameException(EcocalcException): pass
 class InvalidProductionSpecifierException(EcocalcException): pass
+class DuplicateResourceNameException(EcocalcException): pass
+class UnknownResourceException(EcocalcException): pass

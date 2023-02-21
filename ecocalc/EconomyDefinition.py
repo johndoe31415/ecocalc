@@ -26,15 +26,40 @@ from .ProductionEntity import ProductionEntity
 from .ProductionEntityGroup import ProductionEntityGroup
 from .RateScalar import RateScalar
 from .Recipe import Recipe
+from .Exceptions import DuplicateResourceNameException, UnknownResourceException
 
 _log = logging.getLogger(__spec__.name)
 
 class EconomyDefinition():
-	def __init__(self, resources: dict, production_entities: dict, production_entity_groups: dict, recipes: list):
+	def __init__(self, resources: dict, production_entities: dict, production_entity_groups: dict, rate_scalars: dict, recipes: list):
 		self._resources = resources
 		self._production_entities = production_entities
 		self._production_entity_groups = production_entity_groups
+		self._rate_scalars = rate_scalars
 		self._recipes = recipes
+		self._register_economy()
+		self._plausibility_check()
+
+	def _register_economy(self):
+		for recipe in self._recipes:
+			recipe.economy = self
+
+	def _plausibility_check(self):
+		resource_names = set(resource.name for resource in self._resources.values())
+		if len(resource_names) != len(self._resources):
+			raise DuplicateResourceNameException(f"Duplicate resource name found.")
+
+		resource_ids = set(self._resources)
+		for recipe in self._recipes:
+			unknown_ingredients = recipe.ingredients - resource_ids
+			if len(unknown_ingredients) > 0:
+				raise UnknownResourceException(f"Recipe \"{recipe}\" has {len(unknown_ingredients)} unknown ingredient(s): {', '.join(sorted(unknown_ingredients))}")
+
+	def get_resource_name(self, resource_identifier):
+		if not self.has_resource(resource_identifier):
+			return resource_identifier
+		else:
+			return self.get_resource(resource_identifier).name
 
 	def has_resource(self, resource_identifier):
 		return resource_identifier in self._resources
@@ -70,4 +95,4 @@ class EconomyDefinition():
 		production_entity_groups = { production_entity_group_id: ProductionEntityGroup.from_list(production_entity_group_id, production_entity_group_definition) for (production_entity_group_id, production_entity_group_definition) in data["production_entity_groups"].items() }
 		rate_scalars = { rate_scalar_id: RateScalar.from_dict(rate_scalar_definition) for (rate_scalar_id, rate_scalar_definition) in data["rate_scalars"].items() }
 		recipes = [ Recipe.from_dict(recipe_definition) for recipe_definition in data["recipes"] ]
-		return cls(resources = resources, production_entities = production_entities, production_entity_groups = production_entity_groups, recipes = recipes)
+		return cls(resources = resources, production_entities = production_entities, production_entity_groups = production_entity_groups, rate_scalars = rate_scalars, recipes = recipes)

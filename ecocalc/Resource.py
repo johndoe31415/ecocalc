@@ -40,4 +40,4 @@ class Resource():
 		return cls(identifier = identifier, name = serialized_obj.get("name"))
 
 	def __repr__(self):
-		return self.name
+		return f"Res<{self.name}>"

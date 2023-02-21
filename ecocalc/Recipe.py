@@ -20,6 +20,8 @@
 #	Johannes Bauer <JohannesBauer@gmx.de>
 
 import logging
+import functools
+import collections
 from .Parser import parse_recipe
 
 _log = logging.getLogger(__spec__.name)
@@ -27,13 +29,28 @@ _log = logging.getLogger(__spec__.name)
 class RecipeSide():
 	def __init__(self, items):
 		self._items = items
+		self._economy = None
+		self._itemdict = collections.defaultdict(int)
+		for (cardinality, item) in self._items:
+			self._itemdict[item] += cardinality
 
-	@classmethod
-	def parse(cls, side_str):
-		return cls()
+	@property
+	def economy(self):
+		return self._economy
+
+	@economy.setter
+	def economy(self, value):
+		self._economy = value
+
+	@functools.cached_property
+	def ingredients(self):
+		return set(self._itemdict)
 
 	def __repr__(self):
-		pass
+		if self.economy is None:
+			return " + ".join(f"{cardinality} {item}" for (cardinality, item) in self._items)
+		else:
+			return " + ".join(f"{cardinality} {self.economy.get_resource_name(item)}" for (cardinality, item) in self._items)
 
 class Recipe():
 	def __init__(self, lhs: RecipeSide, rhs: RecipeSide, at: str, execution_time: float | None = None, name: str | None = None):
@@ -42,6 +59,24 @@ class Recipe():
 		self._at = at
 		self._execution_time = execution_time
 		self._name = name
+		self._economy = None
+
+	@property
+	def economy(self):
+		return self._economy
+
+	@economy.setter
+	def economy(self, value):
+		self._economy = value
+		self._lhs.economy = value
+		self._rhs.economy = value
+
+	@functools.cached_property
+	def ingredients(self):
+		ingredients = set()
+		ingredients |= self.lhs.ingredients
+		ingredients |= self.rhs.ingredients
+		return ingredients
 
 	@property
 	def lhs(self):
