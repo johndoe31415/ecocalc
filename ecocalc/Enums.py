@@ -19,24 +19,12 @@
 #
 #	Johannes Bauer <JohannesBauer@gmx.de>
 
-import fractions
+import enum
 
-class RateScalar():
-	def __init__(self, scalar_upm: fractions.Fraction):
-		self._scalar_upm = scalar_upm
+class ComputationMode(enum.Enum):
+	Rate = "rate"
+	Count = "count"
 
-	@property
-	def scalar_upm(self):
-		return self._scalar_upm
-
-	@classmethod
-	def from_dict(cls, serialized_obj: dict):
-		if serialized_obj["unit"] == "upm":
-			return cls(scalar_upm = serialized_obj["value"])
-		elif serialized_obj["unit"] == "ups":
-			return cls(scalar_upm = 60 * serialized_obj["value"])
-		else:
-			raise NotImplementedError(serialized_obj["unit"])
-
-	def __repr__(self):
-		return f"{self.upm}/min"
+class RateUnit(enum.Enum):
+	UnitsPerSecond = "ups"
+	UnitsPerMinute = "upm"

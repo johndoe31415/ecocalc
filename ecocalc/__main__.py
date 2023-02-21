@@ -24,6 +24,8 @@ import logging
 from .FriendlyArgumentParser import FriendlyArgumentParser
 from .EconomyDefinition import EconomyDefinition
 from .ProductionSpecifier import ProductionSpecifier
+from .RecipeResolver import RecipeResolver
+from .Enums import ComputationMode, RateUnit
 
 def setup_logging(verbosity = 0):
 	if verbosity == 0:
@@ -37,15 +39,17 @@ def setup_logging(verbosity = 0):
 def main():
 	parser = FriendlyArgumentParser(description = "Economy calculation for factory-building games")
 	parser.add_argument("-e", "--economy-definition", metavar = "filename", required = True, help = "Specifies the economy definition file. Mandatory argument.")
-	parser.add_argument("--computation-mode", choices = [ "rate", "count" ], default = "rate", help = "Specifies whether to compute production rate (e.g., items per time unit) or production count (i.e., numer of items). Can be one of %(choices)s, defaults to %(default)s.")
-	parser.add_argument("--rate-unit", choices = [ "upm", "ups" ], default = "upm", help = "Production rate unit. Can be either units/minute (upm) or units/secons (ups), i.e, one of %(choices)s, defaults to %(default)s.")
+	parser.add_argument("--computation-mode", choices = [ "rate", "count" ], type = ComputationMode, default = "rate", help = "Specifies whether to compute production rate (e.g., items per time unit) or production count (i.e., numer of items). Can be one of %(choices)s, defaults to %(default)s.")
+	parser.add_argument("--rate-unit", choices = [ "upm", "ups" ], type = RateUnit, default = "upm", help = "Production rate unit. Can be either units/minute (upm) or units/secons (ups), i.e, one of %(choices)s, defaults to %(default)s.")
 	parser.add_argument("-v", "--verbose", action = "count", default = 0, help = "Increases verbosity. Can be specified multiple times to increase.")
 	parser.add_argument("prod_specifier", nargs = "+", help = "Production specifier(s).")
 	args = parser.parse_args(sys.argv[1:])
 
 	setup_logging(args.verbose)
 	eco = EconomyDefinition.load_from_json(args.economy_definition)
-	production_specifiers = [ ProductionSpecifier.parse(prod_specifier) for prod_specifier in args.prod_specifier ]
+	production_specifiers = [ ProductionSpecifier.parse(prod_specifier, economy = eco) for prod_specifier in args.prod_specifier ]
+	resolver = RecipeResolver(eco, computation_mode = args.computation_mode, rate_unit = args.rate_unit)
+	result = resolver.resolve(production_specifiers)
 
 if __name__ == "__main__":
 	sys.exit(main())

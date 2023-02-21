@@ -19,24 +19,35 @@
 #
 #	Johannes Bauer <JohannesBauer@gmx.de>
 
-import fractions
+import logging
 
-class RateScalar():
-	def __init__(self, scalar_upm: fractions.Fraction):
-		self._scalar_upm = scalar_upm
+_log = logging.getLogger(__spec__.name)
+
+class Production():
+	def __init__(self, recipe, production_entity, cardinality):
+		self._recipe = recipe
+		self._production_entity = production_entity
+		self._production_speed = production_entity.max_speed_factor
+		self._cardinality = cardinality
 
 	@property
-	def scalar_upm(self):
-		return self._scalar_upm
+	def recipe(self):
+		return self._recipe
 
-	@classmethod
-	def from_dict(cls, serialized_obj: dict):
-		if serialized_obj["unit"] == "upm":
-			return cls(scalar_upm = serialized_obj["value"])
-		elif serialized_obj["unit"] == "ups":
-			return cls(scalar_upm = 60 * serialized_obj["value"])
-		else:
-			raise NotImplementedError(serialized_obj["unit"])
+	@property
+	def production_entity(self):
+		return self._production_entity
+
+	@property
+	def production_speed(self):
+		return self._production_speed
+
+	@property
+	def cardinality(self):
+		return self._cardinality
+
+	def __mul__(self, scalar):
+		return Production(self.recipe, self.production_entity, self.cardinality * scalar)
 
 	def __repr__(self):
-		return f"{self.upm}/min"
+		return "{self.cardinality} x {self.recipe} @ {self.production_entity} / {self.production_speed}"

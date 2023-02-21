@@ -87,3 +87,15 @@ class ProductionSpecifierParserTests(unittest.TestCase):
 			"recipe":		("recipe_id", "iron_ore"),
 			"multiplier":	{ "rate_scalar": "yellow_belt", "value": 4 },
 		})
+
+	def test_rate_multiplier_3(self):
+		self.assertEqual(parse_production_specifier("2/8 :yellow_belt iron_ore"), {
+			"recipe":		("recipe_id", "iron_ore"),
+			"multiplier":	{ "rate_scalar": "yellow_belt", "value": fractions.Fraction(2, 8) },
+		})
+
+	def test_rate_multiplier_4(self):
+		self.assertEqual(parse_production_specifier("40% :yellow_belt iron_ore"), {
+			"recipe":		("recipe_id", "iron_ore"),
+			"multiplier":	{ "rate_scalar": "yellow_belt", "value": fractions.Fraction(40, 100) },
+		})

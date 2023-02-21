@@ -46,6 +46,10 @@ class RecipeSide():
 	def ingredients(self):
 		return set(self._itemdict)
 
+	@property
+	def item_count(self):
+		return len(self._items)
+
 	def __format__(self, fmtspec):
 		if self.economy is None:
 			return " + ".join(f"{cardinality:{fmtspec}} {item}" for (cardinality, item) in self._items)
@@ -81,6 +85,10 @@ class Recipe():
 		ingredients |= self.rhs.ingredients
 		return ingredients
 
+	@functools.cached_property
+	def is_cyclic(self):
+		return len(self.lhs.ingredients & self.rhs.ingredients) > 0
+
 	@property
 	def lhs(self):
 		return self._lhs
@@ -100,6 +108,10 @@ class Recipe():
 	@property
 	def name(self):
 		return self._name
+
+	@property
+	def provides_rate(self):
+		return self.execution_time is not None
 
 	@classmethod
 	def _parse_recipe_equation(cls, recipe_str):

@@ -56,6 +56,10 @@ class EconomyDefinition():
 			if len(unknown_ingredients) > 0:
 				raise UnknownResourceException(f"Recipe \"{recipe}\" has {len(unknown_ingredients)} unknown ingredient(s): {', '.join(sorted(unknown_ingredients))}")
 
+	@property
+	def recipes(self):
+		return iter(self._recipes)
+
 	def get_resource_name(self, resource_identifier):
 		if not self.has_resource(resource_identifier):
 			return resource_identifier

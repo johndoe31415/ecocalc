@@ -44,7 +44,7 @@ class EcoCalcParser(tpg.Parser):
 				At/a										$ lhs["at"] = a
 			)?
 			(
-				AnnotatedValue/s							$ lhs["speed"] = s
+				Value/s										$ lhs["speed"] = s
 			)?
 		;
 
@@ -77,12 +77,13 @@ class EcoCalcParser(tpg.Parser):
 				| Value/v									$ lhs = { "value": v }
 		);
 
-		AnnotatedValue/lhs -> (
-				Value/v percent								$ lhs = fractions.Fraction(v, 100)
-				| Value/v									$ lhs = v
+		Value/lhs -> (
+				Atom/n '/' Atom/d							$ lhs = fractions.Fraction(n, d)
+				| Atom/v percent							$ lhs = fractions.Fraction(v, 100)
+				| Atom/lhs
 		);
 
-		Value/lhs -> (
+		Atom/lhs -> (
 				float/f										$ lhs = fractions.Fraction(f)
 				| integer/i									$ lhs = int(i)
 		);
