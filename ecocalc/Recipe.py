@@ -46,11 +46,14 @@ class RecipeSide():
 	def ingredients(self):
 		return set(self._itemdict)
 
-	def __repr__(self):
+	def __format__(self, fmtspec):
 		if self.economy is None:
-			return " + ".join(f"{cardinality} {item}" for (cardinality, item) in self._items)
+			return " + ".join(f"{cardinality:{fmtspec}} {item}" for (cardinality, item) in self._items)
 		else:
-			return " + ".join(f"{cardinality} {self.economy.get_resource_name(item)}" for (cardinality, item) in self._items)
+			return " + ".join(f"{cardinality:{fmtspec}} {self.economy.get_resource_name(item)}" for (cardinality, item) in self._items)
+
+	def __repr__(self):
+		return format(self)
 
 class Recipe():
 	def __init__(self, lhs: RecipeSide, rhs: RecipeSide, at: str, execution_time: float | None = None, name: str | None = None):
@@ -118,5 +121,8 @@ class Recipe():
 		}
 		return cls(**kwargs)
 
+	def __format__(self, fmtspec):
+		return f"{self.lhs:{fmtspec}} -> {self.rhs:{fmtspec}}"
+
 	def __repr__(self):
-		return f"{self.lhs} -> {self.rhs}"
+		return format(self)
