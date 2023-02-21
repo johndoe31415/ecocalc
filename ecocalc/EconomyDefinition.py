@@ -27,6 +27,7 @@ from .ProductionEntityGroup import ProductionEntityGroup
 from .RateScalar import RateScalar
 from .Recipe import Recipe
 from .Exceptions import DuplicateResourceNameException, UnknownResourceException
+from .Tools import IterTools
 
 _log = logging.getLogger(__spec__.name)
 
@@ -45,9 +46,9 @@ class EconomyDefinition():
 			recipe.economy = self
 
 	def _plausibility_check(self):
-		resource_names = set(resource.name for resource in self._resources.values())
-		if len(resource_names) != len(self._resources):
-			raise DuplicateResourceNameException(f"Duplicate resource name found.")
+		duplicate_resource_names = IterTools.duplicates(resource.name for resource in self._resources.values())
+		if len(duplicate_resource_names) > 0:
+			raise DuplicateResourceNameException(f"Duplicate resource name found: {', '.join(sorted(duplicate_resource_names))}")
 
 		resource_ids = set(self._resources)
 		for recipe in self._recipes:

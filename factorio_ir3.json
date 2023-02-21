@@ -1,5 +1,11 @@
 {
 	"resources": {
+		"stone": { "name": "Stone" },
+		"stone_brick": { "name": "Stone Brick" },
+
+		"wood": { "name": "Wood" },
+		"wooden_beam": { "name": "Wooden Beam" },
+
 		"copper_ingot": { "name": "Copper Ingot" },
 		"tin_ingot": { "name": "Tin Ingot" },
 		"bronze_ingot": { "name": "Bronze Ingot" },
@@ -9,6 +15,11 @@
 		"tin_plate": { "name": "Tin Plate" },
 		"bronze_plate": { "name": "Bronze Plate" },
 		"iron_plate": { "name": "Iron Plate" },
+
+		"copper_pellets": { "name": "Copper Pellets" },
+		"tin_pellets": { "name": "Tin Pellets" },
+		"bronze_pellets": { "name": "Bronze Pellets" },
+		"iron_pellets": { "name": "Iron Pellets" },
 
 		"copper_gear": { "name": "Copper Gear" },
 		"tin_gear": { "name": "Tin Gear" },
@@ -35,7 +46,8 @@
 		"underground_steam_pipe": { "name": "Underground Steam Pipe" },
 		"steam_valve": { "name": "Steam Valve" },
 
-		"clockwork_motor": { "name": "Clockwork Motor" }
+		"clockwork_motor": { "name": "Clockwork Motor" },
+		"copper_analysis_pack": { "name": "Copper Analysis Pack" }
 	},
 
 	"rate_scalars": {
@@ -45,24 +57,48 @@
 	},
 
 	"production_entities": {
-		"steam_assembler": {
-			"name": "Steam Assembler",
+		"small_steam_assembler": {
+			"name": "Small Steam Assembler",
 			"speed_factor": 0.625
 		},
-		"miniature_steam_assembler": {
-			"name": "Miniature Steam Assembler",
+		"steam_assembler": {
+			"name": "Steam Assembler",
 			"speed_factor": 0.625
 		}
 	},
 
 	"production_entity_groups": {
-		"assembler_simple": [ "miniature_steam_assembler", "steam_assembler" ]
+		"assembler_simple": [ "small_steam_assembler", "steam_assembler" ],
+		"assembler_complex": [ "steam_assembler" ]
 	},
 
 	"recipes": [
-		{ "recipe": "2 copper_plate + 1 copper_gear + 1 copper_rod -> 1 clockwork_motor", "name": "Produce Clockwork Motor", "at": "assembler_simple", "time": 1 },
-		{ "recipe": "1 copper_ingot -> 1 copper_plate", "name": "Produce Copper Plate", "at": "assembler_simple", "time": 1 },
-		{ "recipe": "1 copper_plate -> 1 copper_gear", "name": "Produce Copper Gear", "at": "assembler_simple", "time": 1 },
-		{ "recipe": "1 copper_ingot -> 2 copper_rod", "name": "Produce Copper Rod", "at": "assembler_simple", "time": 1 }
+		{ "recipe": "1 copper_ingot -> 1 copper_plate", "at": "assembler_simple", "time": 1 },
+		{ "recipe": "1 tin_ingot -> 1 tin_plate", "at": "assembler_simple", "time": 1 },
+		{ "recipe": "1 bronze_ingot -> 1 bronze_plate", "at": "assembler_simple", "time": 1 },
+		{ "recipe": "1 iron_ingot -> 1 iron_plate", "at": "assembler_simple", "time": 1 },
+
+		{ "recipe": "1 stone -> 1 stone_brick", "at": "assembler_simple", "time": 1 },
+		{ "recipe": "1 wood -> 2 wooden_beam", "at": "assembler_simple", "time": 1 },
+
+		{ "recipe": "1 copper_plate -> 1 copper_gear", "at": "assembler_simple", "time": 1 },
+		{ "recipe": "1 tin_plate -> 1 tin_gear", "at": "assembler_simple", "time": 1 },
+		{ "recipe": "1 iron_plate -> 1 iron_gear", "at": "assembler_simple", "time": 1 },
+
+		{ "recipe": "1 copper_ingot -> 2 copper_rod", "at": "assembler_simple", "time": 1 },
+		{ "recipe": "1 tin_ingot -> 2 tin_rod", "at": "assembler_simple", "time": 1 },
+		{ "recipe": "1 bronze_ingot -> 2 bronze_rod", "at": "assembler_simple", "time": 1 },
+		{ "recipe": "1 iron_ingot -> 2 iron_rod", "at": "assembler_simple", "time": 1 },
+
+		{ "recipe": "1 copper_rod -> 1 copper_rivets", "at": "assembler_simple", "time": 0.5 },
+		{ "recipe": "1 bronze_rod -> 1 bronze_rivets", "at": "assembler_simple", "time": 0.5 },
+		{ "recipe": "1 iron_rod -> 1 iron_rivets", "at": "assembler_simple", "time": 0.5 },
+
+		{ "recipe": "1 copper_ingot -> 4 copper_pellets", "at": "assembler_simple", "time": 1 },
+		{ "recipe": "1 bronze_ingot -> 4 bronze_pellets", "at": "assembler_simple", "time": 1 },
+		{ "recipe": "1 iron_ingot -> 4 iron_pellets", "at": "assembler_simple", "time": 1 },
+
+		{ "recipe": "2 copper_plate + 1 copper_gear + 1 copper_rod -> 1 clockwork_motor", "at": "assembler_complex", "time": 1 },
+		{ "recipe": "4 copper_plate + 2 tin_gear -> 1 copper_analysis_pack", "at": "assembler_complex", "time": 4 }
 	]
 }
