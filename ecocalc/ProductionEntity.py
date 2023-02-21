@@ -45,6 +45,10 @@ class ProductionEntity():
 	def max_speed_factor(self):
 		return self._max_speed_factor
 
+	@property
+	def single_speed(self):
+		return self.min_speed_factor == self.max_speed_factor
+
 	@classmethod
 	def from_dict(cls, identifier: str, serialized_obj: dict):
 		kwargs = {

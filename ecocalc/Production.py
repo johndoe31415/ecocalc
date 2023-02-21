@@ -24,10 +24,10 @@ import logging
 _log = logging.getLogger(__spec__.name)
 
 class Production():
-	def __init__(self, recipe, production_entity, cardinality):
+	def __init__(self, recipe, production_entity, production_speed, cardinality):
 		self._recipe = recipe
 		self._production_entity = production_entity
-		self._production_speed = production_entity.max_speed_factor
+		self._production_speed = production_speed
 		self._cardinality = cardinality
 
 	@property
@@ -50,4 +50,7 @@ class Production():
 		return Production(self.recipe, self.production_entity, self.cardinality * scalar)
 
 	def __repr__(self):
-		return "{self.cardinality} x {self.recipe} @ {self.production_entity} / {self.production_speed}"
+		if self.production_entity.single_speed:
+			return f"{self.cardinality} x {self.recipe} @ {self.production_entity}"
+		else:
+			return f"{self.cardinality} x {self.recipe} @ {self.production_entity} / {self.production_speed}"

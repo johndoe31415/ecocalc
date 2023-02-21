@@ -22,21 +22,21 @@
 import fractions
 
 class RateScalar():
-	def __init__(self, scalar_upm: fractions.Fraction):
-		self._scalar_upm = scalar_upm
+	def __init__(self, scalar_ups: fractions.Fraction):
+		self._scalar_ups = scalar_ups
 
 	@property
-	def scalar_upm(self):
-		return self._scalar_upm
+	def scalar_ups(self):
+		return self._scalar_ups
 
 	@classmethod
 	def from_dict(cls, serialized_obj: dict):
 		if serialized_obj["unit"] == "upm":
-			return cls(scalar_upm = serialized_obj["value"])
+			return cls(scalar_upm = fractions.Fraction(serialized_obj["value"], 60))
 		elif serialized_obj["unit"] == "ups":
-			return cls(scalar_upm = 60 * serialized_obj["value"])
+			return cls(scalar_ups = serialized_obj["value"])
 		else:
 			raise NotImplementedError(serialized_obj["unit"])
 
 	def __repr__(self):
-		return f"{self.upm}/min"
+		return f"{self.ups}/sec"

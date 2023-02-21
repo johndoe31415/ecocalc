@@ -46,7 +46,7 @@ class ProductionSpecifier():
 			if "value" in self._parsed_specifier["multiplier"]:
 				value *= self._parsed_specifier["multiplier"]["value"]
 			if "rate_scalar" in self._parsed_specifier["multiplier"]:
-				value *= self._economy.get_rate_scalar(self._parsed_specifier["multiplier"]["rate_scalar"]).scalar_upm
+				value *= self._economy.get_rate_scalar(self._parsed_specifier["multiplier"]["rate_scalar"]).scalar_ups
 		return value
 
 	@property
@@ -54,11 +54,11 @@ class ProductionSpecifier():
 		return self._parsed_specifier["recipe"][0] == "recipe_no"
 
 	@property
-	def references_item(self):
+	def references_resource(self):
 		return not self.references_recipe
 
 	@property
-	def referenced_item(self):
+	def referenced_resource(self):
 		return self._parsed_specifier["recipe"][1]
 
 	def __repr__(self):

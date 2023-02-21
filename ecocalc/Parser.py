@@ -19,8 +19,9 @@
 #
 #	Johannes Bauer <JohannesBauer@gmx.de>
 
-from .tpg import tpg
 import fractions
+from .Enums import SpecifierReference
+from .tpg import tpg
 
 class EcoCalcParser(tpg.Parser):
 	r"""
@@ -49,8 +50,8 @@ class EcoCalcParser(tpg.Parser):
 		;
 
 		RecipeSpecifier/lhs -> (
-				recipe_no integer/i							$ lhs = ("recipe_no", int(i))
-				| identifier/n								$ lhs = ("recipe_id", n)
+				recipe_no integer/i							$ lhs = (SpecifierReference.RecipeId, int(i))
+				| identifier/n								$ lhs = (SpecifierReference.ResourceId, n)
 		);
 
 		Recipe/lhs ->

@@ -20,6 +20,8 @@
 #	Johannes Bauer <JohannesBauer@gmx.de>
 
 from .Enums import ComputationMode
+from .Production import Production
+from .Exceptions import UnknownResourceException, UnknownProductionEntityException
 
 class RecipeResolver():
 	def __init__(self, economy, computation_mode, rate_unit):
@@ -32,22 +34,55 @@ class RecipeResolver():
 		for recipe in self._economy.recipes:
 			if recipe.is_cyclic:
 				continue
-#			if recipe.rhs.item_count != 1:
+#			if recipe.rhs.resource_count != 1:
 #				continue
 			if (self._computation_mode == ComputationMode.Rate) and (not recipe.provides_rate):
 				continue
 			yield recipe
 
-	def get_recipe_which_produces(self, item):
-		pass
+	def _find_production_entity(self, production_entity_or_entity_group):
+		if self._economy.has_production_entity_group(production_entity_or_entity_group):
+			group = self._economy.get_production_entity_group(production_entity_or_entity_group)
+			return self._find_production_entity(group.members[0])
 
-	def produce_item(self, item, target_rate_or_count):
-		pass
+		if self._economy.has_production_entity(production_entity_or_entity_group):
+			entity = self._economy.get_production_entity(production_entity_or_entity_group)
+			return entity
+
+		raise UnknownProductionEntityException(f"No such production entity: {production_entity_or_entity_group}")
+
+	def get_recipe_which_produces(self, resource):
+		for recipe in self._recipes:
+			if recipe.produces(resource):
+				return recipe
+
+	def produce_resource(self, resource, target_rate_or_count):
+		# Find the recipe first that produces what we want
+		recipe = self.get_recipe_which_produces(resource)
+
+		# Figure out where we will produce it
+		production_entity = self._find_production_entity(recipe.at)
+
+		# Compute the cardinality of production units we need to achieve the
+		# deired target rate/count
+		unity_value = recipe.rhs[resource]
+		if self._computation_mode == ComputationMode.Rate:
+			unity_value /= recipe.execution_time_secs
+			speed_factor = production_entity.max_speed_factor
+			unity_value *= speed_factor
+		else:
+			speed_factor = None
+
+		cardinality = target_rate_or_count / unity_value
+		production = Production(recipe, production_entity, speed_factor, cardinality)
+		return production
+
 
 	def produce_production_specifier(self, production_specifier):
-		if production_specifier.references_item:
-			print(production_specifier)
-			print(production_specifier.target_rate_or_count)
+		if production_specifier.references_resource:
+			if not self._economy.has_resource(production_specifier.referenced_resource):
+				raise UnknownResourceException(f"Unknown resource, do not know how to produce: {production_specifier.referenced_resource}")
+			return self.produce_resource(production_specifier.referenced_resource, production_specifier.target_rate_or_count)
 		else:
 			raise NotImplementedError()
 

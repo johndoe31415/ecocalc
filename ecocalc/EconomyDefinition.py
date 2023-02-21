@@ -73,7 +73,7 @@ class EconomyDefinition():
 		return self._resources[resource_identifier]
 
 	def has_production_entity(self, production_entity_identifier):
-		return production_entity_identifier in self._production_entitys
+		return production_entity_identifier in self._production_entities
 
 	def get_production_entity(self, production_entity_identifier):
 		return self._production_entities[production_entity_identifier]

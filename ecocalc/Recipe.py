@@ -22,17 +22,18 @@
 import logging
 import functools
 import collections
+import fractions
 from .Parser import parse_recipe
 
 _log = logging.getLogger(__spec__.name)
 
 class RecipeSide():
-	def __init__(self, items):
-		self._items = items
+	def __init__(self, resources):
+		self._resources = resources
 		self._economy = None
-		self._itemdict = collections.defaultdict(int)
-		for (cardinality, item) in self._items:
-			self._itemdict[item] += cardinality
+		self._resourcedict = collections.defaultdict(int)
+		for (cardinality, resource) in self._resources:
+			self._resourcedict[resource] += cardinality
 
 	@property
 	def economy(self):
@@ -44,27 +45,33 @@ class RecipeSide():
 
 	@functools.cached_property
 	def ingredients(self):
-		return set(self._itemdict)
+		return set(self._resourcedict)
 
 	@property
-	def item_count(self):
-		return len(self._items)
+	def resource_count(self):
+		return len(self._resourcedict)
+
+	def contains(self, resource_id):
+		return resource_id in self._resourcedict
+
+	def __getitem__(self, resource_id):
+		return self._resourcedict[resource_id]
 
 	def __format__(self, fmtspec):
 		if self.economy is None:
-			return " + ".join(f"{cardinality:{fmtspec}} {item}" for (cardinality, item) in self._items)
+			return " + ".join(f"{cardinality:{fmtspec}} {resource}" for (cardinality, resource) in self._resources)
 		else:
-			return " + ".join(f"{cardinality:{fmtspec}} {self.economy.get_resource_name(item)}" for (cardinality, item) in self._items)
+			return " + ".join(f"{cardinality:{fmtspec}} {self.economy.get_resource_name(resource)}" for (cardinality, resource) in self._resources)
 
 	def __repr__(self):
 		return format(self)
 
 class Recipe():
-	def __init__(self, lhs: RecipeSide, rhs: RecipeSide, at: str, execution_time: float | None = None, name: str | None = None):
+	def __init__(self, lhs: RecipeSide, rhs: RecipeSide, at: str, execution_time_secs: fractions.Fraction | None = None, name: str | None = None):
 		self._lhs = lhs
 		self._rhs = rhs
 		self._at = at
-		self._execution_time = execution_time
+		self._execution_time_secs = execution_time_secs
 		self._name = name
 		self._economy = None
 
@@ -102,8 +109,8 @@ class Recipe():
 		return self._at
 
 	@property
-	def execution_time(self):
-		return self._execution_time
+	def execution_time_secs(self):
+		return self._execution_time_secs
 
 	@property
 	def name(self):
@@ -111,7 +118,10 @@ class Recipe():
 
 	@property
 	def provides_rate(self):
-		return self.execution_time is not None
+		return self.execution_time_secs is not None
+
+	def produces(self, resource_id):
+		return self.rhs.contains(resource_id)
 
 	@classmethod
 	def _parse_recipe_equation(cls, recipe_str):
@@ -125,11 +135,11 @@ class Recipe():
 	def from_dict(cls, serialized_obj: dict):
 		(lhs, rhs) = cls._parse_recipe_equation(serialized_obj["recipe"])
 		kwargs = {
-			"lhs":				lhs,
-			"rhs":				rhs,
-			"at":				serialized_obj["at"],
-			"execution_time":	serialized_obj.get("time"),
-			"name":				serialized_obj.get("name"),
+			"lhs":					lhs,
+			"rhs":					rhs,
+			"at":					serialized_obj["at"],
+			"execution_time_secs":	serialized_obj.get("time"),
+			"name":					serialized_obj.get("name"),
 		}
 		return cls(**kwargs)
 

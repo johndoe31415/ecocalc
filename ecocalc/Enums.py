@@ -28,3 +28,7 @@ class ComputationMode(enum.Enum):
 class RateUnit(enum.Enum):
 	UnitsPerSecond = "ups"
 	UnitsPerMinute = "upm"
+
+class SpecifierReference(enum.IntEnum):
+	ResourceId = 0
+	RecipeId = 1
