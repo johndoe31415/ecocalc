@@ -67,5 +67,5 @@ class EcoTests(unittest.TestCase):
 		production = next(result.production)
 		self.assertEqual(production.production_speed, fractions.Fraction(3, 4))
 		self.assertEqual(production.cardinality, fractions.Fraction(180, 13))
-		self.assertEqual(list(production.lhs), [ ("a", fractions.Fraction(180, 13)), ("b", fractions.Fraction(105, 13)) ])
-		self.assertEqual(list(production.rhs), [ ("c", 15) ])
+		self.assertEqual(list(production.lhs), [ (fractions.Fraction(180, 13), "a"), (fractions.Fraction(105, 13), "b") ])
+		self.assertEqual(list(production.rhs), [ (15, "c") ])
