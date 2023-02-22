@@ -1,53 +1,91 @@
 {
 	"resources": {
-		"stone": { "name": "Stone" },
-		"stone_brick": { "name": "Stone Brick" },
+		"copper_ore": { "name": "Copper ore" },
+		"crushed_copper_ore": { "name": "Crushed copper ore" },
+		"tin_ore": { "name": "Tin ore" },
+		"crushed_tin_ore": { "name": "Crushed tin ore" },
 
-		"wood": { "name": "Wood" },
-		"wooden_beam": { "name": "Wooden Beam" },
+		"rubber": { "name": "Rubber" },
+		"gravel": { "name": "Gravel" },
+		"silica": { "name": "Silica" },
 
-		"copper_ingot": { "name": "Copper Ingot" },
-		"tin_ingot": { "name": "Tin Ingot" },
-		"bronze_ingot": { "name": "Bronze Ingot" },
+		"bronze_alloy_mix": { "name": "Bronze alloy mix" },
+		"glass_smelting_mix": { "name": "Glass smelting mix" },
+
+		"copper_ingot": { "name": "Copper ingot" },
+		"tin_ingot": { "name": "Tin ingot" },
+		"bronze_ingot": { "name": "Bronze ingot" },
 		"iron_ingot": { "name": "Iron Ingot" },
 
-		"copper_plate": { "name": "Copper Plate" },
-		"tin_plate": { "name": "Tin Plate" },
-		"bronze_plate": { "name": "Bronze Plate" },
-		"iron_plate": { "name": "Iron Plate" },
+		"copper_plate": { "name": "Copper plate" },
+		"tin_plate": { "name": "Tin plate" },
+		"bronze_plate": { "name": "Bronze plate" },
+		"iron_plate": { "name": "Iron plate" },
 
-		"copper_pellets": { "name": "Copper Pellets" },
-		"tin_pellets": { "name": "Tin Pellets" },
-		"bronze_pellets": { "name": "Bronze Pellets" },
-		"iron_pellets": { "name": "Iron Pellets" },
+		"reinforced_bronze_plate": { "name": "Reinforced bronze plate" },
+		"reinforced_iron_plate": { "name": "Reinforced iron plate" },
+		"bronze_framed_glass": { "name": "Bronze-framed glass" },
+		"iron_framed_glass": { "name": "Iron-framed glass" },
 
-		"copper_gear": { "name": "Copper Gear" },
-		"tin_gear": { "name": "Tin Gear" },
-		"iron_gear": { "name": "Iron Gear" },
+		"stone": { "name": "Stone" },
+		"stone_brick": { "name": "Stone brick" },
+		"wood": { "name": "Wood" },
+		"wooden_beam": { "name": "Wooden beam" },
+		"copper_capped_beam": { "name": "Copper-capped beam" },
+		"bronze_capped_beam": { "name": "Bronze-capped beam" },
+		"iron_beam": { "name": "Iron beam" },
 
-		"copper_rod": { "name": "Copper Rod" },
-		"tin_rod": { "name": "Tin Rod" },
-		"bronze_rod": { "name": "Bronze Rod" },
-		"iron_rod": { "name": "Iron Rod" },
+		"copper_pellets": { "name": "Copper pellets" },
+		"tin_pellets": { "name": "Tin pellets" },
+		"bronze_pellets": { "name": "Bronze pellets" },
+		"iron_pellets": { "name": "Iron pellets" },
 
-		"copper_rivets": { "name": "Copper Rivets" },
-		"tin_rivets": { "name": "Tin Rivets" },
-		"bronze_rivets": { "name": "Bronze Rivets" },
-		"iron_rivets": { "name": "Iron Rivets" },
+		"copper_piston": { "name": "Copper piston" },
+		"iron_piston": { "name": "Iron piston" },
 
-		"copper_piston": { "name": "Copper Piston" },
-		"iron_piston": { "name": "Iron Piston" },
+		"copper_repair_kit": { "name": "Copper repair kit" },
+		"bronze_repair_kit": { "name": "Bronze repair kit" },
+		"iron_repair_kit": { "name": "Iron repair kit" },
 
-		"water_pipe": { "name": "Water Pipe" },
-		"underground_water_pipe": { "name": "Underground Water Pipe" },
-		"water_valve": { "name": "Water Valve" },
+		"copper_gear": { "name": "Copper gear" },
+		"tin_gear": { "name": "Tin gear" },
+		"iron_gear": { "name": "Iron gear" },
 
-		"steam_pipe": { "name": "Steam Pipe" },
-		"underground_steam_pipe": { "name": "Underground Steam Pipe" },
+		"copper_rod": { "name": "Copper rod" },
+		"tin_rod": { "name": "Tin rod" },
+		"bronze_rod": { "name": "Bronze rod" },
+		"iron_rod": { "name": "Iron rod" },
+
+		"copper_rivets": { "name": "Copper rivets" },
+		"tin_rivets": { "name": "Tin rivets" },
+		"bronze_rivets": { "name": "Bronze rivets" },
+		"iron_rivets": { "name": "Iron rivets" },
+
+		"copper_piston": { "name": "Copper piston" },
+		"iron_piston": { "name": "Iron piston" },
+
+		"water_pipe": { "name": "Water pipe" },
+		"underground_water_pipe": { "name": "Underground water pipe" },
+		"water_valve": { "name": "Water valve" },
+
+		"steam_pipe": { "name": "Steam pipe" },
+		"underground_steam_pipe": { "name": "Underground steam pipe" },
 		"steam_valve": { "name": "Steam Valve" },
 
-		"clockwork_motor": { "name": "Clockwork Motor" },
-		"copper_analysis_pack": { "name": "Copper Analysis Pack" }
+		"glass": { "name": "Glass" },
+
+		"transport_belt": { "name": "Transport belt" },
+		"underground_belt": { "name": "Underground belt" },
+		"splitter": { "name": "Splitter" },
+
+		"small_copper_frame": { "name": "Small copper frame" },
+		"small_iron_frame": { "name": "Small iron frame" },
+		"large_copper_frame": { "name": "Large copper frame" },
+
+		"clockwork_motor": { "name": "Clockwork motor" },
+		"clockwork_rotor_unit": { "name": "Clockwork rotor_unit" },
+		"copper_analysis_pack": { "name": "Copper analysis pack" },
+		"iron_analysis_pack": { "name": "Iron analysis pack" }
 	},
 
 	"rate_scalars": {
@@ -64,12 +102,35 @@
 		"steam_assembler": {
 			"name": "Steam Assembler",
 			"speed_factor": 0.625
+		},
+		"stone_furnace": {
+			"name": "Stone Furnace",
+			"speed_factor": 1.25
+		},
+		"bronze_furnace": {
+			"name": "Bronze Furnace",
+			"speed_factor": 2.5
+		},
+		"charcoal_kiln": {
+			"name": "Charcoal Kiln",
+			"speed_factor": 1.25
+		},
+		"steam_crusher": {
+			"name": "Steam crusher",
+			"speed_factor": 1.25
+		},
+		"steam_mixer": {
+			"name": "Steam mixer",
+			"speed_factor": 1.25
 		}
 	},
 
 	"production_entity_groups": {
 		"assembler_simple": [ "small_steam_assembler", "steam_assembler" ],
-		"assembler_complex": [ "steam_assembler" ]
+		"assembler_complex": [ "steam_assembler" ],
+		"furnace": [ "bronze_furnace", "stone_furnace" ],
+		"crusher": [ "steam_crusher" ],
+		"mixer": [ "steam_mixer" ]
 	},
 
 	"recipes": [
@@ -78,8 +139,16 @@
 		{ "recipe": "1 bronze_ingot -> 1 bronze_plate", "at": "assembler_simple", "time": 1 },
 		{ "recipe": "1 iron_ingot -> 1 iron_plate", "at": "assembler_simple", "time": 1 },
 
+		{ "recipe": "2 bronze_plate + 1 bronze_rivets -> 1 reinforced_bronze_plate", "at": "assembler_complex", "time": 2 },
+		{ "recipe": "2 iron_plate + 1 iron_rivets -> 1 reinforced_iron_plate", "at": "assembler_complex", "time": 2 },
+		{ "recipe": "1 glass + 1 bronze_plate + 1 bronze_rivets -> 1 bronze_framed_glass", "at": "assembler_complex", "time": 2 },
+		{ "recipe": "1 glass + 1 iron_plate + 1 iron_rivets -> 1 iron_framed_glass", "at": "assembler_complex", "time": 2 },
+
 		{ "recipe": "1 stone -> 1 stone_brick", "at": "assembler_simple", "time": 1 },
 		{ "recipe": "1 wood -> 2 wooden_beam", "at": "assembler_simple", "time": 1 },
+		{ "recipe": "2 copper_plate + 1 wooden_beam + 1 copper_rivets -> 1 copper_capped_beam", "at": "assembler_complex", "time": 2 },
+		{ "recipe": "2 bronze_plate + 1 wooden_beam + 1 bronze_rivets -> 1 bronze_capped_beam", "at": "assembler_complex", "time": 2 },
+		{ "recipe": "1 iron_ingot + 2 iron_plate + 1 iron_rivets -> 1 iron_beam", "at": "assembler_complex", "time": 2 },
 
 		{ "recipe": "1 copper_plate -> 1 copper_gear", "at": "assembler_simple", "time": 1 },
 		{ "recipe": "1 tin_plate -> 1 tin_gear", "at": "assembler_simple", "time": 1 },
@@ -98,7 +167,36 @@
 		{ "recipe": "1 bronze_ingot -> 4 bronze_pellets", "at": "assembler_simple", "time": 1 },
 		{ "recipe": "1 iron_ingot -> 4 iron_pellets", "at": "assembler_simple", "time": 1 },
 
+		{ "recipe": "2 copper_plate + 1 copper_rod -> 1 copper_piston", "at": "assembler_complex", "time": 2 },
+		{ "recipe": "2 iron_plate + 1 iron_rod -> 1 iron_piston", "at": "assembler_complex", "time": 2 },
+
+		{ "recipe": "1 copper_plate + 1 wooden_beam + 3 copper_rod -> copper_repair_kit", "at": "assembler_complex", "time": 1 },
+		{ "recipe": "1 bronze_plate + 1 wooden_beam + 3 bronze_rod -> bronze_repair_kit", "at": "assembler_complex", "time": 1 },
+		{ "recipe": "1 rubber + 1 iron_plate + 3 iron_rod -> iron_repair_kit", "at": "assembler_complex", "time": 1 },
+
+		{ "recipe": "6 copper_plate + 2 copper_rivets -> small_copper_frame", "at": "assembler_complex", "time": 3 },
+		{ "recipe": "6 iron_plate + 2 iron_rivets -> small_iron_frame", "at": "assembler_complex", "time": 3 },
+		{ "recipe": "24 copper_plate + 12 copper_capped_beam + 4 copper_rivets -> large_copper_frame", "at": "assembler_complex", "time": 4 },
+
 		{ "recipe": "2 copper_plate + 1 copper_gear + 1 copper_rod -> 1 clockwork_motor", "at": "assembler_complex", "time": 1 },
-		{ "recipe": "4 copper_plate + 2 tin_gear -> 1 copper_analysis_pack", "at": "assembler_complex", "time": 4 }
+		{ "recipe": "1 small_copper_frame + 1 clockwork_motor + 3 copper_plate -> 1 clockwork_rotor_unit", "at": "assembler_complex", "time": 3 },
+
+		{ "recipe": "4 copper_plate + 2 tin_gear -> 1 copper_analysis_pack", "at": "assembler_complex", "time": 4 },
+		{ "recipe": "3 bronze_framed_glass + 3 iron_beam -> iron_analysis_pack", "at": "assembler_complex", "time": 8 },
+
+		{ "recipe": "stone -> 2 gravel", "at": "crusher", "time": 2 },
+		{ "recipe": "copper_ore -> crushed_copper_ore", "at": "crusher", "time": 2 },
+		{ "recipe": "tin_ore -> crushed_tin_ore", "at": "crusher", "time": 2 },
+
+		{ "recipe": "gravel -> 2 silica", "at": "crusher", "time": 2 },
+		{ "recipe": "8 copper_ingot + 4 tin_ingot -> 12 bronze_alloy_mix", "at": "crusher", "time": 12 },
+		{ "recipe": "9 silica + 3 tin_ingot -> 12 glass_smelting_mix", "at": "crusher", "time": 12 },
+
+		{ "recipe": "bronze_alloy_mix -> bronze_ingot", "at": "mixer", "time": 4 },
+		{ "recipe": "glass_smelting_mix -> 2 glass", "at": "mixer", "time": 4 },
+
+		{ "recipe": "tin_plate + 2 copper_gear + copper_rod -> 2 transport_belt", "at": "assembler_complex", "time": 1 },
+		{ "recipe": "5 transport_belt + 4 tin_plate -> 2 underground_belt", "at": "assembler_complex", "time": 1 },
+		{ "recipe": "2 transport_belt + 2 tin_plate + 4 tin_gear -> splitter", "at": "assembler_complex", "time": 1 }
 	]
 }
