@@ -35,7 +35,7 @@ class RateSuffix(enum.Enum):
 class EntityCardinalityFormat(enum.IntEnum):
 	RoundedCeiling = 0
 	FloatingPoint = 1
-	Fractioanl = 2
+	Fractional = 2
 
 @dataclasses.dataclass
 class DisplayPreferences():

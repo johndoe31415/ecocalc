@@ -28,6 +28,10 @@ class RecipeSum():
 	def __init__(self):
 		self._production = [ ]
 
+	@property
+	def production(self):
+		return iter(self._production)
+
 	def print(self, display_preferences):
 		for production in self._production:
 			print(production.format(display_preferences))

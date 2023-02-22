@@ -22,7 +22,7 @@
 import logging
 import fractions
 import math
-from .DisplayPreferences import EntityCardinalityFormat
+from .DisplayPreferences import EntityCardinalityFormat, DisplayPreferences
 
 _log = logging.getLogger(__spec__.name)
 
@@ -77,7 +77,7 @@ class Production():
 				return str(math.ceil(self.cardinality))
 
 			case EntityCardinalityFormat.FloatingPoint:
-				return f"{float(self.cardinality):.1f}"
+				return f"{float(self.cardinality):.2f}"
 
 			case EntityCardinalityFormat.Fractional:
 				return str(self.cardinality)
