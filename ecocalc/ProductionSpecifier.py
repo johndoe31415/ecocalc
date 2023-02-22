@@ -21,6 +21,7 @@
 
 import re
 import logging
+import fractions
 from .Parser import parse_production_specifier
 from .Exceptions import InvalidProductionSpecifierException
 
@@ -41,7 +42,7 @@ class ProductionSpecifier():
 
 	@property
 	def target_rate_or_count(self):
-		value = 1
+		value = fractions.Fraction(1)
 		if "multiplier" in self._parsed_specifier:
 			if "value" in self._parsed_specifier["multiplier"]:
 				value *= self._parsed_specifier["multiplier"]["value"]

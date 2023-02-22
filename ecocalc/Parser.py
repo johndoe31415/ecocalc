@@ -65,7 +65,7 @@ class EcoCalcParser(tpg.Parser):
 			)*
 		;
 
-		RecipeElement/lhs ->								$ v = 1
+		RecipeElement/lhs ->								$ v = fractions.Fraction(1)
 			(
 				Value/v
 			)?

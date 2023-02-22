@@ -19,6 +19,7 @@
 #
 #	Johannes Bauer <JohannesBauer@gmx.de>
 
+import fractions
 from .Enums import ComputationMode, RateUnit
 from .Production import Production
 from .RecipeSum import RecipeSum
@@ -58,6 +59,7 @@ class RecipeResolver():
 				return recipe
 
 	def produce_resource(self, resource, target_rate_or_count):
+		assert(isinstance(target_rate_or_count, fractions.Fraction))
 		# Find the recipe first that produces what we want
 		recipe = self.get_recipe_which_produces(resource)
 
@@ -74,14 +76,10 @@ class RecipeResolver():
 			unity_value /= recipe.execution_time_secs
 			speed_factor = production_entity.max_speed_factor
 			unity_value *= speed_factor
-			if self._rate_unit == RateUnit.UnitsPerMinute:
-				target_rate_or_count_per_sec = target_rate_or_count / 60
-			else:
-				target_rate_or_count_per_sec = target_rate_or_count
 		else:
 			speed_factor = None
 
-		cardinality = target_rate_or_count_per_sec / unity_value
+		cardinality = target_rate_or_count / unity_value
 		production = Production(recipe, production_entity, speed_factor, cardinality)
 		return production
 
@@ -89,7 +87,11 @@ class RecipeResolver():
 		if production_specifier.references_resource:
 			if not self._economy.has_resource(production_specifier.referenced_resource):
 				raise UnknownResourceException(f"Unknown resource, do not know how to produce: {production_specifier.referenced_resource}")
-			return self.produce_resource(production_specifier.referenced_resource, production_specifier.target_rate_or_count)
+			if self._rate_unit == RateUnit.UnitsPerMinute:
+				target_rate_or_count_per_sec = production_specifier.target_rate_or_count / 60
+			else:
+				target_rate_or_count_per_sec = production_specifier.target_rate_or_count
+			return self.produce_resource(production_specifier.referenced_resource, target_rate_or_count_per_sec)
 		else:
 			raise NotImplementedError()
 
@@ -103,6 +105,7 @@ class RecipeResolver():
 	def resolve(self, production_specifiers):
 		recipe_sum = RecipeSum()
 		for production_specifier in production_specifiers:
+
 			production = self.produce_production_specifier(production_specifier)
 			recipe_sum += production
 			self._recursively_resolve(production, recipe_sum)
