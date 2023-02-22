@@ -24,6 +24,7 @@ import logging
 import fractions
 from .Parser import parse_production_specifier
 from .Exceptions import InvalidProductionSpecifierException
+from .Enums import RateUnit
 
 _log = logging.getLogger(__spec__.name)
 
@@ -40,14 +41,16 @@ class ProductionSpecifier():
 		_log.debug("Parsed production specifier: %s", parsed_production_specifier)
 		return cls(parsed_production_specifier, economy = economy)
 
-	@property
-	def target_rate_or_count(self):
+	def target_rate_per_sec_or_count(self, unit: RateUnit | None = None):
 		value = fractions.Fraction(1)
 		if "multiplier" in self._parsed_specifier:
 			if "value" in self._parsed_specifier["multiplier"]:
 				value *= self._parsed_specifier["multiplier"]["value"]
 			if "rate_scalar" in self._parsed_specifier["multiplier"]:
 				value *= self._economy.get_rate_scalar(self._parsed_specifier["multiplier"]["rate_scalar"]).scalar_ups
+			else:
+				if unit == RateUnit.UnitsPerMinute:
+					value /= 60
 		return value
 
 	@property

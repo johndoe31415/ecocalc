@@ -68,6 +68,7 @@ class RecipeSide():
 		for (cardinality, resource) in self._resources:
 			if self.economy is not None:
 				resource = self.economy.get_resource_name(resource)
+
 			if display_preferences.rate_suffix == RateSuffix.UnitsPerMinute:
 				cardinality *= 60
 

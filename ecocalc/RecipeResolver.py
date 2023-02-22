@@ -58,8 +58,8 @@ class RecipeResolver():
 			if recipe.produces(resource):
 				return recipe
 
-	def produce_resource(self, resource, target_rate_or_count):
-		assert(isinstance(target_rate_or_count, fractions.Fraction))
+	def produce_resource(self, resource, target_rate_per_sec_or_count):
+		assert(isinstance(target_rate_per_sec_or_count, fractions.Fraction))
 		# Find the recipe first that produces what we want
 		recipe = self.get_recipe_which_produces(resource)
 
@@ -79,8 +79,8 @@ class RecipeResolver():
 		else:
 			speed_factor = None
 
-		cardinality = target_rate_or_count / unity_value
-		#print(f"{resource} {target_rate_or_count=} {unity_value=} {cardinality=} {recipe}")
+		cardinality = target_rate_per_sec_or_count / unity_value
+#		print(f"{resource} {float(target_rate_per_sec_or_count)=} {float(unity_value)=} {float(cardinality)=} {recipe}")
 		production = Production(recipe, production_entity, speed_factor, cardinality)
 		return production
 
@@ -88,11 +88,8 @@ class RecipeResolver():
 		if production_specifier.references_resource:
 			if not self._economy.has_resource(production_specifier.referenced_resource):
 				raise UnknownResourceException(f"Unknown resource, do not know how to produce: {production_specifier.referenced_resource}")
-			if self._rate_unit == RateUnit.UnitsPerMinute:
-				target_rate_or_count_per_sec = production_specifier.target_rate_or_count / 60
-			else:
-				target_rate_or_count_per_sec = production_specifier.target_rate_or_count
-			return self.produce_resource(production_specifier.referenced_resource, target_rate_or_count_per_sec)
+			target_rate_per_sec_or_count = production_specifier.target_rate_per_sec_or_count(self._rate_unit)
+			return self.produce_resource(production_specifier.referenced_resource, target_rate_per_sec_or_count)
 		else:
 			raise NotImplementedError()
 
