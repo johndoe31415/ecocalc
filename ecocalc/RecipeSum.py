@@ -21,6 +21,7 @@
 
 import logging
 import collections
+from ecocalc.Recipe import Recipe, RecipeSide
 
 _log = logging.getLogger(__spec__.name)
 
@@ -32,9 +33,23 @@ class RecipeSum():
 	def production(self):
 		return iter(self._production)
 
+	@property
+	def grand_total(self):
+		total = [ ]
+		for production in self.production:
+			total += list((production * -1).lhs)
+			total += list(production.rhs)
+
+		(lhs, rhs) = RecipeSide(total).merge().split()
+		recipe = Recipe(RecipeSide(lhs), RecipeSide(rhs), execution_time_secs = 1, at = None)
+		recipe.economy = self._production[0].recipe.economy
+		return recipe
+
 	def print(self, display_preferences):
 		for production in self._production:
 			print(production.format(display_preferences))
+		print("─" * 120)
+		print(self.grand_total.format(display_preferences))
 
 	def merge_recipes(self):
 		merged_production = collections.OrderedDict()

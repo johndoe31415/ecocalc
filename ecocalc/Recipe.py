@@ -33,9 +33,6 @@ class RecipeSide():
 	def __init__(self, resources):
 		self._resources = resources
 		self._economy = None
-		self._resourcedict = collections.defaultdict(fractions.Fraction)
-		for (cardinality, resource) in self._resources:
-			self._resourcedict[resource] += cardinality
 
 	@property
 	def economy(self):
@@ -47,21 +44,41 @@ class RecipeSide():
 
 	@functools.cached_property
 	def ingredients(self):
-		return set(self._resourcedict)
+		return set(self.resource_dict)
 
 	@property
 	def resource_count(self):
 		return len(self._resourcedict)
 
-	@property
+	@functools.cached_property
 	def resource_dict(self):
-		return self._resourcedict.items()
+		resource_dict = collections.OrderedDict()
+		for (cardinality, resource_id) in self._resources:
+			if resource_id not in resource_dict:
+				resource_dict[resource_id] = fractions.Fraction(0)
+			resource_dict[resource_id] += cardinality
+			if resource_dict[resource_id] == 0:
+				del resource_dict[resource_id]
+		return resource_dict
+
+	def split(self):
+		lhs = [ ]
+		rhs = [ ]
+		for (resource_id, cardinality) in self.resource_dict.items():
+			if cardinality < 0:
+				lhs.append((-cardinality, resource_id))
+			elif cardinality > 0:
+				rhs.append((cardinality, resource_id))
+		return (lhs, rhs)
+
+	def merge(self):
+		return RecipeSide([ (cardinality, resource_id) for (resource_id, cardinality) in self.resource_dict.items() ])
 
 	def contains(self, resource_id):
-		return resource_id in self._resourcedict
+		return resource_id in self.resource_dict
 
 	def __getitem__(self, resource_id):
-		return self._resourcedict[resource_id]
+		return self.resource_dict[resource_id]
 
 	def format(self, display_preferences, multiplier = 1):
 		formatted = [ ]

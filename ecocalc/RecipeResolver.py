@@ -94,7 +94,7 @@ class RecipeResolver():
 			raise NotImplementedError()
 
 	def _recursively_resolve(self, production, recipe_sum):
-		for (required_resource_id, required_rate_or_count) in production.lhs:
+		for (required_rate_or_count, required_resource_id) in production.lhs:
 			production = self.produce_resource(required_resource_id, required_rate_or_count)
 			if production is not None:
 				recipe_sum += production

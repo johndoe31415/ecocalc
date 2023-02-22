@@ -59,13 +59,13 @@ class Production():
 
 	@property
 	def lhs(self):
-		for (resource_id, cardinality) in self.recipe.lhs.resource_dict:
-			yield (resource_id, cardinality * self.total_scalar / self.recipe.execution_time_secs)
+		for (resource_id, cardinality) in self.recipe.lhs.resource_dict.items():
+			yield (cardinality * self.total_scalar / self.recipe.execution_time_secs, resource_id)
 
 	@property
 	def rhs(self):
-		for (resource_id, cardinality) in self.recipe.rhs.resource_dict:
-			yield (resource_id, cardinality * self.total_scalar / self.recipe.execution_time_secs)
+		for (resource_id, cardinality) in self.recipe.rhs.resource_dict.items():
+			yield (cardinality * self.total_scalar / self.recipe.execution_time_secs, resource_id)
 
 	def __mul__(self, scalar):
 		return Production(self.recipe, self.production_entity, self.production_speed, self.cardinality * scalar)
