@@ -60,7 +60,12 @@ class Production():
 	@property
 	def lhs(self):
 		for (resource_id, cardinality) in self.recipe.lhs.resource_dict:
-			yield (resource_id, cardinality * self.total_scalar)
+			yield (resource_id, cardinality * self.total_scalar / self.recipe.execution_time_secs)
+
+	@property
+	def rhs(self):
+		for (resource_id, cardinality) in self.recipe.rhs.resource_dict:
+			yield (resource_id, cardinality * self.total_scalar / self.recipe.execution_time_secs)
 
 	def __mul__(self, scalar):
 		return Production(self.recipe, self.production_entity, self.production_speed, self.cardinality * scalar)
@@ -86,7 +91,7 @@ class Production():
 	def format(self, display_preferences):
 		cardinality = self._format_cardinality(display_preferences)
 		production_entity = str(self.production_entity)
-		recipe = self.recipe.format(display_preferences, multiplier = self.total_scalar)
+		recipe = self.recipe.format(display_preferences, multiplier = self.total_scalar / self.recipe.execution_time_secs)
 		if self.production_entity.single_speed:
 			return f"{cardinality} x {production_entity}: {recipe}"
 		else:

@@ -21,3 +21,4 @@
 
 from .ProductionSpecifierParserTests import ProductionSpecifierParserTests
 from .RecipeParserTests import RecipeParserTests
+from .EcoTests import EcoTests

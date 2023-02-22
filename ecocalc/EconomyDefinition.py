@@ -91,13 +91,16 @@ class EconomyDefinition():
 		return self._production_entity_groups[production_entity_group_identifier]
 
 	@classmethod
-	def load_from_json(cls, filename: str):
-		with open(filename) as f:
-			data = json.load(f)
-
+	def load_from_dict(cls, data: dict):
 		resources = { resource_id: Resource.from_dict(resource_id, resource_definition) for (resource_id, resource_definition) in data["resources"].items() }
 		production_entities = { production_entity_id: ProductionEntity.from_dict(production_entity_id, production_entity_definition) for (production_entity_id, production_entity_definition) in data["production_entities"].items() }
-		production_entity_groups = { production_entity_group_id: ProductionEntityGroup.from_list(production_entity_group_id, production_entity_group_definition) for (production_entity_group_id, production_entity_group_definition) in data["production_entity_groups"].items() }
+		production_entity_groups = { production_entity_group_id: ProductionEntityGroup.from_list(production_entity_group_id, production_entity_group_definition) for (production_entity_group_id, production_entity_group_definition) in data.get("production_entity_groups", { }).items() }
 		rate_scalars = { rate_scalar_id: RateScalar.from_dict(rate_scalar_definition) for (rate_scalar_id, rate_scalar_definition) in data["rate_scalars"].items() }
 		recipes = [ Recipe.from_dict(recipe_definition) for recipe_definition in data["recipes"] ]
 		return cls(resources = resources, production_entities = production_entities, production_entity_groups = production_entity_groups, rate_scalars = rate_scalars, recipes = recipes)
+
+	@classmethod
+	def load_from_json(cls, filename: str):
+		with open(filename) as f:
+			data = json.load(f)
+		return cls.load_from_dict(data)

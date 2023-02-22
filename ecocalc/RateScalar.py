@@ -32,7 +32,7 @@ class RateScalar():
 	@classmethod
 	def from_dict(cls, serialized_obj: dict):
 		if serialized_obj["unit"] == "upm":
-			return cls(scalar_upm = fractions.Fraction(serialized_obj["value"], 60))
+			return cls(scalar_ups = fractions.Fraction(serialized_obj["value"], 60))
 		elif serialized_obj["unit"] == "ups":
 			return cls(scalar_ups = serialized_obj["value"])
 		else:
