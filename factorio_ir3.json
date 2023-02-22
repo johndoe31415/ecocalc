@@ -197,6 +197,8 @@
 
 		{ "recipe": "tin_plate + 2 copper_gear + copper_rod -> 2 transport_belt", "at": "assembler_complex", "time": 1 },
 		{ "recipe": "5 transport_belt + 4 tin_plate -> 2 underground_belt", "at": "assembler_complex", "time": 1 },
-		{ "recipe": "2 transport_belt + 2 tin_plate + 4 tin_gear -> splitter", "at": "assembler_complex", "time": 1 }
+		{ "recipe": "2 transport_belt + 2 tin_plate + 4 tin_gear -> splitter", "at": "assembler_complex", "time": 1 },
+
+		{ "recipe": "copper_plate + copper_rivets -> 2 steam_pipe", "at": "assembler_complex", "time": 1 }
 	]
 }
