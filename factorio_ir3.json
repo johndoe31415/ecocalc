@@ -73,6 +73,7 @@
 		"steam_valve": { "name": "Steam Valve" },
 
 		"glass": { "name": "Glass" },
+		"landfill": { "name": "Landfill" },
 
 		"transport_belt": { "name": "Transport belt" },
 		"underground_belt": { "name": "Underground belt" },
@@ -199,6 +200,8 @@
 		{ "recipe": "5 transport_belt + 4 tin_plate -> 2 underground_belt", "at": "assembler_complex", "time": 1 },
 		{ "recipe": "2 transport_belt + 2 tin_plate + 4 tin_gear -> splitter", "at": "assembler_complex", "time": 1 },
 
-		{ "recipe": "copper_plate + copper_rivets -> 2 steam_pipe", "at": "assembler_complex", "time": 1 }
+		{ "recipe": "copper_plate + copper_rivets -> 2 steam_pipe", "at": "assembler_complex", "time": 1 },
+
+		{ "recipe": "15 gravel + 15 silica -> landfill", "at": "mixer", "time": 4 }
 	]
 }
