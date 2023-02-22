@@ -189,11 +189,11 @@
 		{ "recipe": "tin_ore -> crushed_tin_ore", "at": "crusher", "time": 2 },
 
 		{ "recipe": "gravel -> 2 silica", "at": "crusher", "time": 2 },
-		{ "recipe": "8 copper_ingot + 4 tin_ingot -> 12 bronze_alloy_mix", "at": "crusher", "time": 12 },
-		{ "recipe": "9 silica + 3 tin_ingot -> 12 glass_smelting_mix", "at": "crusher", "time": 12 },
+		{ "recipe": "8 copper_ingot + 4 tin_ingot -> 12 bronze_alloy_mix", "at": "mixer", "time": 12 },
+		{ "recipe": "9 silica + 3 tin_ingot -> 12 glass_smelting_mix", "at": "mixer", "time": 12 },
 
-		{ "recipe": "bronze_alloy_mix -> bronze_ingot", "at": "mixer", "time": 4 },
-		{ "recipe": "glass_smelting_mix -> 2 glass", "at": "mixer", "time": 4 },
+		{ "recipe": "bronze_alloy_mix -> bronze_ingot", "at": "furnace", "time": 4 },
+		{ "recipe": "glass_smelting_mix -> 2 glass", "at": "furnace", "time": 4 },
 
 		{ "recipe": "tin_plate + 2 copper_gear + copper_rod -> 2 transport_belt", "at": "assembler_complex", "time": 1 },
 		{ "recipe": "5 transport_belt + 4 tin_plate -> 2 underground_belt", "at": "assembler_complex", "time": 1 },

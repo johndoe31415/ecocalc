@@ -26,11 +26,12 @@ from .RecipeSum import RecipeSum
 from .Exceptions import UnknownResourceException, UnknownProductionEntityException
 
 class RecipeResolver():
-	def __init__(self, economy, computation_mode, rate_unit):
+	def __init__(self, economy, computation_mode, rate_unit, stop_at):
 		self._economy = economy
 		self._computation_mode = computation_mode
 		self._rate_unit = rate_unit
 		self._recipes = list(self._filter_recipes())
+		self._stop_at = set(stop_at)
 
 	def _filter_recipes(self):
 		for recipe in self._economy.recipes:
@@ -95,6 +96,9 @@ class RecipeResolver():
 
 	def _recursively_resolve(self, production, recipe_sum):
 		for (required_rate_or_count, required_resource_id) in production.lhs:
+			if required_resource_id in self._stop_at:
+				# Do not descend into this resource
+				continue
 			production = self.produce_resource(required_resource_id, required_rate_or_count)
 			if production is not None:
 				recipe_sum += production
