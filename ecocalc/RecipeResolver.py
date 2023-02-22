@@ -19,8 +19,9 @@
 #
 #	Johannes Bauer <JohannesBauer@gmx.de>
 
-from .Enums import ComputationMode
+from .Enums import ComputationMode, RateUnit
 from .Production import Production
+from .RecipeSum import RecipeSum
 from .Exceptions import UnknownResourceException, UnknownProductionEntityException
 
 class RecipeResolver():
@@ -60,6 +61,9 @@ class RecipeResolver():
 		# Find the recipe first that produces what we want
 		recipe = self.get_recipe_which_produces(resource)
 
+		if recipe is None:
+			return None
+
 		# Figure out where we will produce it
 		production_entity = self._find_production_entity(recipe.at)
 
@@ -70,13 +74,16 @@ class RecipeResolver():
 			unity_value /= recipe.execution_time_secs
 			speed_factor = production_entity.max_speed_factor
 			unity_value *= speed_factor
+			if self._rate_unit == RateUnit.UnitsPerMinute:
+				target_rate_or_count_per_sec = target_rate_or_count / 60
+			else:
+				target_rate_or_count_per_sec = target_rate_or_count
 		else:
 			speed_factor = None
 
-		cardinality = target_rate_or_count / unity_value
+		cardinality = target_rate_or_count_per_sec / unity_value
 		production = Production(recipe, production_entity, speed_factor, cardinality)
 		return production
-
 
 	def produce_production_specifier(self, production_specifier):
 		if production_specifier.references_resource:
@@ -86,6 +93,18 @@ class RecipeResolver():
 		else:
 			raise NotImplementedError()
 
+	def _recursively_resolve(self, production, recipe_sum):
+		for (required_resource_id, required_rate_or_count) in production.lhs:
+			production = self.produce_resource(required_resource_id, required_rate_or_count)
+			if production is not None:
+				recipe_sum += production
+				self._recursively_resolve(production, recipe_sum)
+
 	def resolve(self, production_specifiers):
+		recipe_sum = RecipeSum()
 		for production_specifier in production_specifiers:
 			production = self.produce_production_specifier(production_specifier)
+			recipe_sum += production
+			self._recursively_resolve(production, recipe_sum)
+		recipe_sum.merge_recipes()
+		return recipe_sum

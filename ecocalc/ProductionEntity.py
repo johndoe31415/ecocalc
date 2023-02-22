@@ -19,8 +19,10 @@
 #
 #	Johannes Bauer <JohannesBauer@gmx.de>
 
+import fractions
+
 class ProductionEntity():
-	def __init__(self, identifier: str, name: str | None = None, min_speed_factor: float = 1.0, max_speed_factor: float = 1.0):
+	def __init__(self, identifier: str, name: str | None = None, min_speed_factor: fractions.Fraction = 1, max_speed_factor: fractions.Fraction = 1):
 		self._identifier = identifier
 		if name is None:
 			self._name = identifier
@@ -57,18 +59,18 @@ class ProductionEntity():
 		}
 		if "speed_factor" in serialized_obj:
 			kwargs.update({
-				"min_speed_factor":		serialized_obj["speed_factor"],
-				"max_speed_factor":		serialized_obj["speed_factor"],
+				"min_speed_factor":		fractions.Fraction(serialized_obj["speed_factor"]),
+				"max_speed_factor":		fractions.Fraction(serialized_obj["speed_factor"]),
 			})
 		elif ("min_speed_factor" in serialized_obj) and ("max_speed_factor" in serialized_obj):
 			kwargs.update({
-				"min_speed_factor":		serialized_obj["min_speed_factor"],
-				"max_speed_factor":		serialized_obj["max_speed_factor"],
+				"min_speed_factor":		fractions.Fraction(serialized_obj["min_speed_factor"]),
+				"max_speed_factor":		fractions.Fraction(serialized_obj["max_speed_factor"]),
 			})
 		return cls(**kwargs)
 
 	def __repr__(self):
 		if self.min_speed_factor == self.max_speed_factor:
-			return f"{self.name} ({self.min_speed_factor * 100:.0f}%)"
+			return f"{self.name} ({float(self.min_speed_factor * 100):.0f}%)"
 		else:
-			return f"{self.name} ({self.min_speed_factor * 100:.0f}-{self.max_speed_factor * 100:.0f}%)"
+			return f"{self.name} ({float(self.min_speed_factor * 100):.0f}-{float(self.max_speed_factor * 100):.0f}%)"

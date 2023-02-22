@@ -86,7 +86,7 @@ class EcoCalcParser(tpg.Parser):
 
 		Atom/lhs -> (
 				float/f										$ lhs = fractions.Fraction(f)
-				| integer/i									$ lhs = int(i)
+				| integer/i									$ lhs = fractions.Fraction(int(i))
 		);
 
 		At/lhs -> at_facility identifier/lhs;
@@ -99,6 +99,10 @@ def parse_production_specifier(expr):
 def parse_recipe(expr):
 	parser = EcoCalcParser()
 	return parser.parse("Recipe", expr)
+
+def parse_value(expr):
+	parser = EcoCalcParser()
+	return parser.parse("Value", expr)
 
 if __name__ == "__main__":
 	import sys

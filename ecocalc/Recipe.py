@@ -23,6 +23,7 @@ import logging
 import functools
 import collections
 import fractions
+import uuid
 from .Parser import parse_recipe
 
 _log = logging.getLogger(__spec__.name)
@@ -31,7 +32,7 @@ class RecipeSide():
 	def __init__(self, resources):
 		self._resources = resources
 		self._economy = None
-		self._resourcedict = collections.defaultdict(int)
+		self._resourcedict = collections.defaultdict(fractions.Fraction)
 		for (cardinality, resource) in self._resources:
 			self._resourcedict[resource] += cardinality
 
@@ -51,6 +52,10 @@ class RecipeSide():
 	def resource_count(self):
 		return len(self._resourcedict)
 
+	@property
+	def resource_dict(self):
+		return self._resourcedict.items()
+
 	def contains(self, resource_id):
 		return resource_id in self._resourcedict
 
@@ -66,6 +71,7 @@ class RecipeSide():
 	def __repr__(self):
 		return format(self)
 
+@functools.total_ordering
 class Recipe():
 	def __init__(self, lhs: RecipeSide, rhs: RecipeSide, at: str, execution_time_secs: fractions.Fraction | None = None, name: str | None = None):
 		self._lhs = lhs
@@ -74,6 +80,7 @@ class Recipe():
 		self._execution_time_secs = execution_time_secs
 		self._name = name
 		self._economy = None
+		self._rid = uuid.uuid4()
 
 	@property
 	def economy(self):
@@ -138,13 +145,25 @@ class Recipe():
 			"lhs":					lhs,
 			"rhs":					rhs,
 			"at":					serialized_obj["at"],
-			"execution_time_secs":	serialized_obj.get("time"),
+			"execution_time_secs":	fractions.Fraction(serialized_obj.get("time")),
 			"name":					serialized_obj.get("name"),
 		}
 		return cls(**kwargs)
 
+	def __hash__(self):
+		return hash(self._rid)
+
+	def __eq__(self, other):
+		return self._rid == other._rid
+
+	def __lt__(self, other):
+		return self._rid < other._rid
+
 	def __format__(self, fmtspec):
-		return f"{self.lhs:{fmtspec}} -> {self.rhs:{fmtspec}}"
+		if not self.provides_rate:
+			return f"{self.lhs:{fmtspec}} -> {self.rhs:{fmtspec}}"
+		else:
+			return f"{self.lhs:{fmtspec}} -> {self.rhs:{fmtspec}} in {self.execution_time_secs} sec"
 
 	def __repr__(self):
 		return format(self)

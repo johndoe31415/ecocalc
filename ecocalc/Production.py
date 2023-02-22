@@ -20,11 +20,14 @@
 #	Johannes Bauer <JohannesBauer@gmx.de>
 
 import logging
+import fractions
+import math
 
 _log = logging.getLogger(__spec__.name)
 
 class Production():
 	def __init__(self, recipe, production_entity, production_speed, cardinality):
+		assert(isinstance(cardinality, fractions.Fraction))
 		self._recipe = recipe
 		self._production_entity = production_entity
 		self._production_speed = production_speed
@@ -40,17 +43,43 @@ class Production():
 
 	@property
 	def production_speed(self):
+		"""Speed at which production facilities are set to (e.g., assembler
+		coefficient or overclocking speed)."""
 		return self._production_speed
 
 	@property
 	def cardinality(self):
+		"""Number of production facilities (e.g., assemblers)."""
 		return self._cardinality
 
+	@property
+	def ceil_cardinality(self):
+		return math.ceil(self.cardinality)
+
+	@property
+	def float_cardinality(self):
+		return float(self.cardinality)
+
+	@property
+	def total_scalar(self):
+		return self.cardinality * self.production_speed
+
+	@property
+	def lhs(self):
+		for (resource_id, cardinality) in self.recipe.lhs.resource_dict:
+			yield (resource_id, cardinality * self.total_scalar)
+
 	def __mul__(self, scalar):
-		return Production(self.recipe, self.production_entity, self.cardinality * scalar)
+		return Production(self.recipe, self.production_entity, self.production_speed, self.cardinality * scalar)
+
+	def __add__(self, other):
+		assert(self.recipe == other.recipe)
+		assert(self.production_entity == other.production_entity)
+		assert(self.production_speed == other.production_speed)
+		return Production(self.recipe, self.production_entity, self.production_speed, self.cardinality + other.cardinality)
 
 	def __repr__(self):
 		if self.production_entity.single_speed:
-			return f"{self.cardinality} x {self.recipe} @ {self.production_entity}"
+			return f"{self.float_cardinality} x {self.production_entity}: {self.recipe}"
 		else:
-			return f"{self.cardinality} x {self.recipe} @ {self.production_entity} / {self.production_speed}"
+			return f"{self.float_cardinality} x {self.production_entity} @ {self.production_speed * 100:.0f}%: {self.recipe}"

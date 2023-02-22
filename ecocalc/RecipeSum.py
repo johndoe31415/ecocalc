@@ -20,8 +20,31 @@
 #	Johannes Bauer <JohannesBauer@gmx.de>
 
 import logging
+import collections
 
 _log = logging.getLogger(__spec__.name)
 
 class RecipeSum():
-	pass
+	def __init__(self):
+		self._production = [ ]
+
+	def print(self):
+		for production in self._production:
+			print(production)
+
+	def merge_recipes(self):
+		merged_production = collections.OrderedDict()
+		for production in self._production:
+			if production.recipe not in merged_production:
+				merged_production[production.recipe] = production
+			else:
+				merged_production[production.recipe] = merged_production[production.recipe] + production
+		self._production = list(merged_production.values())
+
+	def __iadd__(self, production):
+		self._production.append(production)
+		return self
+
+	def __imul__(self, scalar):
+		self._production = [ production * scalar for production in self._production ]
+		return self
