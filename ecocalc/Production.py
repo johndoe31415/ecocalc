@@ -22,6 +22,7 @@
 import logging
 import fractions
 import math
+from .DisplayPreferences import EntityCardinalityFormat
 
 _log = logging.getLogger(__spec__.name)
 
@@ -53,14 +54,6 @@ class Production():
 		return self._cardinality
 
 	@property
-	def ceil_cardinality(self):
-		return math.ceil(self.cardinality)
-
-	@property
-	def float_cardinality(self):
-		return float(self.cardinality)
-
-	@property
 	def total_scalar(self):
 		return self.cardinality * self.production_speed
 
@@ -78,8 +71,27 @@ class Production():
 		assert(self.production_speed == other.production_speed)
 		return Production(self.recipe, self.production_entity, self.production_speed, self.cardinality + other.cardinality)
 
-	def __repr__(self):
+	def _format_cardinality(self, display_preferences):
+		match display_preferences.entity_cardinality_format:
+			case EntityCardinalityFormat.RoundedCeiling:
+				return str(math.ceil(self.cardinality))
+
+			case EntityCardinalityFormat.FloatingPoint:
+				return f"{float(self.cardinality):.1f}"
+
+			case EntityCardinalityFormat.Fractional:
+				return str(self.cardinality)
+		raise NotImplementedError()
+
+	def format(self, display_preferences):
+		cardinality = self._format_cardinality(display_preferences)
+		production_entity = str(self.production_entity)
+		recipe = self.recipe.format(display_preferences, multiplier = self.total_scalar)
 		if self.production_entity.single_speed:
-			return f"{self.float_cardinality} x {self.production_entity}: {self.recipe}"
+			return f"{cardinality} x {production_entity}: {recipe}"
 		else:
-			return f"{self.float_cardinality} x {self.production_entity} @ {self.production_speed * 100:.0f}%: {self.recipe}"
+			return f"{cardinality} x {production_entity} @ {self.production_speed * 100:.0f}%: {recipe}"
+
+	def __repr__(self):
+		display_preferences = DisplayPreferences()
+		return self.format(display_preferences)

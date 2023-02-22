@@ -24,6 +24,7 @@ import functools
 import collections
 import fractions
 import uuid
+from .DisplayPreferences import ProductionRateDisplay, RateSuffix
 from .Parser import parse_recipe
 
 _log = logging.getLogger(__spec__.name)
@@ -62,14 +63,31 @@ class RecipeSide():
 	def __getitem__(self, resource_id):
 		return self._resourcedict[resource_id]
 
-	def __format__(self, fmtspec):
-		if self.economy is None:
-			return " + ".join(f"{cardinality:{fmtspec}} {resource}" for (cardinality, resource) in self._resources)
-		else:
-			return " + ".join(f"{cardinality:{fmtspec}} {self.economy.get_resource_name(resource)}" for (cardinality, resource) in self._resources)
+	def format(self, display_preferences, multiplier = 1):
+		formatted = [ ]
+		for (cardinality, resource) in self._resources:
+			if self.economy is not None:
+				resource = self.economy.get_resource_name(resource)
+			if display_preferences.rate_suffix == RateSuffix.UnitsPerMinute:
+				cardinality *= 60
+
+			match display_preferences.production_rate_display:
+				case ProductionRateDisplay.CombinedProductionRate:
+					cardinality_str = f"{cardinality * multiplier}"
+
+				case ProductionRateDisplay.SplitRecipeProductionRate:
+					cardinality_str = f"{multiplier} x {cardinality}"
+
+				case ProductionRateDisplay.RecipeOnlyProductionRate:
+					cardinality_str = f"{cardinality}"
+
+				case _:
+					raise NotImplementedError()
+			formatted.append(f"{cardinality_str}{display_preferences.rate_suffix.value} {resource}")
+		return " + ".join(formatted)
 
 	def __repr__(self):
-		return format(self)
+		return " + ".join(f"{cardinality} {resource}" for (cardinality, resource) in self._resources)
 
 @functools.total_ordering
 class Recipe():
@@ -138,6 +156,9 @@ class Recipe():
 		rhs = RecipeSide(rhs)
 		return (lhs, rhs)
 
+	def format(self, display_preferences, multiplier = 1):
+		return f"{self.lhs.format(display_preferences, multiplier)} → {self.rhs.format(display_preferences, multiplier)}"
+
 	@classmethod
 	def from_dict(cls, serialized_obj: dict):
 		(lhs, rhs) = cls._parse_recipe_equation(serialized_obj["recipe"])
@@ -159,11 +180,5 @@ class Recipe():
 	def __lt__(self, other):
 		return self._rid < other._rid
 
-	def __format__(self, fmtspec):
-		if not self.provides_rate:
-			return f"{self.lhs:{fmtspec}} -> {self.rhs:{fmtspec}}"
-		else:
-			return f"{self.lhs:{fmtspec}} -> {self.rhs:{fmtspec}} in {self.execution_time_secs} sec"
-
 	def __repr__(self):
-		return format(self)
+		return f"{self.lhs} -> {self.rhs} in {self.execution_time_secs} sec"

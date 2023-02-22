@@ -80,6 +80,7 @@ class RecipeResolver():
 			speed_factor = None
 
 		cardinality = target_rate_or_count / unity_value
+		#print(f"{resource} {target_rate_or_count=} {unity_value=} {cardinality=} {recipe}")
 		production = Production(recipe, production_entity, speed_factor, cardinality)
 		return production
 

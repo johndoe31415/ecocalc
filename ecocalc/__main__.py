@@ -27,6 +27,7 @@ from .ProductionSpecifier import ProductionSpecifier
 from .RecipeResolver import RecipeResolver
 from .Parser import parse_value
 from .Enums import ComputationMode, RateUnit
+from .DisplayPreferences import ProductionRateDisplay, RateSuffix, DisplayPreferences
 
 def setup_logging(verbosity = 0):
 	if verbosity == 0:
@@ -49,6 +50,16 @@ def main():
 
 	computation_mode = ComputationMode(args.computation_mode)
 	rate_unit = RateUnit(args.rate_unit)
+
+	if computation_mode == ComputationMode.Count:
+		rate_suffix = RateSuffix("")
+	else:
+		if rate_unit == RateUnit.UnitsPerSecond:
+			rate_suffix = RateSuffix("/sec")
+		else:
+			rate_suffix = RateSuffix("/min")
+	display_preferences = DisplayPreferences(rate_suffix = rate_suffix)
+
 	setup_logging(args.verbose)
 	eco = EconomyDefinition.load_from_json(args.economy_definition)
 	production_specifiers = [ ProductionSpecifier.parse(prod_specifier, economy = eco) for prod_specifier in args.prod_specifier ]
@@ -56,7 +67,7 @@ def main():
 	result = resolver.resolve(production_specifiers)
 	for multiplier in args.multiply:
 		result *= multiplier
-	result.print()
+	result.print(display_preferences)
 
 if __name__ == "__main__":
 	sys.exit(main())

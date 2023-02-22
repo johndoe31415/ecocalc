@@ -19,32 +19,26 @@
 #
 #	Johannes Bauer <JohannesBauer@gmx.de>
 
-import logging
-import collections
+import enum
+import dataclasses
 
-_log = logging.getLogger(__spec__.name)
+class ProductionRateDisplay(enum.IntEnum):
+	CombinedProductionRate = 0
+	SplitRecipeProductionRate = 1
+	RecipeOnlyProductionRate = 2
 
-class RecipeSum():
-	def __init__(self):
-		self._production = [ ]
+class RateSuffix(enum.Enum):
+	UnitSuffix = ""
+	UnitsPerSecond = "/sec"
+	UnitsPerMinute = "/min"
 
-	def print(self, display_preferences):
-		for production in self._production:
-			print(production.format(display_preferences))
+class EntityCardinalityFormat(enum.IntEnum):
+	RoundedCeiling = 0
+	FloatingPoint = 1
+	Fractioanl = 2
 
-	def merge_recipes(self):
-		merged_production = collections.OrderedDict()
-		for production in self._production:
-			if production.recipe not in merged_production:
-				merged_production[production.recipe] = production
-			else:
-				merged_production[production.recipe] = merged_production[production.recipe] + production
-		self._production = list(merged_production.values())
-
-	def __iadd__(self, production):
-		self._production.append(production)
-		return self
-
-	def __imul__(self, scalar):
-		self._production = [ production * scalar for production in self._production ]
-		return self
+@dataclasses.dataclass
+class DisplayPreferences():
+	rate_suffix: RateSuffix = RateSuffix("")
+	production_rate_display: ProductionRateDisplay = ProductionRateDisplay.CombinedProductionRate
+	entity_cardinality_format: EntityCardinalityFormat = EntityCardinalityFormat.RoundedCeiling
