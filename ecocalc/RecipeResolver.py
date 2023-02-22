@@ -26,12 +26,15 @@ from .RecipeSum import RecipeSum
 from .Exceptions import UnknownResourceException, UnknownProductionEntityException
 
 class RecipeResolver():
-	def __init__(self, economy, computation_mode, rate_unit, stop_at):
+	def __init__(self, economy, computation_mode, rate_unit, stop_at = None):
 		self._economy = economy
 		self._computation_mode = computation_mode
 		self._rate_unit = rate_unit
 		self._recipes = list(self._filter_recipes())
-		self._stop_at = set(stop_at)
+		if stop_at is None:
+			self._stop_at = set()
+		else:
+			self._stop_at = set(stop_at)
 
 	def _filter_recipes(self):
 		for recipe in self._economy.recipes:
