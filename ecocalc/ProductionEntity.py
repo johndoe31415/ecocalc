@@ -22,7 +22,7 @@
 import fractions
 
 class ProductionEntity():
-	def __init__(self, identifier: str, name: str | None = None, min_speed_factor: fractions.Fraction = 1, max_speed_factor: fractions.Fraction = 1):
+	def __init__(self, identifier: str, name: str | None = None, min_speed_factor: fractions.Fraction = 1, max_speed_factor: fractions.Fraction = 1, tag: str | None = None):
 		self._identifier = identifier
 		if name is None:
 			self._name = identifier
@@ -30,6 +30,7 @@ class ProductionEntity():
 			self._name = name
 		self._min_speed_factor = min_speed_factor
 		self._max_speed_factor = max_speed_factor
+		self._tag = tag
 
 	@property
 	def identifier(self):
@@ -51,11 +52,16 @@ class ProductionEntity():
 	def single_speed(self):
 		return self.min_speed_factor == self.max_speed_factor
 
+	@property
+	def tag(self):
+		return self._tag
+
 	@classmethod
 	def from_dict(cls, identifier: str, serialized_obj: dict):
 		kwargs = {
 			"identifier":	identifier,
 			"name":			serialized_obj["name"],
+			"tag":			serialized_obj.get("tag"),
 		}
 		if "speed_factor" in serialized_obj:
 			kwargs.update({

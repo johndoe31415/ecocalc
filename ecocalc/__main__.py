@@ -48,6 +48,7 @@ def main():
 	parser.add_argument("-m", "--multiply", metavar = "value", type = parse_value, action = "append", default = [ ], help = "Multiply production cardinality by this value. Can also be a fraction and can be supplied multiple times.")
 	parser.add_argument("-r", "--round-up", action = "store_true", help = "Round values up to the nearest value that produces exact ratios.")
 	parser.add_argument("-s", "--stop-at", metavar = "ingredient", default = [ ], action = "append", help = "Stop recursion at this ingredient, treat it as a root ingredient.")
+	parser.add_argument("-t", "--tier", metavar = "descriptor", help = "Limit technology to a specific tier subset. By default, all technology is available/considered.")
 	parser.add_argument("-v", "--verbose", action = "count", default = 0, help = "Increases verbosity. Can be specified multiple times to increase.")
 	parser.add_argument("prod_specifier", nargs = "+", help = "Production specifier(s).")
 	args = parser.parse_args(sys.argv[1:])
@@ -77,7 +78,7 @@ def main():
 	setup_logging(args.verbose)
 	eco = EconomyDefinition.load_from_json(args.economy_definition)
 	production_specifiers = [ ProductionSpecifier.parse(prod_specifier, economy = eco) for prod_specifier in args.prod_specifier ]
-	resolver = RecipeResolver(eco, computation_mode = computation_mode, rate_unit = rate_unit, stop_at = args.stop_at)
+	resolver = RecipeResolver(eco, computation_mode = computation_mode, rate_unit = rate_unit, stop_at = args.stop_at, tier = args.tier)
 	result = resolver.resolve(production_specifiers)
 
 	if args.round_up:

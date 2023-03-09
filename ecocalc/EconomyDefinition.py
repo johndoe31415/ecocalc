@@ -26,18 +26,20 @@ from .ProductionEntity import ProductionEntity
 from .ProductionEntityGroup import ProductionEntityGroup
 from .RateScalar import RateScalar
 from .Recipe import Recipe
+from .Tier import Tier
 from .Exceptions import DuplicateResourceNameException, UnknownResourceException
 from .Tools import IterTools
 
 _log = logging.getLogger(__spec__.name)
 
 class EconomyDefinition():
-	def __init__(self, resources: dict, production_entities: dict, production_entity_groups: dict, rate_scalars: dict, recipes: list):
+	def __init__(self, resources: dict, production_entities: dict, production_entity_groups: dict, rate_scalars: dict, recipes: list, tiers: dict):
 		self._resources = resources
 		self._production_entities = production_entities
 		self._production_entity_groups = production_entity_groups
 		self._rate_scalars = rate_scalars
 		self._recipes = recipes
+		self._tiers = tiers
 		self._register_economy()
 		self._plausibility_check()
 
@@ -59,6 +61,14 @@ class EconomyDefinition():
 	@property
 	def recipes(self):
 		return iter(self._recipes)
+
+	@property
+	def production_entities(self):
+		return self._production_entities.values()
+
+	@property
+	def production_entity_names(self):
+		return iter(self._production_entities)
 
 	def get_resource_name(self, resource_identifier):
 		if not self.has_resource(resource_identifier):
@@ -90,6 +100,12 @@ class EconomyDefinition():
 	def get_production_entity_group(self, production_entity_group_identifier):
 		return self._production_entity_groups[production_entity_group_identifier]
 
+	def has_tier(self, tier_identifier):
+		return tier_identifier in self._tiers
+
+	def get_tier(self, tier_identifier):
+		return self._tiers[tier_identifier]
+
 	@classmethod
 	def load_from_dict(cls, data: dict):
 		resources = { resource_id: Resource.from_dict(resource_id, resource_definition) for (resource_id, resource_definition) in data["resources"].items() }
@@ -97,7 +113,8 @@ class EconomyDefinition():
 		production_entity_groups = { production_entity_group_id: ProductionEntityGroup.from_list(production_entity_group_id, production_entity_group_definition) for (production_entity_group_id, production_entity_group_definition) in data.get("production_entity_groups", { }).items() }
 		rate_scalars = { rate_scalar_id: RateScalar.from_dict(rate_scalar_definition) for (rate_scalar_id, rate_scalar_definition) in data["rate_scalars"].items() }
 		recipes = [ Recipe.from_dict(recipe_definition) for recipe_definition in data["recipes"] ]
-		return cls(resources = resources, production_entities = production_entities, production_entity_groups = production_entity_groups, rate_scalars = rate_scalars, recipes = recipes)
+		tiers = { tier_id: Tier.from_dict(tier_definition) for (tier_id, tier_definition) in data.get("tiers", { }).items() }
+		return cls(resources = resources, production_entities = production_entities, production_entity_groups = production_entity_groups, rate_scalars = rate_scalars, recipes = recipes, tiers = tiers)
 
 	@classmethod
 	def load_from_json(cls, filename: str):

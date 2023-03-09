@@ -26,7 +26,7 @@ from .RecipeSum import RecipeSum
 from .Exceptions import UnknownResourceException, UnknownProductionEntityException
 
 class RecipeResolver():
-	def __init__(self, economy, computation_mode, rate_unit, stop_at = None):
+	def __init__(self, economy, computation_mode: ComputationMode, rate_unit: RateUnit, stop_at: list | None = None, tier: str = None):
 		self._economy = economy
 		self._computation_mode = computation_mode
 		self._rate_unit = rate_unit
@@ -35,6 +35,19 @@ class RecipeResolver():
 			self._stop_at = set()
 		else:
 			self._stop_at = set(stop_at)
+		self._enabled_production_entities = self._compute_enabled_production_entities(tier)
+
+	def _compute_enabled_production_entities(self, tier):
+		if tier is None:
+			# All production entities are enabled
+			return set(self._economy.production_entity_names)
+
+		enabled = set()
+		tier = self._economy.get_tier(tier)
+		for production_entity in self._economy.production_entities:
+			if production_entity.tag in tier.enabled_tags:
+				enabled.add(production_entity.identifier)
+		return enabled
 
 	def _filter_recipes(self):
 		for recipe in self._economy.recipes:
@@ -49,13 +62,19 @@ class RecipeResolver():
 	def _find_production_entity(self, production_entity_or_entity_group):
 		if self._economy.has_production_entity_group(production_entity_or_entity_group):
 			group = self._economy.get_production_entity_group(production_entity_or_entity_group)
-			return self._find_production_entity(group.members[0])
+			candidates = group.members
+		elif self._economy.has_production_entity(production_entity_or_entity_group):
+			candidates = [ production_entity_or_entity_group ]
+		else:
+			raise UnknownProductionEntityException(f"No such production entity: {production_entity_or_entity_group}")
 
-		if self._economy.has_production_entity(production_entity_or_entity_group):
-			entity = self._economy.get_production_entity(production_entity_or_entity_group)
-			return entity
+		for candidate in candidates:
+			if candidate in self._enabled_production_entities:
+				entity = self._economy.get_production_entity(candidate)
+				return entity
 
-		raise UnknownProductionEntityException(f"No such production entity: {production_entity_or_entity_group}")
+		raise Exception("No more entities to try")
+
 
 	def get_recipe_which_produces(self, resource):
 		for recipe in self._recipes:
