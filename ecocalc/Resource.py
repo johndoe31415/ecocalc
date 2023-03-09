@@ -19,7 +19,10 @@
 #
 #	Johannes Bauer <JohannesBauer@gmx.de>
 
+import re
+
 class Resource():
+	_NAME_TO_ID_RE = re.compile("[^a-zA-Z0-9]")
 	def __init__(self, identifier: str, name: str | None = None):
 		self._identifier = identifier
 		if name is None:
@@ -36,8 +39,16 @@ class Resource():
 		return self._name
 
 	@classmethod
-	def from_dict(cls, identifier: str, serialized_obj: dict):
-		return cls(identifier = identifier, name = serialized_obj.get("name"))
+	def _name_to_identifier(cls, name):
+		return cls._NAME_TO_ID_RE.sub("_", name).lower()
+
+	@classmethod
+	def from_dict(cls, name: str, serialized_obj: dict):
+		if "id" in serialized_obj:
+			identifier = serialized_obj["id"]
+		else:
+			identifier = cls._name_to_identifier(name)
+		return cls(identifier = identifier, name = name)
 
 	def __repr__(self):
 		return f"Res<{self.name}>"

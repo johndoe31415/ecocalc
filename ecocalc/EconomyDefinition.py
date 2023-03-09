@@ -108,7 +108,8 @@ class EconomyDefinition():
 
 	@classmethod
 	def load_from_dict(cls, data: dict):
-		resources = { resource_id: Resource.from_dict(resource_id, resource_definition) for (resource_id, resource_definition) in data["resources"].items() }
+		resources = [ Resource.from_dict(resource_name, resource_definition) for (resource_name, resource_definition) in data["resources"].items() ]
+		resources = { resource.identifier: resource for resource in resources }
 		production_entities = { production_entity_id: ProductionEntity.from_dict(production_entity_id, production_entity_definition) for (production_entity_id, production_entity_definition) in data["production_entities"].items() }
 		production_entity_groups = { production_entity_group_id: ProductionEntityGroup.from_list(production_entity_group_id, production_entity_group_definition) for (production_entity_group_id, production_entity_group_definition) in data.get("production_entity_groups", { }).items() }
 		rate_scalars = { rate_scalar_id: RateScalar.from_dict(rate_scalar_definition) for (rate_scalar_id, rate_scalar_definition) in data["rate_scalars"].items() }
